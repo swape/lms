@@ -5,10 +5,12 @@ const chatRooms = [
   {id: 3, name: 'med lærer 2'},
   {id: 4, name: 'med annen elev'}
 ]
+let myInput = null
 
 let selectedRoom = null
 function changeRoom(id) {
   selectedRoom = id
+  myInput?.focus()
 }
 </script>
 
@@ -47,7 +49,7 @@ function changeRoom(id) {
       </div>
 
       <div>
-        <input type="text" placeholder="Type here" class="input input-bordered input-primary w-full mt-4" />
+        <input bind:this={myInput} type="text" placeholder="Type here" class="input input-bordered input-primary w-full mt-4" />
       </div>
     </div>
   {/if}
