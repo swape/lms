@@ -40,6 +40,12 @@ const testMenuList = [
     haveIndicator: false
   },
   {
+    name: 'Grupper',
+    page: 'groups',
+    icon: 'group',
+    haveIndicator: false
+  },
+  {
     name: 'Instillinger',
     page: 'settings',
     icon: 'settings',

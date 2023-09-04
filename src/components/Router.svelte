@@ -2,6 +2,8 @@
 import Home from '../SveltePages/Home.svelte'
 import Chat from '../SveltePages/Chat.svelte'
 import Rooms from '../SveltePages/Rooms.svelte'
+import AddGroups from '../SveltePages/Groups/Add.svelte'
+
 import {currentPage} from '../store.js'
 
 // TODO: add admin and teacher security check here from $user var
@@ -13,6 +15,8 @@ import {currentPage} from '../store.js'
   <Chat />
 {:else if $currentPage === 'rooms'}
   <Rooms />
+{:else if $currentPage === 'groups'}
+  <AddGroups />
 {:else}
   <Home />
 {/if}
