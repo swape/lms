@@ -3,6 +3,7 @@ import Home from '../SveltePages/Home.svelte'
 import Chat from '../SveltePages/Chat.svelte'
 import Rooms from '../SveltePages/Rooms.svelte'
 import AddGroups from '../SveltePages/Groups/Add.svelte'
+import Calendar from '../SveltePages/Calendar/index.svelte'
 
 import {currentPage} from '../store.js'
 
@@ -17,6 +18,8 @@ import {currentPage} from '../store.js'
   <Rooms />
 {:else if $currentPage === 'groups'}
   <AddGroups />
+{:else if $currentPage === 'calendar'}
+  <Calendar />
 {:else}
   <Home />
 {/if}
