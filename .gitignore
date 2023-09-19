@@ -8,6 +8,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+*.pb
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -122,7 +123,7 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-.idea
+.idea/*
 # yarn v2
 .yarn/cache
 .yarn/unplugged
