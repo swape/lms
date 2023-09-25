@@ -1,6 +1,5 @@
 <script>
-
-  import {getDay, getLocaleDayName, getLocaleMonthName, getYear} from '../utils/date.ts'
+  import {getDay, getLocaleDayName, getLocaleMonthName, getYear} from '../utils/date'
   export let date
 </script>
 
