@@ -1,8 +1,8 @@
 <script>
 import Home from '../SveltePages/Home.svelte'
 import Chat from '../SveltePages/Chat.svelte'
-import Rooms from '../SveltePages/Rooms.svelte'
-import AddGroups from '../SveltePages/Groups/Add.svelte'
+import Rooms from '../SveltePages/Rooms/index.svelte'
+import AddGroups from '../SveltePages/Groups/index.svelte'
 import Calendar from '../SveltePages/Calendar/index.svelte'
 
 import {currentPage} from '../store.js'

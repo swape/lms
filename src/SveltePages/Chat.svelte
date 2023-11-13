@@ -16,14 +16,13 @@ function changeRoom(id) {
 
 <h1 class="p-4 text-xl">Chat</h1>
 <div class="p-4 sm:flex gap-3">
-  <div class="sm:border-r p-2 hidden sm:block ">
+  <div class="sm:border-r p-2 hidden sm:block">
     <ul class="menu bg-base-200 w-56 rounded-box">
       {#each chatRooms as chatRoom}
         <li>
           <button
             on:click={() => changeRoom(chatRoom.id)}
-            class={`${chatRoom.id === selectedRoom ? 'bg-primary text-primary-content' : ''} `}
-            >{chatRoom.name}</button>
+            class={`${chatRoom.id === selectedRoom ? 'bg-primary text-primary-content' : ''} `}>{chatRoom.name}</button>
         </li>
       {/each}
     </ul>
@@ -40,16 +39,23 @@ function changeRoom(id) {
   {#if selectedRoom}
     <div class="flex flex-col w-full">
       <div>
+        <div><small>Navn til noen andre</small></div>
         <div class="chat chat-start">
           <div class="chat-bubble">It's over Anakin, <br />I have the high ground. ({selectedRoom})</div>
         </div>
+
+        <div class="chat chat-end"><small>You</small></div>
         <div class="chat chat-end">
           <div class="chat-bubble">You underestimate my power!</div>
         </div>
       </div>
 
       <div>
-        <input bind:this={myInput} type="text" placeholder="Type here" class="input input-bordered input-primary w-full mt-4" />
+        <input
+          bind:this={myInput}
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered input-primary w-full mt-4" />
       </div>
     </div>
   {/if}

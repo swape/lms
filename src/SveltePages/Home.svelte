@@ -7,14 +7,14 @@ function resetRole() {
 </script>
 
 {#if $roles?.length === 1}
-  <h1 class="text-xl text-center p-3">{`Hello ${$user?.fullName}`}</h1>
+  <h1 class="text-xl text-center p-3">{`Hei ${$user?.fullName}`}</h1>
 {/if}
 <section class="grid grid-cols-1 sm:grid-cols-2 gap-3 m-4 xl:grid-cols-3">
   {#if $roles?.length > 1}
     <Card title={`Hello ${$user?.fullName}`}>
       <p>You are logged inn as: {$user?.name} ({$user?.role})</p>
       <div class="card-actions justify-end">
-        <button on:click={resetRole} class="btn btn-primary">Change role</button>
+        <button on:click={resetRole} class="btn btn-primary">Bytt rolle</button>
       </div>
     </Card>
   {/if}

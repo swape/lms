@@ -1,0 +1,16 @@
+<script>
+export let menu = []
+export let activeTab = null
+let activeTabId = 1
+function changeTab(id) {
+  activeTabId = id
+  activeTab = menu.find((menuItem) => menuItem.id === id)
+}
+</script>
+
+<div class="tabs tabs-boxed w-full">
+  {#each menu as menuItem}
+    <button class={`tab ${activeTabId === menuItem.id ? 'tab-active' : ''}`} on:click={() => changeTab(menuItem.id)}
+      >{menuItem.title}</button>
+  {/each}
+</div>
