@@ -1,17 +1,17 @@
 <script>
-import {menu} from './menu.ts'
+import {roles} from './roles.ts'
 import {user} from './user.ts'
 
 import TabArea from '../../components/TabArea.svelte'
 import Modal from '../../components/Modal.svelte'
 import UserEdit from './UserEdit.svelte'
 
-let activeTab = menu[0]
+let activeTab = roles[0]
 </script>
 
 <div></div>
 <section class="m-4">
-  <TabArea bind:activeTab={activeTab} menu={menu} />
+  <TabArea bind:activeTab={activeTab} menu={roles} />
 
   <div class="mt-3 flex justify-between">
     <div class="form-control w-full max-w-xs">

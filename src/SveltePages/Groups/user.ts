@@ -4,6 +4,7 @@ export interface NewUser {
   lastName: string
   email: string
   phone: string
+  role: number
 }
 
 export interface User extends NewUser {
@@ -16,5 +17,6 @@ export const user: User = {
   lastName: '',
   email: '',
   phone: '',
-  parents: []
+  parents: [],
+  role: 1
 }

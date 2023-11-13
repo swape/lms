@@ -1,13 +1,27 @@
 <script>
+import {roles} from './roles.ts'
 export let user = {
   name: '',
   lastName: '',
   email: '',
-  phone: ''
+  phone: '',
+  role: 1
+}
+
+function roleChange(e) {
+  user.role = e.target.value
 }
 </script>
 
 <div>
+  <div class="form-control w-full mb-5">
+    <select class="select select-bordered select-accent select-sm w-full max-w-xs" on:change={roleChange}>
+      {#each roles as role}
+        <option value={role.id}>{role.title}</option>
+      {/each}
+    </select>
+  </div>
+
   <div class="form-control w-full">
     <label class="label" for="name">
       <span class="label-text">Navn</span>
