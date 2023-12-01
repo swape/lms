@@ -15,7 +15,10 @@ function roleChange(e) {
 
 <div>
   <div class="form-control w-full mb-5">
-    <select class="select select-bordered select-accent select-sm w-full max-w-xs" on:change={roleChange}>
+    <label class="label" for="list">
+      <span class="label-text">Legg til i liste</span>
+    </label>
+    <select name="list" class="select select-bordered select-accent select-sm w-full max-w-xs" on:change={roleChange}>
       {#each roles as role}
         <option value={role.id}>{role.title}</option>
       {/each}
@@ -40,7 +43,7 @@ function roleChange(e) {
     <label class="label" for="email">
       <span class="label-text">E-post</span>
     </label>
-    <input name="email" type="text" class="input input-bordered w-full input-sm" value={user.email} />
+    <input name="email" type="email" class="input input-bordered w-full input-sm" value={user.email} />
   </div>
 
   <div class="form-control w-full">

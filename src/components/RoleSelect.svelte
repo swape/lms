@@ -1,9 +1,10 @@
 <script>
-import {myRoles, user} from '../store.js'
+import {currentPage, myRoles, user} from '../store.js'
 import {roles} from '../constants.ts'
 
 function selectRole(role) {
   $user = role
+  $currentPage = 'home'
 }
 
 function getRoleTitle(role) {

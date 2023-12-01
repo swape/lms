@@ -19,7 +19,7 @@ export const roles: Role[] = [
   }
 ]
 
-export const user: User = {
+export const emptyUser: User = {
   id: 0,
   name: '',
   lastName: '',
