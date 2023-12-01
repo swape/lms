@@ -1,14 +1,9 @@
 <script>
 import {currentPage, myRoles, user} from '../store.js'
-import {roles} from '../constants.ts'
 
 function selectRole(role) {
   $user = role
   $currentPage = 'home'
-}
-
-function getRoleTitle(role) {
-  return roles.find((r) => r.id === role.role).title
 }
 
 if ($myRoles.length === 1) {
@@ -24,8 +19,10 @@ if ($myRoles.length === 1) {
       <p class="py-6">Du har flere roller. Velg role for å gå videre.</p>
       <div class="flex flex-wrap gap-2 p-3 justify-center">
         {#each $myRoles as role}
-          <button on:click={() => selectRole(role)} class="btn btn-primary btn-md"
-            >{getRoleTitle(role)} @ {role.school} ({role.name})
+          <button
+            on:click={() => selectRole(role)}
+            class="btn {role.role === 4 ? 'btn-secondary' : 'btn-primary'}  btn-md"
+            >{role.name} @ {role.school}
           </button>
         {/each}
       </div>

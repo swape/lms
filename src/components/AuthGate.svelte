@@ -5,11 +5,11 @@ import RoleSelect from './RoleSelect.svelte'
 export let showLogin = false
 
 const testRoles = [
-  {role: 4, name: 'Ali admin', uid: 'swape', school: 'Høgskolen i Østfold'},
-  {role: 1, name: 'a elev', uid: 'swape', school: 'barneskolen'},
-  {role: 2, name: 'foreldre 1 Aurora', uid: 'swape', school: 'barneskolen'},
-  {role: 2, name: 'foreldre 2 Noah', uid: 'swape', school: 'ungdomskole'},
-  {role: 3, name: 'a lærer', uid: 'swape', school: 'ungdomsskolen'}
+  {role: 4, name: 'Admin', uid: 'swape', school: 'Høgskolen i Østfold'},
+  {role: 1, name: 'Elev', uid: 'swape', school: 'barneskolen'},
+  {role: 2, name: 'Far til Aurora', uid: 'swape', school: 'barneskolen'},
+  {role: 2, name: 'Far til Noah', uid: 'swape', school: 'en ungdomskole'},
+  {role: 3, name: 'Lærer', uid: 'swape', school: 'ungdomsskolen som har et langt navn'}
 ]
 
 auth.subscribe((value) => {
