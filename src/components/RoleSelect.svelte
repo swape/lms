@@ -12,7 +12,8 @@ if ($roles.length === 1) {
 
 <div class="hero min-h-screen bg-base-200">
   <div class="hero-content text-center">
-    <div class="max-w-md">
+    <div class="max-w-xxl">
+      <img src="/svg/undraw_my_answer_re_k4dv.svg" class="mx-auto w-52 md:w-96 pb-4" alt="Velg rolle" />
       <h1 class="text-5xl font-bold">Hei du!</h1>
       <p class="py-6">Du har flere roller. Velg role for å gå videre.</p>
       <div class="flex flex-wrap gap-2 p-3">
