@@ -23,7 +23,10 @@ function onClick(page) {
       <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
         {#each $menuList as page}
           <li>
-            <button on:click={() => onClick(page.page)} class={$currentPage === page.page ? 'active' : ''}>
+            <button
+              type="button"
+              on:click={() => onClick(page.page)}
+              class={$currentPage === page.page ? 'active' : ''}>
               <span class="indicator">
                 <span class="material-symbols-outlined">{page.icon}</span>
                 {#if page.haveIndicator}

@@ -10,7 +10,9 @@ function changeTab(id) {
 
 <div class="tabs tabs-boxed w-full">
   {#each menu as menuItem}
-    <button class={`tab ${activeTabId === menuItem.id ? 'tab-active' : ''}`} on:click={() => changeTab(menuItem.id)}
-      >{menuItem.title}</button>
+    <button
+      type="button"
+      class={`tab ${activeTabId === menuItem.id ? 'tab-active' : ''}`}
+      on:click={() => changeTab(menuItem.id)}>{menuItem.title}</button>
   {/each}
 </div>

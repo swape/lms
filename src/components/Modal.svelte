@@ -19,6 +19,6 @@ function toggleModal() {
     <slot />
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button on:click={() => toggleModal()}>close</button>
+    <button on:click={() => toggleModal()} type="button">close</button>
   </form>
 </dialog>

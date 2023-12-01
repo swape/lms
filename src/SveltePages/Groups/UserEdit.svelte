@@ -54,6 +54,6 @@ function roleChange(e) {
   </div>
 
   <div class="pt-5">
-    <button class="btn btn-primary btn-sm">Lagre</button>
+    <button class="btn btn-primary btn-sm" type="button">Lagre</button>
   </div>
 </div>

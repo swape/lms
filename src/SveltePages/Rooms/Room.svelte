@@ -8,7 +8,7 @@ let activeTab = roomSections[0]
 
 <section class="m-4">
   <div class="flex gap-3 items-center">
-    <button class="btn btn-primary btn-circle btn-sm" on:click={() => ($currentRoom = null)}>
+    <button type="button" class="btn btn-primary btn-circle btn-sm" on:click={() => ($currentRoom = null)}>
       <span class="material-symbols-outlined">chevron_left</span>
     </button>
     <h1 class="text-3xl">{$currentRoom.title}</h1>

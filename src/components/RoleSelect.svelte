@@ -20,6 +20,7 @@ if ($myRoles.length === 1) {
       <div class="flex flex-wrap gap-2 p-3 justify-center">
         {#each $myRoles as role}
           <button
+            type="button"
             on:click={() => selectRole(role)}
             class="btn {role.role === 4 ? 'btn-secondary' : 'btn-primary'}  btn-md"
             >{role.name} @ {role.school}

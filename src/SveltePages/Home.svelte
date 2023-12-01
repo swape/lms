@@ -16,7 +16,7 @@ function resetRole() {
     <Card title={`Hello ${$user?.uid}`}>
       <p>Du er logget inn som: {$user?.name} ({$user?.school})</p>
       <div class="card-actions justify-end">
-        <button on:click={resetRole} class="btn btn-primary btn-sm">Bytt rolle</button>
+        <button type="button" on:click={resetRole} class="btn btn-primary btn-sm">Bytt rolle</button>
       </div>
     </Card>
   {/if}
@@ -24,7 +24,7 @@ function resetRole() {
   <Card title="Mer info">
     <p>noe her</p>
     <div class="card-actions">
-      <button class="btn btn-primary btn-sm">knappen</button>
+      <button class="btn btn-primary btn-sm" type="button">knappen</button>
     </div>
   </Card>
 
@@ -32,7 +32,7 @@ function resetRole() {
     <p>Fag: Matte</p>
     <p>Frist: Fredag</p>
     <div class="card-actions">
-      <button class="btn btn-primary btn-sm">knappen</button>
+      <button class="btn btn-primary btn-sm" type="button">knappen</button>
     </div>
   </Card>
 </section>

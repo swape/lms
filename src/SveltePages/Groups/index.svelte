@@ -103,8 +103,8 @@ function filterUsersWithInput(listUser, inputFilter) {
               <td>{user.name}</td>
               <td>{user.groups.join(', ')}</td>
               <td class="flex justify-end gap-2">
-                <button class="btn btn-primary btn-sm">Rediger</button>
-                <button class="btn btn-secondary btn-sm">Fravær</button>
+                <button class="btn btn-primary btn-sm" type="button">Rediger</button>
+                <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
               </td>
             </tr>
           {/each}

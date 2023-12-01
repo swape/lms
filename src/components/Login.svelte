@@ -7,4 +7,4 @@ function onClick() {
 }
 </script>
 
-<button on:click={onClick}>Login</button>
+<button on:click={onClick} type="button">Login</button>
