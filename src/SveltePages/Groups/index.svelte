@@ -1,6 +1,5 @@
 <script>
-import {roles} from './roles.ts'
-import {user} from './user.ts'
+import {roles, user} from '../../constants.ts'
 
 import TabArea from '../../components/TabArea.svelte'
 import Modal from '../../components/Modal.svelte'

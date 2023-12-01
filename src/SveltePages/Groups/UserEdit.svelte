@@ -1,5 +1,5 @@
 <script>
-import {roles} from './roles.ts'
+import {roles} from '../../constants.ts'
 export let user = {
   name: '',
   lastName: '',
