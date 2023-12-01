@@ -49,7 +49,7 @@ function selectRoom(room) {
       <Card title={room.title}>
         <p>{room.description}</p>
         <div class="card-actions">
-          <button class="btn btn-secondary" on:click={() => selectRoom(room)}>knappen</button>
+          <button class="btn btn-primary btn-sm" on:click={() => selectRoom(room)}>knappen</button>
         </div>
       </Card>
     {/each}

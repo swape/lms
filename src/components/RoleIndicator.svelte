@@ -4,11 +4,11 @@ import {user} from '../store.js'
 let bg = 'bg-base-100'
 
 user.subscribe((value) => {
-  if (value?.role === 'admin') {
+  if (value?.role === 4) {
     bg = 'bg-primary'
-  } else if (value?.role === 'teacher') {
+  } else if (value?.role === 3) {
     bg = 'bg-secondary'
-  } else if (value?.role === 'parent') {
+  } else if (value?.role === 2) {
     bg = 'bg-accent'
   }
 })

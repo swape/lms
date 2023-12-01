@@ -24,8 +24,7 @@ function resetRole() {
   <Card title="Mer info">
     <p>noe her</p>
     <div class="card-actions">
-      <button class="btn btn-secondary btn-sm">knappen</button>
-      <button class="btn btn-accent btn-sm">knappen</button>
+      <button class="btn btn-primary btn-sm">knappen</button>
     </div>
   </Card>
 
@@ -33,8 +32,7 @@ function resetRole() {
     <p>Fag: Matte</p>
     <p>Frist: Fredag</p>
     <div class="card-actions">
-      <button class="btn btn-secondary btn-sm">knappen</button>
-      <button class="btn btn-accent btn-sm">knappen</button>
+      <button class="btn btn-primary btn-sm">knappen</button>
     </div>
   </Card>
 </section>
