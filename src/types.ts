@@ -22,3 +22,11 @@ export interface NewUser {
 export interface User extends NewUser {
   parents?: NewUser[]
 }
+
+export interface Menu {
+  name: string
+  page: string
+  icon: string
+  haveIndicator: boolean
+  roles: number[]
+}
