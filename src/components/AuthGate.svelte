@@ -9,13 +9,7 @@ if(url){
   const queryString = url;
 
   if(queryString) {
-    const urlParams = new URLSearchParams(queryString);
-    const magicLink = urlParams.get('psg_magic_link')
-    if(magicLink) {
-      localStorage.setItem('psg_magic_link', magicLink)
-
-      $auth = true
-    }
+    console.log(queryString)
   }
 }
 
