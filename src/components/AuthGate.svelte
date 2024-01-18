@@ -3,6 +3,21 @@ import Login from './Login.svelte'
 import {auth, myRoles, user} from '../store.js'
 import RoleSelect from './RoleSelect.svelte'
 export let showLogin = false
+export let url = null
+
+if(url){
+  const queryString = url;
+
+  if(queryString) {
+    const urlParams = new URLSearchParams(queryString);
+    const magicLink = urlParams.get('psg_magic_link')
+    if(magicLink) {
+      localStorage.setItem('psg_magic_link', magicLink)
+
+      $auth = true
+    }
+  }
+}
 
 const testRoles = [
   {role: 4, name: 'Admin', uid: 'swape', school: 'Høgskolen i Østfold'},
@@ -33,3 +48,4 @@ auth.subscribe((value) => {
 {:else if showLogin}
   <Login />
 {/if}
+
