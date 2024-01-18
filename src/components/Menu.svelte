@@ -20,7 +20,7 @@ function onClick(page) {
     <input id="my-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerValue} />
     <div class="drawer-side">
       <label for="my-drawer" class="drawer-overlay"></label>
-      <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+      <ul class="menu px-4 py-5 w-80 min-h-full bg-base-200 text-base-content text-2xl">
         {#each $menuList as page}
           <li>
             <button
@@ -40,10 +40,10 @@ function onClick(page) {
       </ul>
     </div>
   </div>
-  <nav class="inset-0 right-auto overflow-scroll sm:fixed bg-neutral-content">
-    <div class="sm:hidden text-primary-content flex gap-3 justify-between items-center m-4">
+  <nav class="inset-0 right-auto overflow-scroll sm:fixed bg-base-200">
+    <div class="sm:hidden text-neutral-content flex gap-3 justify-between items-center m-4">
       <label for="my-drawer" class="btn btn-sm"><span class="material-symbols-outlined">menu</span></label>
-      <span class="text-xl pr-2">LMS</span>
+
     </div>
     <div class="sm:flex flex-col hidden desktop-buttons">
       {#each $menuList as page}
