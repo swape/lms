@@ -27,9 +27,8 @@ function getLevelTitle(level) {
   return roleTitles.find((role) => role.id === level)?.title
 }
 </script>
-
 {#if !$myRoles}
-  <div>Loading ...</div>
+  <div>Loading <span class="loading loading-spinner"></span></div>
 {:else}
   <div class="hero min-h-screen bg-base-200">
     <div class="hero-content text-center">

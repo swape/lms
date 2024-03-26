@@ -19,5 +19,5 @@ onMount(async () => {
     <RoleSelect />
   {/if}
 {:else}
-  <div>Loading...</div>
+<div>Loading <span class="loading loading-spinner"></span></div>
 {/if}
