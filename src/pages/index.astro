@@ -6,7 +6,7 @@ import RoleIndicator from '../components/RoleIndicator.svelte'
 
 <Layout title="LMS">
   <section class="sm:ml-20">
-    <RoleIndicator client:load />
-    <Router client:load />
+    <RoleIndicator client:only="svelte" />
+    <Router client:only="svelte" />
   </section>
 </Layout>

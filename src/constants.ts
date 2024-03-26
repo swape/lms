@@ -7,7 +7,7 @@ export const roleTitles: RoleTitles[] = [
   },
   {
     id: 2,
-    title: 'Foresatte'
+    title: 'Foresatt'
   },
   {
     id: 3,

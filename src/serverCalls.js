@@ -1,8 +1,19 @@
-import {onAuthStateChanged, signInWithRedirect, GoogleAuthProvider} from 'firebase/auth'
+import {onAuthStateChanged, signInWithRedirect, GoogleAuthProvider, signOut} from 'firebase/auth'
 import {auth, fireStoreDb} from './fireConfig'
 import {collection, query, where, getDocs} from 'firebase/firestore'
 import {authStateReady, auth as authStore, user, myRoles, schoolNames} from './store.js'
 import {getStorage, saveStorage} from './utils/localStorage.ts'
+
+export function signOutUser() {
+  signOut(auth).then(() => {
+    authStore.set(false)
+    user.set(null)
+    myRoles.set(null)
+    schoolNames.set(null)
+    saveStorage('roles', {data: null})
+    saveStorage('schools', {data: null})
+  })
+}
 
 export function initiateFirebase() {
   onAuthStateChanged(auth, (myUser) => {
