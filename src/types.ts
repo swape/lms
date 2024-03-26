@@ -7,16 +7,20 @@ export interface School {
 
 export interface Role {
   id: number
+  uid: string
+  sid: string
+}
+
+export interface RoleTitles{
+  id: number
   title: string
 }
 export interface NewUser {
-  id: number
+  uid: number
   name: string
   lastName: string
   email: string
   phone: string
-  roleId: number
-  schoolId: number
 }
 
 export interface User extends NewUser {
