@@ -1,11 +1,11 @@
 <script>
-import {currentPage, menuList, user} from '../store.js'
+  import {currentPage, currentRole, menuList} from '../store.js'
 import {defaultMenu} from '../constants.ts'
 let drawerValue = false
 
-user.subscribe((currentUser) => {
-  if (currentUser) {
-    menuList.set(defaultMenu.filter((menu) => menu.roles.includes(currentUser.role)))
+currentRole.subscribe((role) => {
+  if (role?.level) {
+    menuList.set(defaultMenu.filter((menu) => menu.roles.includes(role.level)))
   }
 })
 
@@ -17,10 +17,10 @@ function onClick(page) {
 
 {#if $menuList}
   <div class="drawer z-30">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerValue} />
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerValue} aria-hidden="true"/>
     <div class="drawer-side">
       <label for="my-drawer" class="drawer-overlay"></label>
-      <ul class="menu px-4 py-5 w-80 min-h-full bg-base-200 text-base-content text-2xl">
+      <menu class="menu px-4 py-5 w-80 min-h-full bg-base-200 text-base-content text-2xl">
         {#each $menuList as page}
           <li>
             <button
@@ -28,16 +28,16 @@ function onClick(page) {
               on:click={() => onClick(page.page)}
               class={$currentPage === page.page ? 'active' : ''}>
               <span class="indicator">
-                <span class="material-symbols-outlined">{page.icon}</span>
+                <span class="material-symbols-outlined" aria-hidden="true">{page.icon}</span>
                 {#if page.haveIndicator}
-                  <span class="indicator-item">&nbsp;</span>
+                  <span class="indicator-item" aria-hidden="true">&nbsp;</span>
                 {/if}
               </span>
               <span>{page.name}</span>
             </button>
           </li>
         {/each}
-      </ul>
+      </menu>
     </div>
   </div>
   <nav class="inset-0 right-auto overflow-scroll sm:fixed bg-base-200">
@@ -45,13 +45,13 @@ function onClick(page) {
       <label for="my-drawer" class="btn btn-sm"><span class="material-symbols-outlined">menu</span></label>
 
     </div>
-    <div class="sm:flex flex-col hidden desktop-buttons">
+    <div class="sm:flex flex-col hidden desktop-buttons" aria-hidden="true">
       {#each $menuList as page}
-        <button on:click={() => onClick(page.page)} class={$currentPage === page.page ? 'active' : ''}>
-          <span class="indicator">
-            <span class="material-symbols-outlined">{page.icon}</span>
+        <button on:click={() => onClick(page.page)} class={$currentPage === page.page ? 'active' : ''} aria-hidden="true" role="none">
+          <span class="indicator" aria-hidden="true">
+            <span class="material-symbols-outlined" aria-hidden="true">{page.icon}</span>
             {#if page.haveIndicator}
-              <span class="indicator-item">&nbsp;</span>
+              <span class="indicator-item" aria-hidden="true">&nbsp;</span>
             {/if}
           </span>
           <span>{page.name}</span>

@@ -1,5 +1,5 @@
 <script>
-import {roles} from '../../constants.ts'
+import {roleTitles} from '../../constants.ts'
 export let user = {
   name: '',
   lastName: '',
@@ -19,8 +19,8 @@ function roleChange(e) {
       <span class="label-text">Legg til i liste</span>
     </label>
     <select name="list" class="select select-bordered select-accent select-sm w-full max-w-xs" on:change={roleChange}>
-      {#each roles as role}
-        <option value={role.id}>{role.title}</option>
+      {#each roleTitles as role}
+        <option value={role.uid}>{role.title}</option>
       {/each}
     </select>
   </div>

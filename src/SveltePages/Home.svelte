@@ -1,38 +1,44 @@
 <script>
-import {user, myRoles} from '../store.js'
+import {user, myRoles, currentRole, schoolNames} from '../store.js'
 import Card from '../components/Card.svelte'
+import {roleTitles} from '../constants.ts'
+
 function resetRole() {
-  $user = null
+  $currentRole = null
 }
 
-// TODO:  add uid to real name mapping
 </script>
 
-{#if $myRoles?.length === 1}
-  <h1 class="text-xl text-center p-3">{`Hei ${$user?.fullName}`}</h1>
-{/if}
-<section class="grid grid-cols-1 sm:grid-cols-2 gap-3 m-4 xl:grid-cols-3">
-  {#if $myRoles?.length > 1}
-    <Card title={`Hello ${$user?.uid}`}>
-      <p>Du er logget inn som: {$user?.name} ({$user?.school})</p>
-      <div class="card-actions justify-end">
-        <button type="button" on:click={resetRole} class="btn btn-primary btn-sm">Bytt rolle</button>
-      </div>
+{#if $user?.uid}
+
+ <h1 class="text-xl text-center p-3">{`Hei ${$user.displayName}`}</h1>
+
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-3 m-4 xl:grid-cols-3">
+    {#if $myRoles?.length > 1}
+      <Card title={`Hello ${$user.displayName}`}>
+        <p>
+          Du er logget inn som: {roleTitles.filter((role) => role.id === $currentRole?.level)?.[0]?.title}
+        </p>
+        <div class="card-actions justify-end">
+          <button type="button" on:click={resetRole} class="btn btn-primary btn-sm">Bytt rolle</button>
+        </div>
+      </Card>
+    {/if}
+
+    <Card title="Brukerinfo">
+      TODO: just for debugging
+      <dl class="flex gap-3">
+        <dt class="w-20 font-bold">Brukerid</dt>
+        <dd>{$user.uid}</dd>
+      </dl>
+      <dl class="flex gap-3">
+        <dt class="w-20 font-bold">Name</dt>
+        <dd>{$user.displayName}</dd>
+      </dl>
+      <dl class="flex gap-3">
+        <dt class="w-20 font-bold">Navn</dt>
+        <dd>{$user.email}</dd>
+      </dl>
     </Card>
-  {/if}
-
-  <Card title="Mer info">
-    <p>noe her</p>
-    <div class="card-actions">
-      <button class="btn btn-primary btn-sm" type="button">knappen</button>
-    </div>
-  </Card>
-
-  <Card title="Innlevering">
-    <p>Fag: Matte</p>
-    <p>Frist: Fredag</p>
-    <div class="card-actions">
-      <button class="btn btn-primary btn-sm" type="button">knappen</button>
-    </div>
-  </Card>
-</section>
+  </section>
+{/if}

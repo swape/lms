@@ -1,32 +1,32 @@
 export const testUsers = [
   {
-    id: 1,
+    uid: 1,
     name: 'Cy Ganderton',
     groups: ['Klasse2A', 'Matte2A', 'Norsk2A'],
-    list: 1
+    role: 1
   },
   {
-    id: 2,
+    uid: 2,
     name: 'Hart Hagerty',
     groups: ['Klasse2A', 'Matte2A', 'Norsk2A'],
-    list: 1
+    role: 1
   },
   {
-    id: 3,
+    uid: 3,
     name: 'Brice Swyre',
     groups: ['Klasse2A', 'Matte2A', 'Norsk2A'],
-    list: 2
+    role: 2
   },
   {
-    id: 4,
+    uid: 4,
     name: 'Dorolice Duffill',
     groups: ['Klasse2A', 'Matte2A', 'Norsk2A'],
-    list: 3
+    role: 3
   },
   {
-    id: 5,
+    uid: 5,
     name: 'Georgeanna Girodias',
     groups: ['Klasse2A', 'Matte2A', 'Norsk2A'],
-    list: 4
+    role: 4
   }
 ]

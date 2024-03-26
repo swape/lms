@@ -1,9 +1,9 @@
-import type {Menu, Role, User} from './types.ts'
+import type {Menu, RoleTitles, User} from './types.ts'
 
-export const roles: Role[] = [
+export const roleTitles: RoleTitles[] = [
   {
     id: 1,
-    title: 'Studenter'
+    title: 'Student'
   },
   {
     id: 2,
@@ -11,7 +11,7 @@ export const roles: Role[] = [
   },
   {
     id: 3,
-    title: 'Lærere'
+    title: 'Lærer'
   },
   {
     id: 4,
@@ -20,14 +20,12 @@ export const roles: Role[] = [
 ]
 
 export const emptyUser: User = {
-  id: 0,
+  uid: 0,
   name: '',
   lastName: '',
   email: '',
   phone: '',
-  parents: [],
-  roleId: 0,
-  schoolId: 0
+  parents: []
 }
 
 export const defaultMenu: Menu[] = [

@@ -1,39 +1,36 @@
 ---
 interface Props {
-	title: string
+  title: string
 }
 
 import Menu from '../components/Menu.svelte'
 import AuthGate from '../components/AuthGate.svelte'
 import '../app.css'
 
-const { title } = Astro.props
-const {url} = Astro
-
+const {title} = Astro.props
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description">
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-		<link rel="stylesheet"
-				href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<script src="https://psg.so/web.js" is:inline></script>
-	</head>
-	<body>
-		<AuthGate client:load >
-			<Menu client:load />
-		</AuthGate>
-	<main>
-		<AuthGate showLogin={true} client:load  url={url}>
-		<slot />
-		</AuthGate>
-	</main>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <AuthGate client:only="svelte">
+      <Menu client:load />
+      <main>
+        <slot />
+      </main>
+    </AuthGate>
+  </body>
 </html>

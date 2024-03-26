@@ -1,5 +1,5 @@
 <script>
-import {roles, emptyUser} from '../../constants.ts'
+import {roleTitles, emptyUser} from '../../constants.ts'
 
 import TabArea from '../../components/TabArea.svelte'
 import Modal from '../../components/Modal.svelte'
@@ -8,7 +8,7 @@ import UserEdit from './UserEdit.svelte'
 let selectedUser = emptyUser
 import {testUsers} from './testUsers.ts'
 
-$: activeTab = roles[0]
+$: activeTab = roleTitles[0]
 let groupFilter = ''
 let filteredUsers = []
 
@@ -18,7 +18,7 @@ $: {
   }
 }
 function filterUsers(inputFilter) {
-  return testUsers.filter((listUser) => listUser.list === activeTab.id && filterUsersWithInput(listUser, inputFilter))
+  return testUsers.filter((listUser) => listUser.role === activeTab.id && filterUsersWithInput(listUser, inputFilter))
 }
 function filterUsersWithInput(listUser, inputFilter) {
   if (groupFilter.trim() === '') {
@@ -34,7 +34,7 @@ function filterUsersWithInput(listUser, inputFilter) {
 
 <div></div>
 <section class="m-4">
-  <TabArea bind:activeTab={activeTab} menu={roles} />
+  <TabArea bind:activeTab={activeTab} menu={roleTitles} />
 
   <div class="mt-3 flex justify-between">
     <div class="form-control w-full max-w-xs">
@@ -69,7 +69,7 @@ function filterUsersWithInput(listUser, inputFilter) {
         <tbody>
           {#each filteredUsers as user}
             <tr>
-              <th>{user.id}</th>
+              <th>{user.uid}</th>
               <td>{user.name}</td>
               <td>{user.groups.join(', ')}</td>
               <td class="flex justify-end gap-2 flex-wrap">
