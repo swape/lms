@@ -1,13 +1,14 @@
 <script>
 import {currentPage, myRoles, currentRole, user, schoolNames} from '../store.js'
-import {populateRolesAndSchools, populateRoomsBasedOnCurrentRole} from '../serverCalls.js'
+import {populateRolesAndSchools, populateRoomsAndGroups} from '../services.js'
 import {onMount} from 'svelte'
 import {roleTitles} from '../constants.ts'
+import LoadingSpinner from './LoadingSpinner.svelte'
 
 function selectRole(role) {
   $currentRole = role
   $currentPage = 'home'
-  populateRoomsBasedOnCurrentRole(role)
+  populateRoomsAndGroups(role.sid)
 }
 
 onMount(async () => {
@@ -28,8 +29,9 @@ function getLevelTitle(level) {
   return roleTitles.find((role) => role.id === level)?.title
 }
 </script>
+
 {#if !$myRoles}
-  <div>Loading <span class="loading loading-spinner"></span></div>
+  <LoadingSpinner loadingText="Henter roller"/>
 {:else}
   <div class="hero min-h-screen bg-base-200">
     <div class="hero-content text-center">

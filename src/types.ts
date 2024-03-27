@@ -11,7 +11,7 @@ export interface Role {
   sid: string
 }
 
-export interface RoleTitles{
+export interface RoleTitles {
   id: number
   title: string
 }

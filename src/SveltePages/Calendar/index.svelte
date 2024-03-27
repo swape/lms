@@ -7,9 +7,9 @@ import {testRooms} from '../Rooms/testRooms.ts'
 let roomsList = []
 
 rooms.subscribe((value) => {
-  if(value && value.length > 0){
+  if (value && value.length > 0) {
     roomsList = [...value]
-  }else{
+  } else {
     roomsList = [...testRooms]
   }
 })

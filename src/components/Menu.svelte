@@ -1,15 +1,15 @@
 <script>
 import {currentPage, currentRole, menuList} from '../store.js'
 import {defaultMenu} from '../constants.ts'
-import {signOutUser} from '../serverCalls.js'
+// import {signOutUser} from '../services.js'
 
 let drawerValue = false
 
-currentRole.subscribe((role) => {
-  if (role?.level) {
-    menuList.set(defaultMenu.filter((menu) => menu.roles.includes(role.level)))
-  }
-})
+currentRole.subscribe((role) =>{
+    if(role){
+      menuList.set(defaultMenu.filter((menu) => menu.roles.includes(role.level)))
+    }
+  })
 
 function onClick(page) {
   $currentPage = page
@@ -17,7 +17,7 @@ function onClick(page) {
 }
 
 function signOut() {
-  signOutUser()
+ // signOutUser()
 }
 </script>
 
@@ -44,7 +44,8 @@ function signOut() {
           </li>
         {/each}
         <li>
-          <button on:click={signOut}><span class="material-symbols-outlined" aria-hidden="true">logout</span><span>Logg ut</span></button>
+          <button on:click={signOut}
+            ><span class="material-symbols-outlined" aria-hidden="true">logout</span><span>Logg ut</span></button>
         </li>
       </menu>
     </div>
@@ -69,7 +70,8 @@ function signOut() {
           <span>{page.name}</span>
         </button>
       {/each}
-        <button on:click={signOut}><span class="material-symbols-outlined" aria-hidden="true">logout</span><span>Logg ut</span></button>
+      <button on:click={signOut}
+        ><span class="material-symbols-outlined" aria-hidden="true">logout</span><span>Logg ut</span></button>
     </div>
   </nav>
 {/if}

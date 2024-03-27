@@ -6,12 +6,10 @@ import {roleTitles} from '../constants.ts'
 function resetRole() {
   $currentRole = null
 }
-
 </script>
 
 {#if $user?.uid}
-
- <h1 class="text-xl text-center p-3">{`Hei ${$user.displayName}`}</h1>
+  <h1 class="text-xl text-center p-3">{`Hei ${$user.displayName}`}</h1>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 gap-3 m-4 xl:grid-cols-3">
     {#if $myRoles?.length > 1}
@@ -40,10 +38,12 @@ function resetRole() {
         <dd>{$user.email}</dd>
       </dl>
       <dl class="flex gap-3">
-        <dt class="w-20 font-bold">Sid</dt><dd>{$currentRole?.sid}</dd>
+        <dt class="w-20 font-bold">Sid</dt>
+        <dd>{$currentRole?.sid}</dd>
       </dl>
       <dl class="flex gap-3">
-        <dt class="w-20 font-bold">Level</dt><dd>{$currentRole?.level}</dd>
+        <dt class="w-20 font-bold">Level</dt>
+        <dd>{$currentRole?.level}</dd>
       </dl>
     </Card>
   </section>

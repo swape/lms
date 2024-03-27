@@ -4,10 +4,10 @@ import {auth, currentRole, authStateReady} from '../store.js'
 import RoleSelect from './RoleSelect.svelte'
 import {onMount} from 'svelte'
 import LoadingSpinner from './LoadingSpinner.svelte'
+import {initiateAuthListener} from '../supabaseConfig.js'
 
 onMount(async () => {
-
-  // TODO: initiate supabase auth
+  initiateAuthListener()
 })
 </script>
 
@@ -20,5 +20,5 @@ onMount(async () => {
     <RoleSelect />
   {/if}
 {:else}
-<LoadingSpinner />
+  <LoadingSpinner />
 {/if}
