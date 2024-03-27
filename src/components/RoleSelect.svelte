@@ -1,12 +1,13 @@
 <script>
 import {currentPage, myRoles, currentRole, user, schoolNames} from '../store.js'
-import {populateRolesAndSchools} from '../serverCalls.js'
+import {populateRolesAndSchools, populateRoomsBasedOnCurrentRole} from '../serverCalls.js'
 import {onMount} from 'svelte'
 import {roleTitles} from '../constants.ts'
 
 function selectRole(role) {
   $currentRole = role
   $currentPage = 'home'
+  populateRoomsBasedOnCurrentRole(role)
 }
 
 onMount(async () => {

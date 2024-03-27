@@ -3,10 +3,11 @@ import Login from './Login.svelte'
 import {auth, currentRole, authStateReady} from '../store.js'
 import RoleSelect from './RoleSelect.svelte'
 import {onMount} from 'svelte'
-import {initiateFirebase} from '../serverCalls.js'
+import LoadingSpinner from './LoadingSpinner.svelte'
 
 onMount(async () => {
-  initiateFirebase()
+
+  // TODO: initiate supabase auth
 })
 </script>
 
@@ -19,5 +20,5 @@ onMount(async () => {
     <RoleSelect />
   {/if}
 {:else}
-<div>Loading <span class="loading loading-spinner"></span></div>
+<LoadingSpinner />
 {/if}

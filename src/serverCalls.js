@@ -1,96 +1,44 @@
-import {onAuthStateChanged, signInWithRedirect, GoogleAuthProvider, signOut} from 'firebase/auth'
-import {auth, fireStoreDb} from './fireConfig'
-import {collection, query, where, getDocs} from 'firebase/firestore'
-import {authStateReady, auth as authStore, user, myRoles, schoolNames} from './store.js'
-import {getStorage, saveStorage} from './utils/localStorage.ts'
+
+import {getStorage} from './utils/localStorage.ts'
 
 export function signOutUser() {
-  signOut(auth).then(() => {
-    authStore.set(false)
-    user.set(null)
-    myRoles.set(null)
-    schoolNames.set(null)
-    saveStorage('roles', {data: null})
-    saveStorage('schools', {data: null})
-  })
-}
-
-export function initiateFirebase() {
-  onAuthStateChanged(auth, (myUser) => {
-    if (myUser) {
-      console.log('user from on auth state changed', myUser)
-      authStore.set(true)
-      user.set(myUser)
-      authStateReady.set(true)
-    } else {
-      console.log('no user from on auth state changed')
-      authStateReady.set(true)
-    }
-  })
+  // reset all localstorage data end sign out
 }
 
 export function signInWithGoogle() {
-  const provider = new GoogleAuthProvider()
-  return signInWithRedirect(auth, provider)
+  console.log('signing in with google')
 }
 
 export function getRoles(uid) {
-  const rolesCollection = collection(fireStoreDb, 'roles')
-  const roleQuery = query(rolesCollection, where('uid', '==', uid))
-
-  return getDocs(roleQuery).then((roles) => {
-    const rolesList = []
-    roles.forEach((role) => {
-      rolesList.push(role.data())
-    })
-    myRoles.set(rolesList)
-    return rolesList
-  })
+  // TODO: getting roles and add to myRoles based on the user's uid
 }
 
-// TODO: if some day there are many schools, we should get them by the user's role
 export function getSchoolNames() {
-  const schoolCollection = collection(fireStoreDb, 'schools')
-  const allSchools = []
+  // TODO: getting schoold names and add to schoolNames
+}
 
-  return getDocs(schoolCollection).then((schoolsValue) => {
-    schoolsValue.forEach((school) => {
-      allSchools.push(school.data())
+function fetchRooms(sid) {
+  // TODO: fetch rooms based on the sid
+}
+
+export function getRooms(sid) {
+  const rooms = getStorage(`room-${sid}`)
+  if (!rooms?.data) {
+    return fetchRooms(sid)
+  } else {
+    return rooms.data
+  }
+}
+
+export function populateRoomsBasedOnCurrentRole(role) {
+  if (role) {
+    getRooms(role.sid).then((rooms) => {
+      // TODO: fetch room_users and add to rooms
+      console.log('rooms', rooms)
     })
-
-    schoolNames.set(allSchools)
-    return allSchools
-  })
+  }
 }
 
 export async function populateRolesAndSchools(uid) {
-  let roles = getStorage('roles')
-  if (!roles?.data) {
-    roles = await getRoles(uid)
-    saveStorage('roles', {data: roles})
-  }
-  if (roles.data) {
-    roles = roles.data
-  }
-
-  let schools = getStorage('schools')
-  if (!schools?.data) {
-    schools = await getSchoolNames()
-    saveStorage('schools', {data: schools})
-  }
-
-  if (schools.data) {
-    schools = schools.data
-  }
-
-  if (roles?.length > 0 && schools?.length > 0) {
-    const rolesWithSchoolNames = roles.map((role) => {
-      const schoolName = schools.find((s) => s?.sid === role?.sid)?.title || ''
-      return {
-        ...role,
-        schoolName
-      }
-    })
-    myRoles.set(rolesWithSchoolNames)
-  }
+  console.log('populateRolesAndSchools')
 }

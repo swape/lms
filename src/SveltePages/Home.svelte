@@ -39,6 +39,12 @@ function resetRole() {
         <dt class="w-20 font-bold">Navn</dt>
         <dd>{$user.email}</dd>
       </dl>
+      <dl class="flex gap-3">
+        <dt class="w-20 font-bold">Sid</dt><dd>{$currentRole?.sid}</dd>
+      </dl>
+      <dl class="flex gap-3">
+        <dt class="w-20 font-bold">Level</dt><dd>{$currentRole?.level}</dd>
+      </dl>
     </Card>
   </section>
 {/if}
