@@ -60,7 +60,14 @@ export const defaultMenu: Menu[] = [
   {
     name: 'Grupper',
     page: 'groups',
-    icon: 'group',
+    icon: 'groups_3',
+    haveIndicator: false,
+    roles: [3, 4]
+  },
+  {
+    name: 'Brukere',
+    page: 'users',
+    icon: 'people',
     haveIndicator: false,
     roles: [3, 4]
   },
