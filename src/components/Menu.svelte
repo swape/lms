@@ -26,7 +26,7 @@ function signOut() {
     <input id="my-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerValue} aria-hidden="true" />
     <div class="drawer-side">
       <label for="my-drawer" class="drawer-overlay"></label>
-      <menu class="menu px-4 py-5 w-80 min-h-full bg-base-200 text-base-content text-2xl">
+      <menu class="menu px-4 py-5 w-80 min-h-full bg-indigo-900 text-white text-2xl">
         {#each $menuList as page}
           <li>
             <button
@@ -50,8 +50,8 @@ function signOut() {
       </menu>
     </div>
   </div>
-  <nav class="inset-0 right-auto overflow-scroll sm:fixed bg-base-200">
-    <div class="sm:hidden text-neutral-content flex gap-3 justify-between items-center m-4">
+  <nav class="inset-0 right-auto overflow-scroll sm:fixed bg-indigo-900 text-white">
+    <div class="sm:hidden flex gap-3 justify-between items-center m-4">
       <label for="my-drawer" class="btn btn-sm"><span class="material-symbols-outlined">menu</span></label>
     </div>
     <div class="sm:flex flex-col hidden desktop-buttons" aria-hidden="true">
@@ -78,12 +78,20 @@ function signOut() {
 
 <style>
 .desktop-buttons > button {
-  @apply text-neutral min-h-[66px] indicator w-20 h-20 text-xs flex flex-col justify-center items-center gap-2;
+  @apply text-white min-h-[66px] indicator w-20 h-20 text-xs flex flex-col justify-center items-center gap-2;
 }
 
-.desktop-buttons > button.active {
-  @apply bg-primary text-primary-content;
+button.active {
+  @apply bg-indigo-950 text-white;
 }
+
+button:focus-visible {
+  @apply ring-1 ring-white text-white outline-none;
+}
+.desktop-buttons > button:focus-visible  {
+  @apply bg-indigo-800 text-white ring-2;
+}
+
 .indicator-item {
   @apply rounded-full bg-secondary w-2 h-2;
 }
