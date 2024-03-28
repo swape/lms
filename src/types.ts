@@ -1,16 +1,3 @@
-export interface School {
-  id: number
-  name: string
-  phone: string
-  email: string
-}
-
-export interface Role {
-  id: number
-  uid: string
-  sid: string
-}
-
 export interface RoleTitles {
   id: number
   title: string

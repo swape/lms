@@ -31,7 +31,7 @@ function getLevelTitle(level) {
 </script>
 
 {#if !$myRoles}
-  <LoadingSpinner loadingText="Henter roller"/>
+  <LoadingSpinner loadingText="Henter roller" />
 {:else}
   <div class="hero min-h-screen bg-base-200">
     <div class="hero-content text-center">

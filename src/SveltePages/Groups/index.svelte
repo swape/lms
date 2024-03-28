@@ -7,7 +7,6 @@ onMount(async () => {
 })
 </script>
 
-<div></div>
 <section class="m-4">
   <div class="overflow-x-auto">
     <table class="table bg-white">
@@ -20,11 +19,11 @@ onMount(async () => {
       </thead>
       <tbody>
         {#each $groups as group}
-        <tr>
-          <td>{group.title}</td>
-          <td>{group?.users?.length || 0}</td>
-          <td class="flex justify-end"><button class="btn btn-primary btn-sm" >Rediger</button></td>
-        </tr>
+          <tr>
+            <td>{group.title}</td>
+            <td>{group?.users?.length || 0}</td>
+            <td class="flex justify-end"><button class="btn btn-primary btn-sm">Rediger</button></td>
+          </tr>
         {/each}
       </tbody>
     </table>

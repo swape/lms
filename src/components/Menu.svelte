@@ -5,17 +5,16 @@ import {signOut} from '../supabaseConfig.js'
 
 let drawerValue = false
 
-currentRole.subscribe((role) =>{
-    if(role){
-      menuList.set(defaultMenu.filter((menu) => menu.roles.includes(role.level)))
-    }
-  })
+currentRole.subscribe((role) => {
+  if (role) {
+    menuList.set(defaultMenu.filter((menu) => menu.roles.includes(role.level)))
+  }
+})
 
 function selectPage(page) {
   $currentPage = page
   drawerValue = false
 }
-
 </script>
 
 {#if $menuList}
@@ -57,7 +56,7 @@ function selectPage(page) {
           on:click={() => selectPage(page.page)}
           class={$currentPage === page.page ? 'active' : ''}
           aria-hidden="true"
-          role="none">
+          >
           <span class="indicator" aria-hidden="true">
             <span class="material-symbols-outlined" aria-hidden="true">{page.icon}</span>
             {#if page.haveIndicator}
@@ -85,7 +84,7 @@ button.active {
 button:focus-visible {
   @apply ring-1 ring-white text-white outline-none;
 }
-.desktop-buttons > button:focus-visible  {
+.desktop-buttons > button:focus-visible {
   @apply bg-indigo-800 text-white ring-2;
 }
 

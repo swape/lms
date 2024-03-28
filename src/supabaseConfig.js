@@ -7,13 +7,11 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_KEY
 export const supabaseClient = createClient(supabaseUrl, supabaseKey)
 
 export function initiateAuthListener() {
-  const {data} = supabaseClient.auth.onAuthStateChange((event, session) => {
-    //console.log(event, session)
+  supabaseClient.auth.onAuthStateChange((event, session) => {
 
     if (event === 'INITIAL_SESSION') {
       // handle initial session
     } else if (event === 'SIGNED_IN') {
-      // handle sign in event
       storeUserAndAuth(session)
     } else if (event === 'SIGNED_OUT') {
       // handle sign out event
@@ -36,7 +34,7 @@ function storeUserAndAuth(session) {
       uid: session.user.id,
       email: session.user.email
     })
-    upsertUserInDb(session.user.id, session.user.email)
+    upsertUserInDb(session.user.id, session.user.email).then((r) => {})
   }
 }
 
