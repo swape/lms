@@ -21,7 +21,7 @@ function getRoomName(id) {
 
 <section class="m-4 flex gap-3 flex-col">
   {#each infos as info}
-    <div class="bg-base-200 p-3 rounded-md">
+    <div class="bg-white p-3 rounded-md">
       <div class="flex justify-between">
         <div class="p-3">
           <h2 class="text-xl mb-3">{`${getRoomName(info.roomId)}: ${info.title}`}</h2>

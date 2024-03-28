@@ -56,7 +56,7 @@ function filterUsersWithInput(listUser, inputFilter) {
 
   <div>
     <div class="overflow-x-auto">
-      <table class="table">
+      <table class="table bg-white">
         <!-- head -->
         <thead>
           <tr>

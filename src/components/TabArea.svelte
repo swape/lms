@@ -8,11 +8,11 @@ function changeTab(id) {
 }
 </script>
 
-<div class="tabs tabs-boxed w-full">
+<div class="tabs tabs-boxed w-full bg-white">
   {#each menu as menuItem}
     <button
       type="button"
-      class={`tab ${activeTabId === menuItem.id ? 'tab-active' : ''}`}
+      class={`tab ${activeTabId === menuItem.id ? 'tab-active text-white' : ''}`}
       on:click={() => changeTab(menuItem.id)}>{menuItem.title}</button>
   {/each}
 </div>
