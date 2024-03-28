@@ -44,7 +44,7 @@ export const defaultMenu: Menu[] = [
     roles: [1, 2, 3, 4]
   },
   {
-    name: 'Rom',
+    name: 'Klasserom',
     page: 'rooms',
     icon: 'menu_book',
     haveIndicator: false,
