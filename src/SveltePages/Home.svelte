@@ -9,11 +9,11 @@ function resetRole() {
 </script>
 
 {#if $user?.uid}
-  <h1 class="text-xl text-center p-3">{`Hei ${$user.displayName}`}</h1>
+  <h1 class="text-xl text-center p-3">{`Hei ${$user.name || ''}`}</h1>
 
-  <section class="grid grid-cols-1 sm:grid-cols-2 gap-3 m-4 xl:grid-cols-3">
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-3 m-4 xl:grid-cols-3">
     {#if $myRoles?.length > 1}
-      <Card title={`Hello ${$user.displayName}`}>
+      <Card title={`Hello ${$user.name || ''}`}>
         <p>
           Du er logget inn som: {roleTitles.filter((role) => role.id === $currentRole?.level)?.[0]?.title}
         </p>
@@ -23,18 +23,21 @@ function resetRole() {
       </Card>
     {/if}
 
-    <Card title="Brukerinfo">
-      TODO: just for debugging
+    <Card title="debugging">
       <dl class="flex gap-3">
-        <dt class="w-20 font-bold">Brukerid</dt>
+        <dt class="w-20 font-bold">UID</dt>
         <dd>{$user.uid}</dd>
       </dl>
       <dl class="flex gap-3">
         <dt class="w-20 font-bold">Name</dt>
-        <dd>{$user.displayName}</dd>
+        <dd>{$user.name || ''}</dd>
       </dl>
       <dl class="flex gap-3">
-        <dt class="w-20 font-bold">Navn</dt>
+        <dt class="w-20 font-bold">PHONE</dt>
+        <dd>{$user.phone || ''}</dd>
+      </dl>
+      <dl class="flex gap-3">
+        <dt class="w-20 font-bold">EMAIL</dt>
         <dd>{$user.email}</dd>
       </dl>
       <dl class="flex gap-3">

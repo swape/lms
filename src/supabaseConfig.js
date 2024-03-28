@@ -36,7 +36,25 @@ function storeUserAndAuth(session) {
       uid: session.user.id,
       email: session.user.email
     })
+    upsertUserInDb(session.user.id, session.user.email)
   }
+}
+
+async function upsertUserInDb(uid, email) {
+  if (!uid || !email) {
+    return
+  }
+  await supabaseClient
+    .from('user_info')
+    .select('*')
+    .eq('uid', uid)
+    .then(async (res) => {
+      if (res.error || res.data.length === 0) {
+        await supabaseClient.from('user_info').upsert({uid, email}).select()
+      } else {
+        user.set({uid: res.data[0].uid, email: res.data[0].email, name: res.data[0].name, phone: res.data[0].phone})
+      }
+    })
 }
 
 export async function signOut() {
