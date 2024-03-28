@@ -5,3 +5,7 @@ export function saveStorage(name: string, data: any) {
 export function getStorage(name: string) {
   return JSON.parse(localStorage.getItem(name) ?? '{}')
 }
+
+export function resetAllStorage() {
+  return localStorage.clear()
+}

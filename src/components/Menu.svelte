@@ -1,7 +1,7 @@
 <script>
 import {currentPage, currentRole, menuList} from '../store.js'
 import {defaultMenu} from '../constants.ts'
-// import {signOutUser} from '../services.js'
+import {signOut} from '../supabaseConfig.js'
 
 let drawerValue = false
 
@@ -11,14 +11,11 @@ currentRole.subscribe((role) =>{
     }
   })
 
-function onClick(page) {
+function selectPage(page) {
   $currentPage = page
   drawerValue = false
 }
 
-function signOut() {
- // signOutUser()
-}
 </script>
 
 {#if $menuList}
@@ -31,7 +28,7 @@ function signOut() {
           <li>
             <button
               type="button"
-              on:click={() => onClick(page.page)}
+              on:click={() => selectPage(page.page)}
               class={$currentPage === page.page ? 'active' : ''}>
               <span class="indicator">
                 <span class="material-symbols-outlined" aria-hidden="true">{page.icon}</span>
@@ -57,7 +54,7 @@ function signOut() {
     <div class="sm:flex flex-col hidden desktop-buttons" aria-hidden="true">
       {#each $menuList as page}
         <button
-          on:click={() => onClick(page.page)}
+          on:click={() => selectPage(page.page)}
           class={$currentPage === page.page ? 'active' : ''}
           aria-hidden="true"
           role="none">

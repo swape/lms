@@ -1,5 +1,6 @@
 import {createClient} from '@supabase/supabase-js'
 import {authStateReady, auth, user} from './store'
+import {resetAllStorage} from './utils/localStorage'
 
 const supabaseUrl = import.meta.env.PUBLIC_PROJECT_URL
 const supabaseKey = import.meta.env.PUBLIC_SUPABASE_KEY
@@ -39,7 +40,8 @@ function storeUserAndAuth(session) {
 }
 
 export async function signOut() {
-  const {error} = await supabaseClient.auth.signOut()
+  await supabaseClient.auth.signOut()
+  resetAllStorage()
 }
 
 export async function signInWithEmailOtp(email) {
