@@ -1,10 +1,5 @@
 <script>
 import {groups} from '../../store.js'
-import {onMount} from 'svelte'
-
-onMount(async () => {
-  // fetch groups
-})
 </script>
 
 <section class="m-4">

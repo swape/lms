@@ -32,7 +32,6 @@ function filterUsersWithInput(listUser, inputFilter) {
 }
 </script>
 
-<div></div>
 <section class="m-4">
   <TabArea bind:activeTab={activeTab} menu={roleTitles} />
 
