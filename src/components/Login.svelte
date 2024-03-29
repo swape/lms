@@ -34,7 +34,7 @@ function sigInWithEmail() {
 {#if !$auth}
   <main class="container mx-auto flex gap-4 justify-center flex-col items-center p-4">
     <h1 class="text-3xl p-4">LMS</h1>
-    <img src="/svg/undraw_education_f8ru.svg" alt="Illustration av en person som står oppå en bok" class="w-1/2" />
+    <img src="/svg/undraw_education_f8ru.svg" alt="Illustration av en person som står oppå en bok" class="w-1/2 max-w-md" />
     <h2 class="text-xl pb-1 pt-5">Logg inn</h2>
     <div class="max-w-md gap-4 flex flex-col w-full">
       {#if okMessage}
