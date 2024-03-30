@@ -34,10 +34,10 @@ export async function populateRolesAndSchools(uid) {
   myRoles.set(roles)
 }
 
-export async function populateRoomsAndGroups(sid) {
+export async function populateRoomsAndGroups(sid, reFetch = false) {
   let roomsList = getStorage(`rooms-for-sid-${sid}`)
 
-  if (!roomsList?.data) {
+  if (!roomsList?.data || reFetch) {
     await getRooms(sid).then((res) => {
       roomsList = res.data
       saveStorage(`rooms-for-sid-${sid}`, {data: res.data})
@@ -50,7 +50,7 @@ export async function populateRoomsAndGroups(sid) {
 
   let groupList = []
   const storedGroups = getStorage(`groups-for-sid-${sid}`)
-  if (!storedGroups?.data) {
+  if (!storedGroups?.data || reFetch) {
     await getGroups(sid).then((res) => {
       groupList = res.data
       saveStorage(`groups-for-sid-${sid}`, {data: res.data})
