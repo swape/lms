@@ -1,12 +1,15 @@
 <script>
+import {createEventDispatcher} from 'svelte'
 export let id = 'my_modal_1'
 export let openText = 'open modal'
 export let btnClass = 'btn'
 
 export let isOpen = false
 
+const dispatch = createEventDispatcher()
+
 function toggleModal() {
-  isOpen = !isOpen
+  dispatch('toggle')
 }
 </script>
 
