@@ -12,24 +12,41 @@ let userRooms = []
 let sid = 0
 
 currentRole.subscribe((value) => {
-  if (value?.level === 4) {
+  if (value) {
+    sid = value.sid
+    populateUserRooms(value?.level === 4)
+  }
+})
+
+function populateUserRooms(forAdmin) {
+  if (forAdmin) {
     isAdmin = true
     userRooms = $rooms
-    sid = value.sid
   } else {
     // TODO filter rooms based on user/group
   }
-})
+}
+
+let isOpen = false
+function toggleModal() {
+  isOpen = !isOpen
+  populateUserRooms(true)
+}
 </script>
 
 {#if $currentRoom}
-  <Room />
+  <Room isAdmin={isAdmin} sid={sid} />
 {:else}
   <div class="flex justify-between p-4">
     <h1 class="text-3xl text-center grow">Klasseromene</h1>
     {#if isAdmin}
-      <Modal id="add-user" btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined" openText="add_circle">
-        <EditRoom sid={sid} />
+      <Modal
+        id="add-room"
+        isOpen={isOpen}
+        on:toggle={toggleModal}
+        btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
+        openText="add_circle">
+        <EditRoom sid={sid} on:toggle={toggleModal} />
       </Modal>
     {/if}
   </div>
