@@ -16,16 +16,11 @@ let isOpen = false
 function toggleModal() {
   isOpen = !isOpen
 }
-
 </script>
 
 {#if isAdmin}
-  <Modal
-    id="edit-group"
-    isOpen={isOpen}
-    on:toggle={toggleModal}
-    >
-    <EditGroup sid={sid} on:toggle={toggleModal} defaultGroup={selectedGroup}/>
+  <Modal id="edit-group" isOpen={isOpen} on:toggle={toggleModal}>
+    <EditGroup sid={sid} on:toggle={toggleModal} defaultGroup={selectedGroup} />
   </Modal>
 {/if}
 
@@ -44,7 +39,8 @@ function toggleModal() {
           <tr>
             <td>{group.title}</td>
             <td>{group?.users?.length || 0}</td>
-            <td class="flex justify-end"><button class="btn btn-primary btn-sm" on:click={()=>selectGroup(group)}>Rediger</button></td>
+            <td class="flex justify-end"
+              ><button class="btn btn-primary btn-sm" on:click={() => selectGroup(group)}>Rediger</button></td>
           </tr>
         {/each}
       </tbody>

@@ -20,20 +20,21 @@ function toggleModal() {
   isOpen = !isOpen
 }
 </script>
+
 <div class="flex justify-between p-4">
   <h1 class="text-3xl text-center grow">Grupper</h1>
-{#if isAdmin}
-  <Modal
-    id="add-group"
-    isOpen={isOpen}
-    on:toggle={toggleModal}
-    btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
-    openText="add_circle">
-    <EditGroup sid={sid} on:toggle={toggleModal} />
-  </Modal>
-{/if}
+  {#if isAdmin}
+    <Modal
+      id="add-group"
+      isOpen={isOpen}
+      on:toggle={toggleModal}
+      btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
+      openText="add_circle">
+      <EditGroup sid={sid} on:toggle={toggleModal} />
+    </Modal>
+  {/if}
 </div>
 
 {#if $groups?.length > 0}
-  <GroupList groups={$groups} isAdmin={isAdmin} sid={sid}/>
+  <GroupList groups={$groups} isAdmin={isAdmin} sid={sid} />
 {/if}

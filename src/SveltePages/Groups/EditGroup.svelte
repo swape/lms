@@ -42,7 +42,6 @@ function editGroup() {
     })
   }
 }
-
 </script>
 
 <div>
