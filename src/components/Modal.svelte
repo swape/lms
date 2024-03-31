@@ -1,7 +1,7 @@
 <script>
 import {createEventDispatcher} from 'svelte'
 export let id = 'my_modal_1'
-export let openText = 'open modal'
+export let openText = null
 export let btnClass = 'btn'
 
 export let isOpen = false
@@ -13,7 +13,7 @@ function toggleModal() {
 }
 </script>
 
-<button class={btnClass} on:click={() => toggleModal()}>{openText}</button>
+{#if openText}<button class={btnClass} on:click={() => toggleModal()}>{openText}</button>{/if}
 <dialog id={id} class="modal {isOpen ? 'modal-open' : ''}">
   <div class="modal-box">
     <form method="dialog">
