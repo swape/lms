@@ -38,7 +38,7 @@ function toggleModal() {
   <Room isAdmin={isAdmin} sid={sid} />
 {:else}
   <div class="flex justify-between p-4">
-    <h1 class="text-3xl text-center grow">Klasseromene</h1>
+    <h1 class="text-3xl text-center grow">Klasserommene</h1>
     {#if isAdmin}
       <Modal
         id="add-room"
