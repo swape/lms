@@ -1,5 +1,6 @@
 <script>
 import {rooms, currentRoom, currentRole} from '../../store.js'
+
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
@@ -51,7 +52,7 @@ function toggleModal() {
     {/if}
   </div>
 
-  <RoomList userRooms={userRooms} />
+  <RoomList userRooms={userRooms} isAdmin={isAdmin} />
   {#if userRooms.length === 0 && isAdmin}
     <EmptyPlaceholder message="Her kan du legge til nye klasserom" />
   {/if}

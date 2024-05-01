@@ -3,6 +3,7 @@ import {currentRoom} from '../../store.js'
 import TabArea from '../../components/TabArea.svelte'
 import {roomSections} from '../../constants.ts'
 import EditRoom from './EditRoom.svelte'
+import EditGroupsForRoom from './EditGroupsForRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 
 let activeTab = roomSections[0]
@@ -10,8 +11,12 @@ export let isAdmin = false
 export let sid = 0
 
 let isOpen = false
+let isOpenGroups = false
 function toggleModal() {
   isOpen = !isOpen
+}
+function toggleGroupsModal() {
+  isOpenGroups = !isOpenGroups
 }
 </script>
 
@@ -24,14 +29,24 @@ function toggleModal() {
     <h1 class="text-3xl">{$currentRoom.title}</h1>
 
     {#if isAdmin}
-      <Modal
-        id="edit-room"
-        isOpen={isOpen}
-        on:toggle={toggleModal}
-        btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
-        openText="edit">
-        <EditRoom sid={sid} on:toggle={toggleModal} defaultRoom={$currentRoom} />
-      </Modal>
+      <div class="flex justify-end gap-3">
+        <Modal
+          id="edit-room"
+          isOpen={isOpen}
+          on:toggle={toggleModal}
+          btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
+          openText="edit">
+          <EditRoom sid={sid} on:toggle={toggleModal} defaultRoom={$currentRoom} />
+        </Modal>
+        <Modal
+          id="edit-groups"
+          isOpen={isOpenGroups}
+          on:toggle={toggleGroupsModal}
+          btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
+          openText="groups">
+          <EditGroupsForRoom on:toggle={toggleGroupsModal} room={$currentRoom} />
+        </Modal>
+      </div>
     {/if}
   </div>
 
