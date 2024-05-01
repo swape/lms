@@ -66,7 +66,7 @@ async function changeThisGroup(event) {
             <input
               type="checkbox"
               class="toggle toggle-primary"
-              checked={checkedGroups[group.id] ? true : false}
+              checked={!!checkedGroups[group.id]}
               id={`gid-${group.id}`}
               name={group.title}
               value={group.id}
