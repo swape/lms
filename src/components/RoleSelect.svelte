@@ -4,6 +4,7 @@ import {populateRolesAndSchools, populateRoomsAndGroups} from '../services.js'
 import {onMount} from 'svelte'
 import {roleTitles} from '../constants.ts'
 import LoadingSpinner from './LoadingSpinner.svelte'
+import EnrollForm from './EnrollForm.svelte'
 
 function selectRole(role) {
   $currentRole = role
@@ -53,8 +54,7 @@ function getLevelTitle(level) {
         {/if}
 
         {#if $myRoles.length === 0}
-          <p class="py-6">Oi, det ser ut som om {$user.email} ikke er koblet til en konto hos oss</p>
-          <p>TODO: funksjonalitet for at brukeren kan melde seg til en skole</p>
+          <EnrollForm />
         {/if}
       </div>
     </div>
