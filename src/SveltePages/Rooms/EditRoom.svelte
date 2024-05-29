@@ -9,7 +9,8 @@ const dispatch = createEventDispatcher()
 
 export let defaultRoom = {
   title: '',
-  description: ''
+  description: '',
+  id: null
 }
 
 export let sid = 0
@@ -21,7 +22,7 @@ function editRoom() {
     errorMessage = 'Fyll ut alle feltene'
     return
   }
-  if (defaultRoom?.id) {
+  if (defaultRoom.id) {
     updateRoom(defaultRoom).then((res) => {
       if (res.error) {
         errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'

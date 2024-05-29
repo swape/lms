@@ -4,7 +4,7 @@ import {createEventDispatcher} from 'svelte'
 import {populateGroupRooms} from '../../services.js'
 import {groups} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
-const dispatch = createEventDispatcher()
+// const dispatch = createEventDispatcher()
 
 export let room = {}
 

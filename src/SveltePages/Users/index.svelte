@@ -17,9 +17,11 @@ $: {
     filteredUsers = filterUsers(groupFilter)
   }
 }
+// TODO: move outside of this file
 function filterUsers(inputFilter) {
   return testUsers.filter((listUser) => listUser.role === activeTab.id && filterUsersWithInput(listUser, inputFilter))
 }
+// TODO: move outside of this file
 function filterUsersWithInput(listUser, inputFilter) {
   if (groupFilter.trim() === '') {
     return true

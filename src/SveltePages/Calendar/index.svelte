@@ -2,15 +2,12 @@
 import {rooms} from '../../store.js'
 import DateCard from '../../components/DateCard.svelte'
 import {infos} from './testInfo.ts'
-import {testRooms} from '../Rooms/testRooms.ts'
 
 let roomsList = []
 
 rooms.subscribe((value) => {
   if (value && value.length > 0) {
     roomsList = [...value]
-  } else {
-    roomsList = [...testRooms]
   }
 })
 
