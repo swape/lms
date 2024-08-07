@@ -5,6 +5,7 @@ import {roomSections} from '../../constants.ts'
 import EditRoom from './EditRoom.svelte'
 import EditGroupsForRoom from './EditGroupsForRoom.svelte'
 import Modal from '../../components/Modal.svelte'
+import Icon from '../../components/Icon.svelte'
 
 let activeTab = roomSections[0]
 export let isAdmin = false
@@ -23,7 +24,7 @@ function toggleGroupsModal() {
 <section class="m-4">
   <div class="flex gap-3 items-center justify-between">
     <button type="button" class="btn btn-primary btn-circle btn-sm" on:click={() => ($currentRoom = null)}>
-      <span class="material-symbols-outlined">chevron_left</span>
+      <Icon name="chevron_left" />
     </button>
 
     <h1 class="text-3xl">{$currentRoom.title}</h1>

@@ -1,11 +1,13 @@
 <script>
+import Icon from './Icon.svelte'
+
 export let message = null
 </script>
 
 {#if message}
   <div class="alert alert-error" role="alert">
     <div class="flex gap-4">
-      <span class="material-symbols-outlined">error</span>
+      <Icon name="error"/>
       <div>{message}</div>
     </div>
   </div>

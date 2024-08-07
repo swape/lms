@@ -2,6 +2,7 @@
 import {currentPage, currentRole, menuList} from '../store.js'
 import {defaultMenu} from '../constants.ts'
 import {signOut} from '../supabaseConfig.js'
+import Icon from './Icon.svelte'
 
 let drawerValue = false
 
@@ -30,7 +31,7 @@ function selectPage(page) {
               on:click={() => selectPage(page.page)}
               class={$currentPage === page.page ? 'active' : ''}>
               <span class="indicator">
-                <span class="material-symbols-outlined" aria-hidden="true">{page.icon}</span>
+                <Icon name={page.icon} />
                 {#if page.haveIndicator}
                   <span class="indicator-item" aria-hidden="true">&nbsp;</span>
                 {/if}
@@ -40,15 +41,14 @@ function selectPage(page) {
           </li>
         {/each}
         <li>
-          <button on:click={signOut}
-            ><span class="material-symbols-outlined" aria-hidden="true">logout</span><span>Logg ut</span></button>
+          <button on:click={signOut}><Icon name="logout"/><span>Logg ut</span></button>
         </li>
       </menu>
     </div>
   </div>
   <nav class="inset-0 right-auto overflow-scroll sm:fixed bg-indigo-900 text-white">
     <div class="sm:hidden flex gap-3 justify-between items-center m-4">
-      <label for="my-drawer" class="btn btn-sm"><span class="material-symbols-outlined">menu</span></label>
+      <label for="my-drawer" class="btn btn-sm"><Icon name="menu"/></label>
     </div>
     <div class="sm:flex flex-col hidden desktop-buttons" aria-hidden="true">
       {#each $menuList as page}
@@ -58,7 +58,7 @@ function selectPage(page) {
           aria-hidden="true"
           >
           <span class="indicator" aria-hidden="true">
-            <span class="material-symbols-outlined" aria-hidden="true">{page.icon}</span>
+            <Icon name={page.icon} />
             {#if page.haveIndicator}
               <span class="indicator-item" aria-hidden="true">&nbsp;</span>
             {/if}
@@ -67,7 +67,7 @@ function selectPage(page) {
         </button>
       {/each}
       <button on:click={signOut}
-        ><span class="material-symbols-outlined" aria-hidden="true">logout</span><span>Logg ut</span></button>
+        ><Icon name="logout"/><span>Logg ut</span></button>
     </div>
   </nav>
 {/if}
