@@ -6,7 +6,7 @@ import {onMount} from 'svelte'
 import LoadingSpinner from './LoadingSpinner.svelte'
 import {initiateAuthListener} from '../supabaseConfig.js'
 
-onMount(async () => {
+onMount( () => {
   initiateAuthListener()
 })
 </script>
