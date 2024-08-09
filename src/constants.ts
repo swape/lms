@@ -1,6 +1,7 @@
 import type {Menu, RoleTitles, User} from './types.ts'
 
 export const roleTitles: RoleTitles[] = [
+
   {
     id: 1,
     title: 'Student'
@@ -16,6 +17,10 @@ export const roleTitles: RoleTitles[] = [
   {
     id: 4,
     title: 'Admin'
+  },
+  {
+    id: 0,
+    title: 'Uregistrerte'
   }
 ]
 
