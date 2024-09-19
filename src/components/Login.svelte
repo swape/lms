@@ -1,12 +1,13 @@
 <script>
 import {auth, user} from '../store.js'
+import {LOGIN_API} from '../config'
 
 import '@passageidentity/passage-elements/passage-auth'
 import {onMount} from 'svelte'
 import {fetchUserAuth} from '../utils/dataFetching.js'
 
-auth.set(true)
-user.set({uid: 1, email: 'swape@swape.net'})
+// auth.set(true)
+// user.set({uid: 1, email: 'swape@swape.net'})
 
 onMount(() => {
   fetchUserAuth()
