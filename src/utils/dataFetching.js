@@ -1,5 +1,6 @@
 import {Passage} from '@passageidentity/passage-js'
 import {LOGIN_API, API_URL} from '../config.js'
+import {getUserInfo} from '../apiCalls/user.js'
 
 import {authStateReady, user, auth} from '../store.js'
 
@@ -9,14 +10,14 @@ export async function fetchUserAuth() {
   const userP = passage.currentUser
   return await userP
     .userInfo()
-    .then((userRes) => {
+    .then(async (userRes) => {
       if (userRes) {
-        auth.set(true)
-        user.set(userRes)
-
-        const additionalInfo = getUserInfo(userRes.id)
+        const additionalInfo = await getUserInfo(userRes.id)
         // TODO: filter out userRes and store to backend
-        return {...additionalInfo, ...userRes}
+        const combinedUserData = {...additionalInfo, ...userRes, uid: additionalInfo.id}
+        auth.set(true)
+        user.set(combinedUserData)
+        return combinedUserData
       }
     })
     .catch((err) => {
