@@ -4,10 +4,10 @@ import {auth, currentRole, authStateReady} from '../store.js'
 import RoleSelect from './RoleSelect.svelte'
 import {onMount} from 'svelte'
 import LoadingSpinner from './LoadingSpinner.svelte'
-import {initiateAuthListener} from '../supabaseConfig.js'
+import {fetchUserAuth} from '../utils/dataFetching.js'
 
-onMount( () => {
-  initiateAuthListener()
+onMount(async () => {
+  await fetchUserAuth()
 })
 </script>
 
