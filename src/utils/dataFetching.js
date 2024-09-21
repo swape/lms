@@ -13,8 +13,15 @@ export async function fetchUserAuth() {
     .then(async (userRes) => {
       if (userRes) {
         const additionalInfo = await getUserInfo(userRes.id)
-        // TODO: filter out userRes and store to backend
-        const combinedUserData = {...additionalInfo, ...userRes, uid: additionalInfo.id}
+        // console.log(additionalInfo)
+        const combinedUserData = {
+          email: userRes.email,
+          uid: userRes.id,
+          lastLoginAt: userRes.lastLoginAt,
+          name: additionalInfo.name,
+          phone: additionalInfo.phone
+        }
+        // TODO save to backend if not already saved
         auth.set(true)
         user.set(combinedUserData)
         return combinedUserData
@@ -30,7 +37,11 @@ export async function fetchUserAuth() {
 export async function fetchApi(path, method = 'GET', body = null) {
   const passageToken = localStorage.getItem('psg_auth_token') ?? null
 
-  return await fetch(`${API_URL}${path}`, {method, body, headers: {Authorization: `Bearer ${passageToken}`}})
+  return await fetch(`${API_URL}${path}`, {
+    method,
+    body: body ? JSON.stringify(body) : null,
+    headers: {Authorization: `Bearer ${passageToken}`, 'Content-Type': 'application/json'}
+  })
     .then((res) => {
       if (res.status === 401) {
         // TODO send to login page
