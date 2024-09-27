@@ -1,13 +1,16 @@
-import {supabaseClient} from '../supabaseConfig'
+import {fetchApi} from '../utils/dataFetching'
 
-export function getGroups(sid) {
-  return supabaseClient.from('groups').select('*').eq('sid', sid)
+export async function getGroups(sid) {
+  return await fetchApi(`api/groups?sid=${sid}`, 'GET')
+  // return supabaseClient.from('groups').select('*').eq('sid', sid)
 }
 
 export function updateGroup(group) {
-  return supabaseClient.from('groups').update(group).eq('id', group.id)
+  return {}
+  // return supabaseClient.from('groups').update(group).eq('id', group.id)
 }
 
 export function addGroup(group) {
-  return supabaseClient.from('groups').insert(group)
+  return {}
+  // return supabaseClient.from('groups').insert(group)
 }

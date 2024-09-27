@@ -1,13 +1,15 @@
-import {supabaseClient} from '../supabaseConfig'
+import {fetchApi} from '../utils/dataFetching'
 
-export function getRooms(sid) {
-  return supabaseClient.from('rooms').select('*').eq('sid', sid)
+export async function getRooms(sid) {
+  return await fetchApi(`api/rooms?sid=${sid}`, 'GET')
 }
 
 export function updateRoom(room) {
-  return supabaseClient.from('rooms').update(room).eq('id', room.id)
+  return {}
+  // return supabaseClient.from('rooms').update(room).eq('id', room.id)
 }
 
 export function addRoom(room) {
-  return supabaseClient.from('rooms').insert(room)
+  return {}
+  // return supabaseClient.from('rooms').insert(room)
 }

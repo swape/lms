@@ -7,26 +7,19 @@ import {myRoles, schoolNames, rooms, groups} from './store.js'
 import {getStorage, saveStorage} from './utils/localStorage.ts'
 
 export async function populateRolesAndSchools(uid) {
-  let roles = []
-
   // fetching roles
-  await getRoles(uid).then((res) => {
-    roles = res.data
-  })
+  let roles = await getRoles(uid)
 
   // fetching schools
   let schools = getStorage('schools')
-  if (!schools?.data) {
-    await getSchools().then((res) => {
-      schools = res.data
 
-      schoolNames.set(res.data)
-      saveStorage('schools', {data: res.data})
-    })
+  if (!schools?.data) {
+    schools = await getSchools()
+    schoolNames.set(schools)
+    saveStorage('schools', {data: schools})
   } else {
     schools = schools.data
   }
-
   // adding school names to roles
   roles.forEach((role) => {
     role.schoolName = schools.find((school) => school.id === role.sid).title
@@ -36,13 +29,15 @@ export async function populateRolesAndSchools(uid) {
 }
 
 export async function populateRoomsAndGroups(sid, reFetch = false) {
-  let roomsList = getStorage(`rooms-for-sid-${sid}`)
+  const roomSidName = `rooms-for-sid-${sid}`
+  const groupSidName = `groups-for-sid-${sid}`
+
+  let roomsList = getStorage(roomSidName)
+  const storedGroups = getStorage(groupSidName)
 
   if (!roomsList?.data || reFetch) {
-    await getRooms(sid).then((res) => {
-      roomsList = res.data
-      saveStorage(`rooms-for-sid-${sid}`, {data: res.data})
-    })
+    roomsList = await getRooms(sid)
+    saveStorage(roomSidName, {data: roomsList})
   } else {
     roomsList = roomsList.data
   }
@@ -50,12 +45,10 @@ export async function populateRoomsAndGroups(sid, reFetch = false) {
   rooms.set(roomsList)
 
   let groupList = []
-  const storedGroups = getStorage(`groups-for-sid-${sid}`)
+
   if (!storedGroups?.data || reFetch) {
-    await getGroups(sid).then((res) => {
-      groupList = res.data
-      saveStorage(`groups-for-sid-${sid}`, {data: res.data})
-    })
+    groupList = await getGroups(sid)
+    saveStorage(groupSidName, {data: groupList})
   } else {
     groupList = storedGroups.data
   }
@@ -64,13 +57,15 @@ export async function populateRoomsAndGroups(sid, reFetch = false) {
 }
 
 export async function populateGroupRooms(rid, reFetch = false) {
-  const storedGroupsForRoom = getStorage(`groups-for-room-${rid}`)
+  const groupRoomName = `groups-for-room-${rid}`
+
+  const storedGroupsForRoom = getStorage(groupRoomName)
+
   let groupRoomList = []
+
   if (!storedGroupsForRoom?.data || reFetch) {
-    await getGroupsForRoom(rid).then((res) => {
-      groupRoomList = res.data
-      saveStorage(`groups-for-room-${rid}`, {data: res.data})
-    })
+    groupRoomList = await getGroupsForRoom(rid)
+    saveStorage(groupRoomName, {data: groupRoomList})
   } else {
     groupRoomList = storedGroupsForRoom.data
   }

@@ -1,54 +1,27 @@
 <script>
-import {auth} from '../store.js'
+import {auth, user} from '../store.js'
+import {LOGIN_API} from '../config'
 
-import {signInWithEmailOtp} from '../supabaseConfig.js'
-import ErrorBox from  './ErrorBox.svelte'
-import InfoBox from './InfoBox.svelte'
-import Icon from './Icon.svelte'
+import '@passageidentity/passage-elements/passage-auth'
+import {onMount} from 'svelte'
+import {fetchUserAuth} from '../utils/dataFetching.js'
 
-let email = ''
-let errorMessage = null
-let okMessage = null
+// auth.set(true)
+// user.set({uid: 1, email: 'swape@swape.net'})
 
-function sigInWithEmail() {
-  errorMessage = null
-  okMessage = null
-  if (email && email.includes('@') && email.includes('.')) {
-    // TODO: maybe limit to only from specific domain
-    signInWithEmailOtp(email)
-      .then((res) => {
-        if (res.error) {
-          errorMessage = res.error.message
-        } else {
-          okMessage = 'Sjekk e-posten din. Du har fått en magisk lenke for å logge inn'
-        }
-      })
-      .catch((err) => {
-        errorMessage = err.message
-      })
-  } else {
-    errorMessage = 'Er det en gyldig e-postadresse?'
-  }
-}
+onMount(() => {
+  fetchUserAuth()
+})
 </script>
 
 {#if !$auth}
   <main class="container mx-auto flex gap-4 justify-center flex-col items-center p-4">
     <h1 class="text-3xl p-4">LMS</h1>
-    <img src="/svg/undraw_education_f8ru.svg" alt="Illustration av en person som står over en bok" class="w-1/2 max-w-md" />
-    <h2 class="text-xl pb-1 pt-5">Logg inn</h2>
-    <div class="max-w-md gap-4 flex flex-col w-full">
-      {#if okMessage}
-        <InfoBox message={okMessage} />
-      {:else}
-        <label class="input input-bordered flex items-center gap-2">
-          <Icon name="email" />
-          <input type="email" bind:value={email} class="w-full" />
-        </label>
+    <img
+      src="/svg/undraw_education_f8ru.svg"
+      alt="Illustration av en person som står over en bok"
+      class="w-1/2 max-w-md" />
 
-        <button on:click={sigInWithEmail} class="btn btn-primary">Logg inn med e-post</button>
-      {/if}
-      <ErrorBox message={errorMessage} />
-    </div>
+    <passage-auth app-id={LOGIN_API}></passage-auth>
   </main>
 {/if}

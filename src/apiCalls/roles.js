@@ -1,5 +1,5 @@
-import {supabaseClient} from '../supabaseConfig.js'
+import {fetchApi} from '../utils/dataFetching'
 
 export function getRoles(uid) {
-  return supabaseClient.from('roles').select('*').eq('uid', uid)
+  return fetchApi(`api/user-roles?uid=${uid}`, 'GET')
 }

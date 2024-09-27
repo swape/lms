@@ -1,7 +1,6 @@
 import type {Menu, RoleTitles, User} from './types.ts'
 
 export const roleTitles: RoleTitles[] = [
-
   {
     id: 1,
     title: 'Student'

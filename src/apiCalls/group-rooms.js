@@ -1,13 +1,15 @@
-import {supabaseClient} from '../supabaseConfig'
+import {fetchApi} from '../utils/dataFetching'
 
-export function getGroupsForRoom(rid) {
-  return supabaseClient.from('group_room').select(`id, rid, gid, groups(title)`).eq('rid', rid)
+export async function getGroupsForRoom(rid) {
+  return await fetchApi(`api/rooms?rid=${rid}`, 'GET')
 }
 
 export function upsertGroupRoom(groupRoom) {
-  return supabaseClient.from('group_room').upsert(groupRoom)
+  return {}
+  // return supabaseClient.from('group_room').upsert(groupRoom)
 }
 
 export function deleteGroupRoom(rid, gid) {
-  return supabaseClient.from('group_room').delete().eq('rid', rid).eq('gid', gid)
+  return {}
+  // return supabaseClient.from('group_room').delete().eq('rid', rid).eq('gid', gid)
 }

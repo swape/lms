@@ -1,10 +1,10 @@
 <script>
 import {currentPage, myRoles, currentRole, user, schoolNames} from '../store.js'
-import {populateRolesAndSchools, populateRoomsAndGroups} from '../services.js'
 import {onMount} from 'svelte'
 import {roleTitles} from '../constants.ts'
 import LoadingSpinner from './LoadingSpinner.svelte'
 import EnrollForm from './EnrollForm.svelte'
+import {populateRolesAndSchools, populateRoomsAndGroups} from '../services.js'
 
 function selectRole(role) {
   $currentRole = role
@@ -13,11 +13,9 @@ function selectRole(role) {
 }
 
 onMount(async () => {
-  user.subscribe((user) => {
-    if (user.uid) {
-      populateRolesAndSchools(user.uid)
-    }
-  })
+  if ($user) {
+    populateRolesAndSchools($user.uid)
+  }
 })
 
 myRoles.subscribe((value) => {

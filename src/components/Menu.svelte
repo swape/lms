@@ -1,7 +1,6 @@
 <script>
 import {currentPage, currentRole, menuList} from '../store.js'
 import {defaultMenu} from '../constants.ts'
-import {signOut} from '../supabaseConfig.js'
 import Icon from './Icon.svelte'
 
 let drawerValue = false
@@ -11,6 +10,10 @@ currentRole.subscribe((role) => {
     menuList.set(defaultMenu.filter((menu) => menu.roles.includes(role.level)))
   }
 })
+
+function signOut(){
+  // TODO : do log out
+}
 
 function selectPage(page) {
   $currentPage = page
