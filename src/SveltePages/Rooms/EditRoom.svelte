@@ -1,7 +1,7 @@
 <script>
 import {updateRoom, addRoom} from '../../apiCalls/rooms.js'
 import {createEventDispatcher} from 'svelte'
-import {populateRoomsAndGroups} from '../../services.js'
+// import {populateRoomsAndGroups} from '../../services.js'
 import {currentRoom} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
 
@@ -27,7 +27,7 @@ function editRoom() {
       if (res.error) {
         errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
       } else {
-        populateRoomsAndGroups(sid, true)
+       //  populateRoomsAndGroups(sid, true)
         dispatch('toggle')
         $currentRoom = defaultRoom
       }
@@ -38,7 +38,7 @@ function editRoom() {
       if (res.error) {
         errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
       } else {
-        populateRoomsAndGroups(sid, true)
+      //  populateRoomsAndGroups(sid, true)
         dispatch('toggle')
       }
     })

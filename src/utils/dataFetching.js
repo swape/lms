@@ -44,7 +44,8 @@ export async function fetchApi(path, method = 'GET', body = null) {
   })
     .then((res) => {
       if (res.status === 401) {
-        // TODO send to login page
+        auth.set(false)
+        user.set(null)
         return null
       }
 

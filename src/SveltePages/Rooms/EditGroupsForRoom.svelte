@@ -1,7 +1,7 @@
 <script>
 import {upsertGroupRoom, deleteGroupRoom} from '../../apiCalls/group-rooms.js'
-import {createEventDispatcher} from 'svelte'
-import {populateGroupRooms} from '../../services.js'
+// import {createEventDispatcher} from 'svelte'
+// import {populateGroupRooms} from '../../services.js'
 import {groups} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
 // const dispatch = createEventDispatcher()
@@ -21,7 +21,7 @@ groups.subscribe((value) => {
 })
 
 async function populate(reFetch = false) {
-  await populateGroupRooms(room.id, reFetch)
+/*  await populateGroupRooms(room.id, reFetch)
     .then((res) => {
       thisRoomGroups = res
 
@@ -31,7 +31,7 @@ async function populate(reFetch = false) {
     })
     .finally(() => {
       ready = true
-    })
+    })*/
 }
 
 let errorMessage = ''
@@ -43,14 +43,14 @@ async function changeThisGroup(event) {
   const foundGR = thisRoomGroups.find((group) => group.gid === value)
 
   if (foundGR?.id) {
-    await deleteGroupRoom(room.id, event.target.value)
+    // await deleteGroupRoom(room.id, event.target.value)
     thisRoomGroups = thisRoomGroups.filter((group) => group.gid !== value)
     delete checkedGroups[value]
   } else {
-    await upsertGroupRoom({
+   /* await upsertGroupRoom({
       gid: value,
       rid
-    })
+    })*/
   }
   await populate(true)
 }

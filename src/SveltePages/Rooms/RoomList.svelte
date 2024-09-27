@@ -1,16 +1,16 @@
 <script>
 import {currentRoom} from '../../store.js'
 import Card from '../../components/Card.svelte'
-import {populateGroupRooms} from '../../services.js'
+// import {populateGroupRooms} from '../../services.js'
 export let userRooms = []
 export let isAdmin = false
 let roomsGroups = {}
 
 userRooms.map((room) => {
   if (room.id) {
-    populateGroupRooms(room.id).then((groupRooms) => {
+  /*  populateGroupRooms(room.id).then((groupRooms) => {
       roomsGroups[room.id] = groupRooms
-    })
+    })*/
   }
 })
 
