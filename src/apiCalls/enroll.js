@@ -11,3 +11,7 @@ export async function getEnrollmentsFromEmail(email) {
 export async function insertEnrollment(enrollment) {
   return await fetchApi(`api/enroll`, 'POST', enrollment)
 }
+
+export async function getUnregisteredUsers(sid) {
+  return await fetchApi(`api/enroll/unregistered?sid=${sid}`, 'GET')
+}

@@ -3,8 +3,10 @@ import {getSchools} from './apiCalls/schools.js'
 import {getRooms} from './apiCalls/rooms.js'
 import {getGroups} from './apiCalls/groups.js'
 import {getGroupsForRoom} from './apiCalls/group-rooms.js'
-import {myRoles, schoolNames, rooms, groups} from './store.js'
+import {myRoles, schoolNames, rooms, groups, allUsers, unregisteredUsers} from './store.js'
 import {getStorage, saveStorage} from './utils/localStorage.ts'
+import {getRegisteredUsers} from './apiCalls/user.js'
+import {getUnregisteredUsers} from './apiCalls/enroll.js'
 
 export async function populateRolesAndSchools() {
   // fetching roles
@@ -70,4 +72,16 @@ export async function populateGroupRooms(rid, reFetch = false) {
     groupRoomList = storedGroupsForRoom.data
   }
   return groupRoomList
+}
+
+export async function populateUsersAndUnregisteredUsers(sid) {
+  // fetching users
+  let users = await getRegisteredUsers(sid)
+  if (users) {
+    allUsers.set(users)
+  }
+  let notRegisteredUsers = await getUnregisteredUsers(sid)
+  if (notRegisteredUsers) {
+    unregisteredUsers.set(notRegisteredUsers)
+  }
 }

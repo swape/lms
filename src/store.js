@@ -12,3 +12,6 @@ export const groups = writable(null)
 
 export const menuList = writable(null)
 export const currentRoom = writable(null)
+
+export const allUsers = writable(null)
+export const unregisteredUsers = writable(null)
