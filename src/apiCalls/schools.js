@@ -1,5 +1,5 @@
 import {fetchApi} from '../utils/dataFetching'
 
-export async function getSchools(uid = '') {
-  return await fetchApi(`api/schools?uid=${uid}`, 'GET')
+export async function getSchools() {
+  return await fetchApi(`api/schools`, 'GET')
 }

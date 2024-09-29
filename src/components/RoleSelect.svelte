@@ -9,12 +9,12 @@ import {populateRolesAndSchools, populateRoomsAndGroups} from '../services.js'
 function selectRole(role) {
   $currentRole = role
   $currentPage = 'home'
-  populateRoomsAndGroups(role.sid)
+  populateRoomsAndGroups(role.sid, true)
 }
 
 onMount(async () => {
   if ($user) {
-    populateRolesAndSchools($user.uid)
+    populateRolesAndSchools()
   }
 })
 

@@ -6,9 +6,9 @@ import {getGroupsForRoom} from './apiCalls/group-rooms.js'
 import {myRoles, schoolNames, rooms, groups} from './store.js'
 import {getStorage, saveStorage} from './utils/localStorage.ts'
 
-export async function populateRolesAndSchools(uid) {
+export async function populateRolesAndSchools() {
   // fetching roles
-  let roles = await getRoles(uid)
+  let roles = await getRoles()
 
   // fetching schools
   let schools = getStorage('schools')
