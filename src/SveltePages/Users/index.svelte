@@ -7,8 +7,10 @@ import UserEdit from './UserEdit.svelte'
 import Icon from '../../components/Icon.svelte'
 import {onMount} from 'svelte'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
-import {allUsers, unregisteredUsers} from '../../store.js'
+import {allUsers, unregisteredUsers, isAdmin} from '../../store.js'
 import {filterUsers} from './helpers.ts'
+import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
+import AcceptUser from './AcceptUser.svelte'
 
 let selectedUser = emptyUser
 
@@ -40,6 +42,27 @@ $: {
   if (activeTab.id === 0) {
     filteredUsers = localUnregisteredUsers
   }
+}
+
+let isOpen = false
+let isOpenAccept = false
+
+function toggleDeleteUser() {
+  isOpen = !isOpen
+}
+
+function toggleAcceptUser() {
+  isOpenAccept = !isOpenAccept
+}
+
+function deleteEnrolledUserConfirm(user) {
+  selectedUser = user
+  toggleDeleteUser()
+}
+
+function acceptUserConfirm(user) {
+  selectedUser = user
+  toggleAcceptUser()
 }
 </script>
 
@@ -86,8 +109,10 @@ $: {
               <td>{user.groups?.join(', ')} {user?.message || ''}</td>
               <td class="flex justify-end gap-2 flex-wrap">
                 {#if activeTab.id === 0}
-                  <button class="btn btn-primary btn-sm" type="button"><Icon name="check" /> Godkjenn som ...</button>
-                  <button class="btn btn-error btn-sm" type="button"><Icon name="delete" /> Slett</button>
+                  <button class="btn btn-primary btn-sm" type="button" on:click={() => acceptUserConfirm(user)}
+                    ><Icon name="check" /> Godkjenn som ...</button>
+                  <button class="btn btn-error btn-sm" type="button" on:click={() => deleteEnrolledUserConfirm(user)}
+                    ><Icon name="delete" /> Slett</button>
                 {:else}
                   <button class="btn btn-primary btn-sm" type="button">Rediger</button>
                   <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
@@ -100,3 +125,12 @@ $: {
     </div>
   </div>
 </section>
+{#if isAdmin}
+  <Modal id="userDeleteModal" isOpen={isOpen} on:toggle={toggleDeleteUser}>
+    <DeleteUnregisteredUser user={selectedUser} on:toggle={toggleDeleteUser} />
+  </Modal>
+
+  <Modal id="userAcceptModal" isOpen={isOpenAccept} on:toggle={toggleAcceptUser}>
+    <AcceptUser user={selectedUser} on:toggle={toggleAcceptUser} />
+  </Modal>
+{/if}

@@ -15,3 +15,11 @@ export async function insertEnrollment(enrollment) {
 export async function getUnregisteredUsers(sid) {
   return await fetchApi(`api/enroll/unregistered?sid=${sid}`, 'GET')
 }
+
+export function deleteEnrolledUser(sid, uid) {
+  return fetchApi(`api/enroll?sid=${sid}&uid=${uid}`, 'DELETE')
+}
+
+export function acceptUser(sid, uid, role) {
+  return fetchApi(`api/enroll/accept?sid=${sid}&uid=${uid}&role=${role}`, 'POST')
+}
