@@ -15,3 +15,13 @@ export const currentRoom = writable(null)
 
 export const allUsers = writable(null)
 export const unregisteredUsers = writable(null)
+
+export const isAdmin = writable(false)
+export const sid = writable(null)
+
+currentRole.subscribe((value) => {
+  if (value) {
+    sid.set(value.sid)
+    isAdmin.set(4)
+  }
+})

@@ -2,6 +2,7 @@
 import {createEventDispatcher} from 'svelte'
 // import {populateRoomsAndGroups} from '../../services.js'
 import {updateGroup, addGroup} from '../../apiCalls/groups.js'
+import {sid} from '../../store.js'
 
 import ErrorBox from '../../components/ErrorBox.svelte'
 
@@ -12,7 +13,6 @@ export let defaultGroup = {
   description: ''
 }
 
-export let sid = 0
 let errorMessage = ''
 
 function editGroup() {
@@ -26,7 +26,7 @@ function editGroup() {
       if (res.error) {
         errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
       } else {
-       //  populateRoomsAndGroups(sid, true)
+        //  populateRoomsAndGroups(sid, true)
         dispatch('toggle')
       }
     })

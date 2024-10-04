@@ -1,19 +1,9 @@
 <script>
-import {groups} from '../../store.js'
+import {groups, isAdmin, sid} from '../../store.js'
 import Modal from '../../components/Modal.svelte'
 import {currentRole} from '../../store.js'
 import GroupList from './GroupList.svelte'
 import EditGroup from './EditGroup.svelte'
-
-let isAdmin = false
-let sid = 0
-
-currentRole.subscribe((value) => {
-  if (value) {
-    sid = value.sid
-    isAdmin = value?.level === 4
-  }
-})
 
 let isOpen = false
 function toggleModal() {
@@ -30,7 +20,7 @@ function toggleModal() {
       on:toggle={toggleModal}
       btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
       openText="add_circle">
-      <EditGroup sid={sid} on:toggle={toggleModal} />
+      <EditGroup on:toggle={toggleModal} />
     </Modal>
   {/if}
 </div>

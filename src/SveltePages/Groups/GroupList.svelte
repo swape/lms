@@ -1,9 +1,8 @@
 <script>
 import Modal from '../../components/Modal.svelte'
 import EditGroup from './EditGroup.svelte'
+import {isAdmin, sid} from '../../store.js'
 export let groups = []
-export let isAdmin = false
-export let sid = 0
 
 let selectedGroup = {}
 
@@ -20,7 +19,7 @@ function toggleModal() {
 
 {#if isAdmin}
   <Modal id="edit-group" isOpen={isOpen} on:toggle={toggleModal}>
-    <EditGroup sid={sid} on:toggle={toggleModal} defaultGroup={selectedGroup} />
+    <EditGroup on:toggle={toggleModal} defaultGroup={selectedGroup} />
   </Modal>
 {/if}
 
