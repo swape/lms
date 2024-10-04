@@ -3,7 +3,7 @@ export interface RoleTitles {
   title: string
 }
 export interface NewUser {
-  uid: number
+  uid?: number
   name: string
   lastName: string
   email: string

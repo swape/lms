@@ -9,7 +9,7 @@ const dispatch = createEventDispatcher()
 function deleteUser() {
   deleteEnrolledUser($sid, user.uid)
     .then(() => {
-      populateUsersAndUnregisteredUsers()
+      populateUsersAndUnregisteredUsers($sid)
       dispatch('toggle')
     })
     .catch((e) => {
@@ -19,7 +19,7 @@ function deleteUser() {
 }
 </script>
 
-<h2>Er du sikker du vil slette denne brukeren?</h2>
+<h2 class="text-xl">Er du sikker du vil slette denne brukeren?</h2>
 <div>
   <p class="pt-4">
     {user.uid}<br />
@@ -27,6 +27,6 @@ function deleteUser() {
   </p>
   <div class="flex pt-4 justify-between">
     <button class="btn btn-sm btn-ghost" on:click={() => dispatch('toggle')}>Avbryt</button>
-    <button class="btn btn-primary btn-sm" on:click={deleteUser}>Slett</button>
+    <button class="btn btn-error btn-sm" on:click={deleteUser}>Slett</button>
   </div>
 </div>

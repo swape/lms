@@ -7,12 +7,12 @@ import UserEdit from './UserEdit.svelte'
 import Icon from '../../components/Icon.svelte'
 import {onMount} from 'svelte'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
-import {allUsers, unregisteredUsers, isAdmin} from '../../store.js'
+import {allUsers, unregisteredUsers, isAdmin, sid} from '../../store.js'
 import {filterUsers} from './helpers.ts'
 import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
 import AcceptUser from './AcceptUser.svelte'
 
-let selectedUser = emptyUser
+let selectedUser = null
 
 $: activeTab = roleTitles[0]
 let groupFilter = ''
@@ -21,7 +21,7 @@ let localUsers = []
 let localUnregisteredUsers = []
 
 onMount(() => {
-  populateUsersAndUnregisteredUsers()
+  populateUsersAndUnregisteredUsers($sid)
 })
 
 allUsers.subscribe((value) => {
@@ -46,6 +46,11 @@ $: {
 
 let isOpen = false
 let isOpenAccept = false
+let isOpenEdit = false
+
+function toggleEditUser() {
+  isOpenEdit = !isOpenEdit
+}
 
 function toggleDeleteUser() {
   isOpen = !isOpen
@@ -63,6 +68,11 @@ function deleteEnrolledUserConfirm(user) {
 function acceptUserConfirm(user) {
   selectedUser = user
   toggleAcceptUser()
+}
+
+function editUseModalConfirm(user) {
+  selectedUser = user
+  toggleEditUser()
 }
 </script>
 
@@ -114,7 +124,8 @@ function acceptUserConfirm(user) {
                   <button class="btn btn-error btn-sm" type="button" on:click={() => deleteEnrolledUserConfirm(user)}
                     ><Icon name="delete" /> Slett</button>
                 {:else}
-                  <button class="btn btn-primary btn-sm" type="button">Rediger</button>
+                  <button class="btn btn-primary btn-sm" type="button" on:click={() => editUseModalConfirm(user)}
+                    >Rediger</button>
                   <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
                 {/if}
               </td>
@@ -125,12 +136,20 @@ function acceptUserConfirm(user) {
     </div>
   </div>
 </section>
-{#if isAdmin}
-  <Modal id="userDeleteModal" isOpen={isOpen} on:toggle={toggleDeleteUser}>
-    <DeleteUnregisteredUser user={selectedUser} on:toggle={toggleDeleteUser} />
-  </Modal>
-
-  <Modal id="userAcceptModal" isOpen={isOpenAccept} on:toggle={toggleAcceptUser}>
-    <AcceptUser user={selectedUser} on:toggle={toggleAcceptUser} />
-  </Modal>
+{#if isAdmin && selectedUser}
+  {#if isOpen}
+    <Modal id="userDeleteModal" isOpen={isOpen} on:toggle={toggleDeleteUser}>
+      <DeleteUnregisteredUser user={selectedUser} on:toggle={toggleDeleteUser} />
+    </Modal>
+  {/if}
+  {#if isOpenAccept}
+    <Modal id="userAcceptModal" isOpen={isOpenAccept} on:toggle={toggleAcceptUser}>
+      <AcceptUser user={selectedUser} on:toggle={toggleAcceptUser} />
+    </Modal>
+  {/if}
+  {#if isOpenEdit}
+    <Modal id="editUserModal" isOpen={isOpenEdit} on:toggle={toggleEditUser}>
+      <UserEdit user={selectedUser} on:toggle={toggleEditUser} />
+    </Modal>
+  {/if}
 {/if}

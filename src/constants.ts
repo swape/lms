@@ -19,12 +19,12 @@ export const roleTitles: RoleTitles[] = [
   },
   {
     id: 0,
-    title: 'Uregistrerte'
+    title: 'Uregistrert'
   }
 ]
 
 export const emptyUser: User = {
-  uid: 0,
+  uid: undefined,
   name: '',
   lastName: '',
   email: '',

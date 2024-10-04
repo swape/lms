@@ -11,7 +11,7 @@ let selectedRole = null
 function acceptUserAction() {
   acceptUser($sid, user.uid, selectedRole)
     .then(() => {
-      populateUsersAndUnregisteredUsers()
+      populateUsersAndUnregisteredUsers($sid)
       dispatch('toggle')
     })
     .catch((e) => {
@@ -21,7 +21,7 @@ function acceptUserAction() {
 }
 </script>
 
-<h2>Hva er brukerens rolle?</h2>
+<h2 class="text-xl">Hva er brukerens rolle?</h2>
 <div>
   <p class="py-4">
     {user.uid}<br />

@@ -11,3 +11,7 @@ export function getRegisteredUsers(sid) {
 export function deleteUser(sid, uid) {
   return fetchApi(`api/user?sid=${sid}&uid=${uid}`, 'DELETE')
 }
+
+export function saveEditedUser(data) {
+  return fetchApi(`api/user`, 'POST', data)
+}
