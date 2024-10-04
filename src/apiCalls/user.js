@@ -7,3 +7,7 @@ export function getUserInfo() {
 export function getRegisteredUsers(sid) {
   return fetchApi(`api/users?sid=${sid}`, 'GET')
 }
+
+export function deleteUser(sid, uid) {
+  return fetchApi(`api/user?sid=${sid}&uid=${uid}`, 'DELETE')
+}
