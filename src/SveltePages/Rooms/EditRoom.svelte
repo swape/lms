@@ -1,19 +1,18 @@
 <script>
-import {updateRoom, addRoom} from '../../apiCalls/rooms.js'
+import {updateRoom} from '../../apiCalls/rooms.js'
 import {createEventDispatcher} from 'svelte'
-// import {populateRoomsAndGroups} from '../../services.js'
-import {currentRoom} from '../../store.js'
+
+import {populateRoomsAndGroups} from '../../services.js'
+import {currentRoom, sid} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
 
 const dispatch = createEventDispatcher()
 
 export let defaultRoom = {
   title: '',
-  description: '',
-  id: null
+  description: ''
 }
 
-export let sid = 0
 let errorMessage = ''
 
 function editRoom() {
@@ -22,27 +21,17 @@ function editRoom() {
     errorMessage = 'Fyll ut alle feltene'
     return
   }
-  if (defaultRoom.id) {
-    updateRoom(defaultRoom).then((res) => {
-      if (res.error) {
-        errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
-      } else {
-       //  populateRoomsAndGroups(sid, true)
-        dispatch('toggle')
-        $currentRoom = defaultRoom
-      }
-    })
-  } else {
-    defaultRoom.sid = sid
-    addRoom(defaultRoom).then((res) => {
-      if (res.error) {
-        errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
-      } else {
-      //  populateRoomsAndGroups(sid, true)
-        dispatch('toggle')
-      }
-    })
-  }
+
+  defaultRoom.sid = $sid
+  updateRoom(defaultRoom).then((res) => {
+    if (res.error) {
+      errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
+    } else {
+      populateRoomsAndGroups(sid, true)
+      dispatch('toggle')
+      $currentRoom = defaultRoom
+    }
+  })
 }
 </script>
 

@@ -1,7 +1,7 @@
 <script>
 import {createEventDispatcher} from 'svelte'
-// import {populateRoomsAndGroups} from '../../services.js'
-import {updateGroup, addGroup} from '../../apiCalls/groups.js'
+import {populateRoomsAndGroups} from '../../services.js'
+import {updateGroup} from '../../apiCalls/groups.js'
 import {sid} from '../../store.js'
 
 import ErrorBox from '../../components/ErrorBox.svelte'
@@ -21,26 +21,16 @@ function editGroup() {
     errorMessage = 'Fyll ut alle feltene'
     return
   }
-  if (defaultGroup?.id) {
-    updateGroup(defaultGroup).then((res) => {
-      if (res.error) {
-        errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
-      } else {
-        //  populateRoomsAndGroups(sid, true)
-        dispatch('toggle')
-      }
-    })
-  } else {
-    defaultGroup.sid = sid
-    addGroup(defaultGroup).then((res) => {
-      if (res.error) {
-        errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
-      } else {
-        // populateRoomsAndGroups(sid, true)
-        dispatch('toggle')
-      }
-    })
-  }
+
+  defaultGroup.sid = $sid
+  updateGroup(defaultGroup).then((res) => {
+    if (res.error) {
+      errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
+    } else {
+      populateRoomsAndGroups(sid, true)
+      dispatch('toggle')
+    }
+  })
 }
 </script>
 

@@ -6,11 +6,5 @@ export async function getGroups(sid) {
 }
 
 export function updateGroup(group) {
-  return {}
-  // return supabaseClient.from('groups').update(group).eq('id', group.id)
-}
-
-export function addGroup(group) {
-  return {}
-  // return supabaseClient.from('groups').insert(group)
+  return fetchApi(`api/groups`, 'POST', group)
 }

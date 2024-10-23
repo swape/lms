@@ -1,7 +1,7 @@
 <script>
-import {upsertGroupRoom, deleteGroupRoom} from '../../apiCalls/group-rooms.js'
 // import {createEventDispatcher} from 'svelte'
-// import {populateGroupRooms} from '../../services.js'
+import {populateRoomGroups} from '../../services.js'
+import {updateRoomGroups, deleteRoomGroups} from '../../apiCalls/rooms.js'
 import {groups} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
 // const dispatch = createEventDispatcher()
@@ -12,6 +12,7 @@ let allGroups = []
 let thisRoomGroups = []
 let checkedGroups = {}
 let ready = false
+let errorMessage = ''
 
 groups.subscribe((value) => {
   if (value) {
@@ -20,8 +21,8 @@ groups.subscribe((value) => {
   }
 })
 
-async function populate(reFetch = false) {
-/*  await populateGroupRooms(room.id, reFetch)
+function populate(reFetch = false) {
+  populateRoomGroups(room.id, reFetch)
     .then((res) => {
       thisRoomGroups = res
 
@@ -31,28 +32,24 @@ async function populate(reFetch = false) {
     })
     .finally(() => {
       ready = true
-    })*/
+    })
 }
 
-let errorMessage = ''
-
 async function changeThisGroup(event) {
-  const value = parseInt(event.target.value, 10)
+  const selectedGroupID = parseInt(event.target.value, 10)
   const rid = room.id
-  errorMessage = ''
-  const foundGR = thisRoomGroups.find((group) => group.gid === value)
+
+  // TODO: check this logic later
+  const foundGR = thisRoomGroups.find((group) => group.gid === selectedGroupID)
 
   if (foundGR?.id) {
-    // await deleteGroupRoom(room.id, event.target.value)
-    thisRoomGroups = thisRoomGroups.filter((group) => group.gid !== value)
-    delete checkedGroups[value]
+    await updateRoomGroups({gid: selectedGroupID, rid})
   } else {
-   /* await upsertGroupRoom({
-      gid: value,
-      rid
-    })*/
+    await deleteRoomGroups(rid, selectedGroupID)
+    thisRoomGroups = thisRoomGroups.filter((group) => group.gid !== selectedGroupID)
+    delete checkedGroups[selectedGroupID]
   }
-  await populate(true)
+  populate(true)
 }
 </script>
 
