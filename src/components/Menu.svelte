@@ -11,7 +11,7 @@ currentRole.subscribe((role) => {
   }
 })
 
-function signOut(){
+function signOut() {
   // TODO : do log out
 }
 
@@ -36,7 +36,7 @@ function selectPage(page) {
               <span class="indicator">
                 <Icon name={page.icon} />
                 {#if page.haveIndicator}
-                  <span class="indicator-item" aria-hidden="true">&nbsp;</span>
+                  <span class="indicator-item">&nbsp;</span>
                 {/if}
               </span>
               <span>{page.name}</span>
@@ -44,33 +44,28 @@ function selectPage(page) {
           </li>
         {/each}
         <li>
-          <button on:click={signOut}><Icon name="logout"/><span>Logg ut</span></button>
+          <button on:click={signOut}><Icon name="logout" /><span>Logg ut</span></button>
         </li>
       </menu>
     </div>
   </div>
   <nav class="inset-0 right-auto overflow-scroll sm:fixed bg-indigo-900 text-white">
     <div class="sm:hidden flex gap-3 justify-between items-center m-4">
-      <label for="my-drawer" class="btn btn-sm"><Icon name="menu"/></label>
+      <label for="my-drawer" class="btn btn-sm"><Icon name="menu" /></label>
     </div>
     <div class="sm:flex flex-col hidden desktop-buttons" aria-hidden="true">
       {#each $menuList as page}
-        <button
-          on:click={() => selectPage(page.page)}
-          class={$currentPage === page.page ? 'active' : ''}
-          aria-hidden="true"
-          >
+        <button on:click={() => selectPage(page.page)} class={$currentPage === page.page ? 'active' : ''}>
           <span class="indicator" aria-hidden="true">
             <Icon name={page.icon} />
             {#if page.haveIndicator}
-              <span class="indicator-item" aria-hidden="true">&nbsp;</span>
+              <span class="indicator-item">&nbsp;</span>
             {/if}
           </span>
           <span>{page.name}</span>
         </button>
       {/each}
-      <button on:click={signOut}
-        ><Icon name="logout"/><span>Logg ut</span></button>
+      <button on:click={signOut}><Icon name="logout" /><span>Logg ut</span></button>
     </div>
   </nav>
 {/if}
