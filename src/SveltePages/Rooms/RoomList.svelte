@@ -1,9 +1,9 @@
 <script>
-import {currentRoom} from '../../store.js'
+import {currentRoom,isAdmin} from '../../store.js'
 import Card from '../../components/Card.svelte'
 // import {populateGroupRooms} from '../../services.js'
 export let userRooms = []
-export let isAdmin = false
+
 let roomsGroups = {}
 
 userRooms.map((room) => {

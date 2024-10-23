@@ -1,5 +1,5 @@
 <script>
-import {currentRoom} from '../../store.js'
+import {currentRoom, isAdmin,sid} from '../../store.js'
 import TabArea from '../../components/TabArea.svelte'
 import {roomSections} from '../../constants.ts'
 import EditRoom from './EditRoom.svelte'
@@ -8,8 +8,6 @@ import Modal from '../../components/Modal.svelte'
 import Icon from '../../components/Icon.svelte'
 
 let activeTab = roomSections[0]
-export let isAdmin = false
-export let sid = 0
 
 let isOpen = false
 let isOpenGroups = false
@@ -37,7 +35,7 @@ function toggleGroupsModal() {
           on:toggle={toggleModal}
           btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
           openText="edit">
-          <EditRoom sid={sid} on:toggle={toggleModal} defaultRoom={$currentRoom} />
+          <EditRoom  on:toggle={toggleModal} defaultRoom={$currentRoom} />
         </Modal>
         <Modal
           id="edit-groups"
