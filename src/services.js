@@ -1,8 +1,8 @@
 import {getRoles} from './apiCalls/roles.js'
 import {getSchools} from './apiCalls/schools.js'
-import {getRooms} from './apiCalls/rooms.js'
+import {getRooms, getRoomGroups} from './apiCalls/rooms.js'
 import {getGroups} from './apiCalls/groups.js'
-import {getGroupsForRoom} from './apiCalls/group-rooms.js'
+
 import {myRoles, schoolNames, rooms, groups, allUsers, unregisteredUsers} from './store.js'
 import {getStorage, saveStorage} from './utils/localStorage.ts'
 import {getRegisteredUsers} from './apiCalls/user.js'
@@ -58,7 +58,7 @@ export async function populateRoomsAndGroups(sid, reFetch = false) {
   groups.set(groupList)
 }
 
-export async function populateGroupRooms(rid, reFetch = false) {
+export async function populateRoomGroups(rid, reFetch = false) {
   const groupRoomName = `groups-for-room-${rid}`
 
   const storedGroupsForRoom = getStorage(groupRoomName)
@@ -66,7 +66,7 @@ export async function populateGroupRooms(rid, reFetch = false) {
   let groupRoomList = []
 
   if (!storedGroupsForRoom?.data || reFetch) {
-    groupRoomList = await getGroupsForRoom(rid)
+    groupRoomList = await getRoomGroups(rid)
     saveStorage(groupRoomName, {data: groupRoomList})
   } else {
     groupRoomList = storedGroupsForRoom.data

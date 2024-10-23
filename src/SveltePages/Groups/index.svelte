@@ -1,7 +1,6 @@
 <script>
-import {groups, isAdmin, sid} from '../../store.js'
+import {groups, isAdmin} from '../../store.js'
 import Modal from '../../components/Modal.svelte'
-import {currentRole} from '../../store.js'
 import GroupList from './GroupList.svelte'
 import EditGroup from './EditGroup.svelte'
 
@@ -26,5 +25,5 @@ function toggleModal() {
 </div>
 
 {#if $groups?.length > 0}
-  <GroupList groups={$groups} isAdmin={isAdmin} sid={sid} />
+  <GroupList groups={$groups} />
 {/if}
