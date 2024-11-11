@@ -4,6 +4,7 @@ import {roleTitles} from '../../constants.ts'
 import {saveEditedUser} from '../../apiCalls/user.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import {sid} from '../../store.js'
+import GroupCheckbox from '../../components/GroupCheckbox.svelte'
 
 export let user = null
 const dispatch = createEventDispatcher()
@@ -15,7 +16,8 @@ function saveUser() {
     email: user.email,
     phone: user.phone,
     role: user.role,
-    sid: $sid
+    sid: $sid,
+    groups: user.groups || []
   }
 
   saveEditedUser(saveData)
@@ -27,6 +29,10 @@ function saveUser() {
       // TODO show error message
       console.log(e)
     })
+}
+
+function replaceGroups(e) {
+  user.groups = e.detail
 }
 
 let selectedRole = user?.role ? roleTitles.find((role) => role.id === user.role) : null
@@ -72,6 +78,8 @@ $: if (selectedRole) {
       </label>
       <input name="phone" type="tel" class="input input-bordered w-full input-sm" bind:value={user.phone} />
     </div>
+    <!-- TODO: make this part scrollable and maybe in a a tab inside the modal -->
+    <GroupCheckbox selectedGroups={user.groups} on:change={replaceGroups} />
 
     <div class="pt-5">
       <button class="btn btn-primary btn-sm" type="button" on:click={saveUser}>Lagre</button>
