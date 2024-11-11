@@ -8,6 +8,7 @@ export interface NewUser {
   lastName: string
   email: string
   phone: string
+  groups: number[] | string[]
 }
 
 export interface User extends NewUser {
