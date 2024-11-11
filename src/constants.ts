@@ -29,7 +29,8 @@ export const emptyUser: User = {
   lastName: '',
   email: '',
   phone: '',
-  parents: []
+  parents: [],
+  groups: []
 }
 
 export const defaultMenu: Menu[] = [
