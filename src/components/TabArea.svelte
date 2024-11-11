@@ -8,7 +8,7 @@ function changeTab(id) {
 }
 </script>
 
-<div class="tabs tabs-boxed w-full bg-white">
+<div class="tabs tabs-boxed w-full p-5 bg-white overflow-y-auto">
   {#each menu as menuItem}
     <button
       type="button"

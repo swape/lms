@@ -14,7 +14,7 @@ function selectRole(role) {
 
 onMount(async () => {
   if ($user) {
-    populateRolesAndSchools()
+    await populateRolesAndSchools()
   }
 })
 

@@ -16,10 +16,13 @@ import GroupNames from '../../components/GroupNames.svelte'
 let selectedUser = null
 
 $: activeTab = roleTitles[0]
-let groupFilter = ''
+let roleFilter = ''
 let filteredUsers = []
 let localUsers = []
 let localUnregisteredUsers = []
+let isOpen = false
+let isOpenAccept = false
+let isOpenEdit = false
 
 onMount(() => {
   populateUsersAndUnregisteredUsers($sid)
@@ -28,7 +31,7 @@ onMount(() => {
 allUsers.subscribe((value) => {
   localUsers = value
   if (localUsers?.length > 0 && activeTab?.id) {
-    filteredUsers = filterUsers(groupFilter, localUsers, activeTab.id)
+    filteredUsers = filterUsers(roleFilter, localUsers, activeTab.id)
   }
 })
 
@@ -38,16 +41,12 @@ unregisteredUsers.subscribe((value) => {
 
 $: {
   if (localUsers?.length > 0 && activeTab?.id && activeTab.id !== 0) {
-    filteredUsers = filterUsers(groupFilter, localUsers, activeTab.id)
+    filteredUsers = filterUsers(roleFilter, localUsers, activeTab.id)
   }
   if (activeTab.id === 0) {
     filteredUsers = localUnregisteredUsers
   }
 }
-
-let isOpen = false
-let isOpenAccept = false
-let isOpenEdit = false
 
 function toggleEditUser() {
   isOpenEdit = !isOpenEdit
@@ -87,7 +86,7 @@ function editUseModalConfirm(user) {
           <span class="label-text">Filter</span>
         </label>
         <input
-          bind:value={groupFilter}
+          bind:value={roleFilter}
           id="group-filter"
           type="text"
           placeholder=""

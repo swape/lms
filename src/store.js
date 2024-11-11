@@ -22,6 +22,6 @@ export const sid = writable(null)
 currentRole.subscribe((value) => {
   if (value) {
     sid.set(value.sid)
-    isAdmin.set(4)
+    isAdmin.set(value.level === 4)
   }
 })
