@@ -17,9 +17,8 @@ function filterUsersWithInput(listUser: User, inputFilter: string) {
   if (inputFilter.trim() === '') {
     return true
   }
-
+  // TODO: filter by group names
   return (
-    listUser.groups.some((group) => group.toLowerCase().includes(inputFilter.toLowerCase())) ||
     listUser.name.toLowerCase().includes(inputFilter.toLowerCase()) ||
     `${listUser.uid}`.toLowerCase().includes(inputFilter.toLowerCase()) ||
     `${listUser.email}`.toLowerCase().includes(inputFilter.toLowerCase())
