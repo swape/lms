@@ -4,6 +4,7 @@ import {roleTitles} from '../../constants.ts'
 import {saveEditedUser} from '../../apiCalls/user.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import {sid} from '../../store.js'
+
 export let user = null
 const dispatch = createEventDispatcher()
 
@@ -55,21 +56,21 @@ $: if (selectedRole) {
       <label class="label" for="name">
         <span class="label-text">Navn</span>
       </label>
-      <input name="name" type="text" class="input input-bordered w-full input-sm" value={user.name} />
+      <input name="name" type="text" class="input input-bordered w-full input-sm" bind:value={user.name} />
     </div>
 
     <div class="form-control w-full">
       <label class="label" for="email">
         <span class="label-text">E-post</span>
       </label>
-      <input name="email" type="email" class="input input-bordered w-full input-sm" value={user.email} />
+      <input name="email" type="email" class="input input-bordered w-full input-sm" bind:value={user.email} />
     </div>
 
     <div class="form-control w-full">
       <label class="label" for="phone">
         <span class="label-text">Tlf.nr.</span>
       </label>
-      <input name="phone" type="tel" class="input input-bordered w-full input-sm" value={user.phone} />
+      <input name="phone" type="tel" class="input input-bordered w-full input-sm" bind:value={user.phone} />
     </div>
 
     <div class="pt-5">
