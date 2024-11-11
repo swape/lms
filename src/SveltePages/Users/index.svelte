@@ -11,6 +11,7 @@ import {allUsers, unregisteredUsers, isAdmin, sid} from '../../store.js'
 import {filterUsers} from './helpers.ts'
 import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
 import AcceptUser from './AcceptUser.svelte'
+import GroupNames from '../../components/GroupNames.svelte'
 
 let selectedUser = null
 
@@ -116,7 +117,9 @@ function editUseModalConfirm(user) {
               <th>{user.uid}</th>
               <th>{user.email}</th>
               <td>{user.name}</td>
-              <td>{user.groups?.join(', ')} {user?.message || ''}</td>
+              <td>
+                {#if user.groups?.length}<GroupNames groups={user.groups} />{/if}
+                {#if user.message}<div class="min-w-40">{user?.message || ''}</div>{/if}</td>
               <td class="flex justify-end gap-2 flex-wrap">
                 {#if activeTab.id === 0}
                   <button class="btn btn-primary btn-sm" type="button" on:click={() => acceptUserConfirm(user)}
