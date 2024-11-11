@@ -71,7 +71,7 @@ function acceptUserConfirm(user) {
 }
 
 function editUseModalConfirm(user) {
-  selectedUser = user
+  selectedUser = structuredClone(user)
   toggleEditUser()
 }
 </script>
@@ -92,8 +92,10 @@ function editUseModalConfirm(user) {
           placeholder=""
           class="input input-sm input-bordered w-full max-w-xs" />
       </div>
+      <button class="btn btn-primary btn-sm" type="button" on:click={() => editUseModalConfirm(emptyUser)}
+        ><Icon name="add" /> Ny bruker</button>
 
-      <Modal id="add-user" btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined" openText="add_circle">
+      <Modal id="add-user">
         <UserEdit user={selectedUser} />
       </Modal>
     {/if}
