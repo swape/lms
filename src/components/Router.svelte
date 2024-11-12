@@ -7,7 +7,6 @@ import UsersPage from '../SveltePages/Users/index.svelte'
 import Calendar from '../SveltePages/Calendar/index.svelte'
 
 import {currentPage} from '../store.js'
-
 </script>
 
 {#if $currentPage === 'home'}

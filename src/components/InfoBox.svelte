@@ -7,7 +7,7 @@ export let message = null
 {#if message}
   <div class="alert alert-info" role="alert">
     <div class="flex gap-4">
-      <Icon name="info"/>
+      <Icon name="info" />
       <div>{message}</div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <script>
-import {currentRoom, isAdmin,sid} from '../../store.js'
+import {currentRoom, isAdmin} from '../../store.js'
 import TabArea from '../../components/TabArea.svelte'
 import {roomSections} from '../../constants.ts'
 import EditRoom from './EditRoom.svelte'
@@ -35,7 +35,7 @@ function toggleGroupsModal() {
           on:toggle={toggleModal}
           btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
           openText="edit">
-          <EditRoom  on:toggle={toggleModal} defaultRoom={$currentRoom} />
+          <EditRoom on:toggle={toggleModal} defaultRoom={$currentRoom} />
         </Modal>
         <Modal
           id="edit-groups"

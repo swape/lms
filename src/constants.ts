@@ -41,13 +41,13 @@ export const defaultMenu: Menu[] = [
     haveIndicator: false,
     roles: [1, 2, 3, 4]
   },
-  {
+  /*  {
     name: 'Meldinger',
     page: 'chat',
     icon: 'chat',
     haveIndicator: true,
     roles: [1, 2, 3, 4]
-  },
+  },*/
   {
     name: 'Klasserom',
     page: 'rooms',
@@ -55,13 +55,13 @@ export const defaultMenu: Menu[] = [
     haveIndicator: false,
     roles: [1, 2, 3, 4]
   },
-  {
+  /*  {
     name: 'Kalender',
     page: 'calendar',
     icon: 'calendar_month',
     haveIndicator: false,
     roles: [1, 2, 3, 4]
-  },
+  },*/
   {
     name: 'Grupper',
     page: 'groups',
@@ -75,14 +75,14 @@ export const defaultMenu: Menu[] = [
     icon: 'people',
     haveIndicator: false,
     roles: [3, 4]
-  },
-  {
+  }
+  /*  {
     name: 'Instillinger',
     page: 'settings',
     icon: 'settings',
     haveIndicator: false,
     roles: [4]
-  }
+  }*/
 ]
 
 export const roomSections = [

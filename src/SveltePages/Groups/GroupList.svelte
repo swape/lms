@@ -1,7 +1,7 @@
 <script>
 import Modal from '../../components/Modal.svelte'
 import EditGroup from './EditGroup.svelte'
-import {isAdmin, sid} from '../../store.js'
+import {isAdmin} from '../../store.js'
 export let groups = []
 
 let selectedGroup = {}

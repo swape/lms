@@ -1,7 +1,7 @@
 <script>
 export let menu = []
 export let activeTab = null
-let activeTabId = 1
+let activeTabId = menu[0]?.id
 function changeTab(id) {
   activeTabId = id
   activeTab = menu.find((menuItem) => menuItem.id === id)

@@ -43,7 +43,7 @@ function toggleModal() {
         on:toggle={toggleModal}
         btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
         openText="add_circle">
-        <EditRoom  on:toggle={toggleModal} />
+        <EditRoom on:toggle={toggleModal} />
       </Modal>
     {/if}
   </div>
