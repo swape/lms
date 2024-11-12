@@ -36,7 +36,7 @@ function toggleModal() {
 {:else}
   <div class="flex justify-between p-4">
     <h1 class="text-3xl text-center grow">Klasserommene</h1>
-    {#if isAdmin}
+    {#if $isAdmin}
       <Modal
         id="add-room"
         isOpen={isOpen}
@@ -49,7 +49,7 @@ function toggleModal() {
   </div>
 
   <RoomList userRooms={userRooms} />
-  {#if userRooms.length === 0 && isAdmin}
+  {#if userRooms.length === 0 && $isAdmin}
     <EmptyPlaceholder message="Her kan du legge til nye klasserom" />
   {/if}
 {/if}

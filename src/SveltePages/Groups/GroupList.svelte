@@ -17,7 +17,7 @@ function toggleModal() {
 }
 </script>
 
-{#if isAdmin}
+{#if $isAdmin}
   <Modal id="edit-group" isOpen={isOpen} on:toggle={toggleModal}>
     <EditGroup on:toggle={toggleModal} defaultGroup={selectedGroup} />
   </Modal>

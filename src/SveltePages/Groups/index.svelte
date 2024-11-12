@@ -12,7 +12,7 @@ function toggleModal() {
 
 <div class="flex justify-between p-4">
   <h1 class="text-3xl text-center grow">Grupper</h1>
-  {#if isAdmin}
+  {#if $isAdmin}
     <Modal
       id="add-group"
       isOpen={isOpen}

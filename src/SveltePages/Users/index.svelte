@@ -140,7 +140,7 @@ function editUseModalConfirm(user) {
     </div>
   </div>
 </section>
-{#if isAdmin && selectedUser}
+{#if $isAdmin && selectedUser}
   {#if isOpen}
     <Modal id="userDeleteModal" isOpen={isOpen} on:toggle={toggleDeleteUser}>
       <DeleteUnregisteredUser user={selectedUser} on:toggle={toggleDeleteUser} />

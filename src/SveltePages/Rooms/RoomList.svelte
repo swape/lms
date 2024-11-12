@@ -1,5 +1,5 @@
 <script>
-import {currentRoom, isAdmin} from '../../store.js'
+import {currentRoom} from '../../store.js'
 import Card from '../../components/Card.svelte'
 // import {populateGroupRooms} from '../../services.js'
 export let userRooms = []
@@ -23,7 +23,7 @@ function selectRoom(room) {
   {#each userRooms as room}
     <Card title={room.title}>
       <p>{room.description}</p>
-      {#if isAdmin && roomsGroups[room.id]?.length > 0}<div class="text-xs flex gap-2 flex-wrap">
+      {#if roomsGroups[room.id]?.length > 0}<div class="text-xs flex gap-2 flex-wrap">
           {#each roomsGroups[room.id] as group}
             <span>{group?.groups?.title}</span>
           {/each}

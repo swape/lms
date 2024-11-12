@@ -27,8 +27,8 @@ function toggleGroupsModal() {
 
     <h1 class="text-3xl">{$currentRoom.title}</h1>
 
-    {#if isAdmin}
-      <div class="flex justify-end gap-3">
+    <div class="flex justify-end gap-3">
+      {#if $isAdmin}
         <Modal
           id="edit-room"
           isOpen={isOpen}
@@ -45,8 +45,8 @@ function toggleGroupsModal() {
           openText="groups">
           <EditGroupsForRoom on:toggle={toggleGroupsModal} room={$currentRoom} />
         </Modal>
-      </div>
-    {/if}
+      {/if}
+    </div>
   </div>
 
   <p class="p-4 ml-7">{$currentRoom.description}</p>
