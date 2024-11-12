@@ -53,10 +53,10 @@ function selectPage(page) {
     <div class="sm:hidden flex gap-3 justify-between items-center m-4">
       <label for="my-drawer" class="btn btn-sm"><Icon name="menu" /></label>
     </div>
-    <div class="sm:flex flex-col hidden desktop-buttons" aria-hidden="true">
+    <div class="sm:flex flex-col hidden desktop-buttons">
       {#each $menuList as page}
         <button on:click={() => selectPage(page.page)} class={$currentPage === page.page ? 'active' : ''}>
-          <span class="indicator" aria-hidden="true">
+          <span class="indicator">
             <Icon name={page.icon} />
             {#if page.haveIndicator}
               <span class="indicator-item">&nbsp;</span>
