@@ -5,6 +5,15 @@ import {saveEditedUser} from '../../apiCalls/user.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import {sid} from '../../store.js'
 import GroupCheckbox from '../../components/GroupCheckbox.svelte'
+import TabArea from '../../components/TabArea.svelte'
+
+let userEditModalMenu = [
+  {id: 0, title: 'Informasjon'},
+  {id: 1, title: 'Rolle'},
+  {id: 2, title: 'Grupper'}
+]
+
+let activeTab = userEditModalMenu[0]
 
 export let user = null
 const dispatch = createEventDispatcher()
@@ -44,42 +53,50 @@ $: if (selectedRole) {
 
 {#if user}
   <div>
-    <div class="form-control w-full mb-5">
-      <label class="label" for="list">
-        <span class="label-text">Rolle</span>
-      </label>
-      <select
-        name="list"
-        class="select select-bordered select-accent select-sm w-full max-w-xs"
-        bind:value={selectedRole}>
-        {#each roleTitles as role}
-          <option value={role}>{role.title}</option>
-        {/each}
-      </select>
-    </div>
+    <TabArea bind:activeTab={activeTab} menu={userEditModalMenu} />
 
-    <div class="form-control w-full">
-      <label class="label" for="name">
-        <span class="label-text">Navn</span>
-      </label>
-      <input name="name" type="text" class="input input-bordered w-full input-sm" bind:value={user.name} />
-    </div>
+    {#if activeTab.id === 0}
+      <div class="form-control w-full">
+        <label class="label" for="name">
+          <span class="label-text">Navn</span>
+        </label>
+        <input name="name" type="text" class="input input-bordered w-full input-sm" bind:value={user.name} />
+      </div>
 
-    <div class="form-control w-full">
-      <label class="label" for="email">
-        <span class="label-text">E-post</span>
-      </label>
-      <input name="email" type="email" class="input input-bordered w-full input-sm" bind:value={user.email} />
-    </div>
+      <div class="form-control w-full">
+        <label class="label" for="email">
+          <span class="label-text">E-post</span>
+        </label>
+        <input name="email" type="email" class="input input-bordered w-full input-sm" bind:value={user.email} />
+      </div>
 
-    <div class="form-control w-full">
-      <label class="label" for="phone">
-        <span class="label-text">Tlf.nr.</span>
-      </label>
-      <input name="phone" type="tel" class="input input-bordered w-full input-sm" bind:value={user.phone} />
-    </div>
-    <!-- TODO: make this part scrollable and maybe in a a tab inside the modal -->
-    <GroupCheckbox selectedGroups={user.groups} on:change={replaceGroups} />
+      <div class="form-control w-full">
+        <label class="label" for="phone">
+          <span class="label-text">Tlf.nr.</span>
+        </label>
+        <input name="phone" type="tel" class="input input-bordered w-full input-sm" bind:value={user.phone} />
+      </div>
+    {/if}
+
+    {#if activeTab.id === 1}
+      <div class="form-control w-full mb-5">
+        <label class="label" for="list">
+          <span class="label-text">Rolle</span>
+        </label>
+        <select
+          name="list"
+          class="select select-bordered select-accent select-sm w-full max-w-xs"
+          bind:value={selectedRole}>
+          {#each roleTitles as role}
+            <option value={role}>{role.title}</option>
+          {/each}
+        </select>
+      </div>
+    {/if}
+
+    {#if activeTab.id === 2}
+      <GroupCheckbox selectedGroups={user.groups} on:change={replaceGroups} />
+    {/if}
 
     <div class="pt-5">
       <button class="btn btn-primary btn-sm" type="button" on:click={saveUser}>Lagre</button>
