@@ -1,5 +1,5 @@
 <script>
-import {groups, isAdmin} from '../../store.js'
+import {groups, isTeacherOrAdmin} from '../../store.js'
 import Modal from '../../components/Modal.svelte'
 import GroupList from './GroupList.svelte'
 import EditGroup from './EditGroup.svelte'
@@ -12,7 +12,7 @@ function toggleModal() {
 
 <div class="flex justify-between p-4">
   <h1 class="text-3xl text-center grow">Grupper</h1>
-  {#if $isAdmin}
+  {#if $isTeacherOrAdmin}
     <Modal
       id="add-group"
       isOpen={isOpen}

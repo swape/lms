@@ -7,7 +7,7 @@ import UserEdit from './UserEdit.svelte'
 import Icon from '../../components/Icon.svelte'
 import {onMount} from 'svelte'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
-import {allUsers, unregisteredUsers, isAdmin, sid} from '../../store.js'
+import {allUsers, unregisteredUsers, sid, isTeacherOrAdmin} from '../../store.js'
 import {filterUsers} from './helpers.ts'
 import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
 import AcceptUser from './AcceptUser.svelte'
@@ -140,7 +140,7 @@ function editUseModalConfirm(user) {
     </div>
   </div>
 </section>
-{#if $isAdmin && selectedUser}
+{#if $isTeacherOrAdmin && selectedUser}
   {#if isOpen}
     <Modal id="userDeleteModal" isOpen={isOpen} on:toggle={toggleDeleteUser}>
       <DeleteUnregisteredUser user={selectedUser} on:toggle={toggleDeleteUser} />

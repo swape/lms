@@ -1,5 +1,5 @@
 <script>
-import {currentRoom, isAdmin} from '../../store.js'
+import {currentRoom, isTeacherOrAdmin} from '../../store.js'
 import TabArea from '../../components/TabArea.svelte'
 import {roomSections} from '../../constants.ts'
 import EditRoom from './EditRoom.svelte'
@@ -27,7 +27,7 @@ function toggleGroupsModal() {
     <h1 class="text-3xl">{$currentRoom.title}</h1>
 
     <div class="flex justify-end gap-3">
-      {#if $isAdmin}
+      {#if $isTeacherOrAdmin}
         <Modal
           id="edit-room"
           isOpen={isOpen}

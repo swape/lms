@@ -17,11 +17,13 @@ export const allUsers = writable(null)
 export const unregisteredUsers = writable(null)
 
 export const isAdmin = writable(false)
+export const isTeacherOrAdmin = writable(false)
 export const sid = writable(null)
 
 currentRole.subscribe((value) => {
   if (value) {
     sid.set(value.sid)
     isAdmin.set(value.level === 4)
+    isTeacherOrAdmin.set(value.level > 2)
   }
 })

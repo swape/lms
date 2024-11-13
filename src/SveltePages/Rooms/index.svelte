@@ -1,5 +1,5 @@
 <script>
-import {rooms, currentRoom, currentRole, isAdmin} from '../../store.js'
+import {rooms, currentRoom, currentRole, isTeacherOrAdmin} from '../../store.js'
 
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
@@ -12,7 +12,7 @@ let userRooms = []
 
 currentRole.subscribe((value) => {
   if (value) {
-    populateUserRooms(isAdmin)
+    populateUserRooms($isTeacherOrAdmin)
   }
 })
 
@@ -36,7 +36,7 @@ function toggleModal() {
 {:else}
   <div class="flex justify-between p-4">
     <h1 class="text-3xl text-center grow">Klasserommene</h1>
-    {#if $isAdmin}
+    {#if $isTeacherOrAdmin}
       <Modal
         id="add-room"
         isOpen={isOpen}
@@ -49,7 +49,7 @@ function toggleModal() {
   </div>
 
   <RoomList userRooms={userRooms} />
-  {#if userRooms.length === 0 && $isAdmin}
+  {#if userRooms.length === 0 && $isTeacherOrAdmin}
     <EmptyPlaceholder message="Her kan du legge til nye klasserom" />
   {/if}
 {/if}
