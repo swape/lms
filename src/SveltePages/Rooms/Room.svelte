@@ -3,7 +3,6 @@ import {currentRoom, isAdmin} from '../../store.js'
 import TabArea from '../../components/TabArea.svelte'
 import {roomSections} from '../../constants.ts'
 import EditRoom from './EditRoom.svelte'
-import EditGroupsForRoom from './EditGroupsForRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 import Icon from '../../components/Icon.svelte'
 
@@ -36,14 +35,6 @@ function toggleGroupsModal() {
           btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
           openText="edit">
           <EditRoom on:toggle={toggleModal} defaultRoom={$currentRoom} />
-        </Modal>
-        <Modal
-          id="edit-groups"
-          isOpen={isOpenGroups}
-          on:toggle={toggleGroupsModal}
-          btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
-          openText="groups">
-          <EditGroupsForRoom on:toggle={toggleGroupsModal} room={$currentRoom} />
         </Modal>
       {/if}
     </div>
