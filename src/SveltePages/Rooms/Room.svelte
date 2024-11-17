@@ -5,6 +5,7 @@ import {roomSections} from '../../constants.ts'
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 import Icon from '../../components/Icon.svelte'
+import RoomMessages from './RoomMessages.svelte'
 
 let activeTab = roomSections[0]
 
@@ -43,6 +44,9 @@ function toggleGroupsModal() {
   <p class="p-4 ml-7">{$currentRoom.description}</p>
   <div class="mt-3">
     <TabArea bind:activeTab={activeTab} menu={roomSections} />
-    {activeTab.title}
+
+    {#if activeTab.id === 1}
+      <RoomMessages rid={$currentRoom.id} />
+    {/if}
   </div>
 </section>
