@@ -2,6 +2,7 @@
 import {currentPage, currentRole, menuList} from '../store.js'
 import {defaultMenu} from '../constants.ts'
 import Icon from './Icon.svelte'
+import {signOut} from '../supabase.js'
 
 let drawerValue = false
 
@@ -10,10 +11,6 @@ currentRole.subscribe((role) => {
     menuList.set(defaultMenu.filter((menu) => menu.roles.includes(role.level)))
   }
 })
-
-function signOut() {
-  // TODO : do log out
-}
 
 function selectPage(page) {
   $currentPage = page
@@ -44,7 +41,7 @@ function selectPage(page) {
           </li>
         {/each}
         <li>
-          <button on:click={signOut}><Icon name="logout" /><span>Logg ut</span></button>
+          <button on:click={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
         </li>
       </menu>
     </div>
@@ -65,7 +62,7 @@ function selectPage(page) {
           <span>{page.name}</span>
         </button>
       {/each}
-      <button on:click={signOut}><Icon name="logout" /><span>Logg ut</span></button>
+      <button on:click={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
     </div>
   </nav>
 {/if}

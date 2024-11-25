@@ -8,9 +8,11 @@ let localGroups = []
 const dispatch = createEventDispatcher()
 
 groups.subscribe((value) => {
-  localGroups = value.map((group) => {
-    return {...group, checked: isSelected(group.id)}
-  })
+  if (value) {
+    localGroups = value.map((group) => {
+      return {...group, checked: isSelected(group.id)}
+    })
+  }
   ready = true
 })
 

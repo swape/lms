@@ -6,12 +6,11 @@ import Modal from '../../components/Modal.svelte'
 import UserEdit from './UserEdit.svelte'
 import Icon from '../../components/Icon.svelte'
 import {onMount} from 'svelte'
-import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import {allUsers, unregisteredUsers, sid, isTeacherOrAdmin} from '../../store.js'
 import {filterUsers} from './helpers.ts'
 import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
 import AcceptUser from './AcceptUser.svelte'
-import GroupNames from '../../components/GroupNames.svelte'
+import {populateRoomsAndGroups, populateUsersAndUnregisteredUsers} from '../../services.js'
 
 let selectedUser = null
 
@@ -26,6 +25,7 @@ let isOpenEdit = false
 
 onMount(() => {
   populateUsersAndUnregisteredUsers($sid)
+  populateRoomsAndGroups($sid)
 })
 
 allUsers.subscribe((value) => {
@@ -92,12 +92,14 @@ function editUseModalConfirm(user) {
           placeholder=""
           class="input input-sm input-bordered w-full max-w-xs" />
       </div>
+      <!-- not done yet
       <button class="btn btn-primary btn-sm" type="button" on:click={() => editUseModalConfirm(emptyUser)}
         ><Icon name="add" /> Ny bruker</button>
 
       <Modal id="add-user">
         <UserEdit user={selectedUser} />
       </Modal>
+      -->
     {/if}
   </div>
   <div>
@@ -105,22 +107,22 @@ function editUseModalConfirm(user) {
       <table class="table bg-white">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>UID-RID</th>
             <th>E-post</th>
             <th>Navn</th>
-            <th>{activeTab.id === 0 ? 'Melding' : 'Grupper'}</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
           {#each filteredUsers as user}
             <tr>
-              <th>{user.uid}</th>
+              <th>{user.uid} - {user.rid || ''}</th>
               <th>{user.email}</th>
-              <td>{user.name}</td>
               <td>
-                {#if user.groups?.length}<GroupNames groups={user.groups} />{/if}
-                {#if user.message}<div class="min-w-40">{user?.message || ''}</div>{/if}</td>
+                <span class="font-bold">{user.name || ''}</span>
+                {#if user.message}<div class="min-w-40">{user?.message || ''}</div>{/if}
+              </td>
+
               <td class="flex justify-end gap-2 flex-wrap">
                 {#if activeTab.id === 0}
                   <button class="btn btn-primary btn-sm" type="button" on:click={() => acceptUserConfirm(user)}
@@ -130,7 +132,9 @@ function editUseModalConfirm(user) {
                 {:else}
                   <button class="btn btn-primary btn-sm" type="button" on:click={() => editUseModalConfirm(user)}
                     >Rediger</button>
-                  <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
+                  {#if user.level === 1}
+                    <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
+                  {/if}
                 {/if}
               </td>
             </tr>

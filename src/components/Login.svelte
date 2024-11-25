@@ -1,17 +1,30 @@
 <script>
-import {auth} from '../store.js'
-import {LOGIN_API} from '../config'
+import {signInWithEmail} from '../supabase.js'
 
-import '@passageidentity/passage-elements/passage-auth'
-import {onMount} from 'svelte'
-import {fetchUserAuth} from '../utils/dataFetching.js'
+let email = null
+let haveError = false
+let showLogin = true
 
-onMount(() => {
-  fetchUserAuth()
-})
+function checkIfValid(inputEmail) {
+  if (inputEmail) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(inputEmail)
+  }
+  return false
+}
+
+async function login() {
+  haveError = false
+  if (checkIfValid(email)) {
+    showLogin = false
+    await signInWithEmail(email)
+  } else {
+    haveError = true
+  }
+}
 </script>
 
-{#if !$auth}
+{#if showLogin}
   <main class="container mx-auto flex gap-4 justify-center flex-col items-center p-4">
     <h1 class="text-3xl p-4">LMS</h1>
     <img
@@ -19,6 +32,16 @@ onMount(() => {
       alt="Illustration av en person som står over en bok"
       class="w-1/2 max-w-md" />
 
-    <passage-auth app-id={LOGIN_API}></passage-auth>
+    <div class="max-w-[400px] w-full">
+      <label>
+        <span>E-post: </span>
+        <input bind:value={email} class="input input-bordered w-full {haveError ? 'input-error' : ''}" type="email" />
+      </label>
+      <button class="btn btn-primary mt-4 w-full" on:click={login}>Logg inn</button>
+    </div>
   </main>
+{:else}
+  <div class="container mx-auto flex gap-4 justify-center flex-col items-center p-4 text-2xl">
+    Sjekk e-posten for innlogginslenke
+  </div>
 {/if}

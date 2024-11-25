@@ -1,15 +1,21 @@
 <script>
-import {user, myRoles, currentRole, isAdmin} from '../store.js'
+import {user, myRoles, currentRole, isAdmin, schoolNames} from '../store.js'
 import Card from '../components/Card.svelte'
 import {roleTitles} from '../constants.ts'
 
 function resetRole() {
   $currentRole = null
 }
+
+// TODO: move to helper file
+function getSchoolName(sid) {
+  return $schoolNames.find((s) => s.id === sid)?.title || ''
+}
 </script>
 
 {#if $user?.uid}
-  <h1 class="text-2xl text-center p-3">{`Hei ${$user.name || ''}`}</h1>
+  <h1 class="text-3xl text-center">{getSchoolName($currentRole?.sid)}</h1>
+  <h2 class="text-2xl text-center p-3">{`Hei ${$user.name || ''}`}</h2>
 
   <section class="grid grid-cols-1 md:grid-cols-2 gap-3 m-4 xl:grid-cols-3">
     {#if $myRoles?.length > 1}
@@ -23,7 +29,7 @@ function resetRole() {
       </Card>
     {/if}
     {#if $isAdmin}
-      <Card title="debugging">
+      <Card title="Debugging">
         <dl class="flex gap-3">
           <dt class="w-20 font-bold">UID</dt>
           <dd>{$user.uid}</dd>

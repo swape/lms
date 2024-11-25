@@ -27,7 +27,7 @@ function editGroup() {
     if (res.error) {
       errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
     } else {
-      populateRoomsAndGroups(sid, true)
+      populateRoomsAndGroups($sid, true)
       dispatch('toggle')
     }
   })

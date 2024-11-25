@@ -1,13 +1,19 @@
 <script>
-import {groups, isTeacherOrAdmin} from '../../store.js'
+import {groups, isTeacherOrAdmin, sid} from '../../store.js'
 import Modal from '../../components/Modal.svelte'
 import GroupList from './GroupList.svelte'
 import EditGroup from './EditGroup.svelte'
+import {onMount} from 'svelte'
+import {populateRoomsAndGroups} from '../../services.js'
 
 let isOpen = false
 function toggleModal() {
   isOpen = !isOpen
 }
+
+onMount(() => {
+  populateRoomsAndGroups($sid)
+})
 </script>
 
 <div class="flex justify-between p-4">

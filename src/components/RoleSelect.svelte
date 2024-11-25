@@ -4,7 +4,9 @@ import {onMount} from 'svelte'
 import {roleTitles} from '../constants.ts'
 import LoadingSpinner from './LoadingSpinner.svelte'
 import EnrollForm from './EnrollForm.svelte'
-import {populateRolesAndSchools, populateRoomsAndGroups} from '../services.js'
+import {populateRoomsAndGroups} from '../services.js'
+import {getRoles} from '../apiCalls/roles.js'
+import {getSchools} from '../apiCalls/schools.js'
 
 function selectRole(role) {
   $currentRole = role
@@ -14,7 +16,9 @@ function selectRole(role) {
 
 onMount(async () => {
   if ($user) {
-    await populateRolesAndSchools()
+    await getSchools(true).then(async () => {
+      await getRoles($user.id, true)
+    })
   }
 })
 
@@ -24,6 +28,14 @@ myRoles.subscribe((value) => {
   }
 })
 
+function getSchoolName(sid) {
+  if (!$schoolNames || $schoolNames.length === 0) {
+    return ''
+  }
+  return $schoolNames.find((s) => s.id === sid)?.title || ''
+}
+
+// TODO: move this to helper file
 function getLevelTitle(level) {
   return roleTitles.find((role) => role.id === level)?.title
 }
@@ -45,7 +57,7 @@ function getLevelTitle(level) {
                 type="button"
                 on:click={() => selectRole(role)}
                 class="btn {role.level === 4 ? 'btn-secondary' : 'btn-primary'}  btn-md"
-                >{getLevelTitle(role.level)} @ {role.schoolName}
+                >{getLevelTitle(role.level)} @ {getSchoolName(role.sid)}
               </button>
             {/each}
           </div>

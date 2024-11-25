@@ -1,25 +1,64 @@
-import {fetchApi} from '../utils/dataFetching'
-
-export async function getEnrollments(sid) {
-  return await fetchApi(`api/enroll?sid=${sid}`, 'GET')
-}
+import {supabase} from '../supabase.js'
+import {unregisteredUsers} from '../store.js'
 
 export async function getEnrollmentsFromEmail(email) {
-  return await fetchApi(`api/enroll?email=${email}`, 'GET')
+  return new Promise((resolve, reject) => {
+    supabase
+      .from('enroll')
+      .select('*')
+      .eq('email', email)
+      .then((res) => {
+        if (res.error) {
+          reject(res.error)
+        } else {
+          resolve(res.data)
+        }
+      })
+  })
 }
 
 export async function insertEnrollment(enrollment) {
-  return await fetchApi(`api/enroll`, 'POST', enrollment)
+  return new Promise((resolve, reject) => {
+    supabase
+      .from('enroll')
+      .insert(enrollment)
+      .then((res) => {
+        if (res.error) {
+          reject(res.error)
+        } else {
+          resolve(res.data)
+        }
+      })
+  })
 }
 
-export async function getUnregisteredUsers(sid) {
-  return await fetchApi(`api/enroll/unregistered?sid=${sid}`, 'GET')
+export function getUnregisteredUsers(sid) {
+  supabase
+    .from('enroll')
+    .select('*')
+    .eq('sid', sid)
+    .then((res) => {
+      if (res?.data?.length > 0) {
+        unregisteredUsers.set(res.data)
+      }
+    })
 }
 
 export function deleteEnrolledUser(sid, uid) {
-  return fetchApi(`api/enroll?sid=${sid}&uid=${uid}`, 'DELETE')
+  return supabase.from('enroll').delete().eq('sid', sid).eq('uid', uid)
 }
 
-export function acceptUser(sid, uid, role) {
-  return fetchApi(`api/enroll/accept?sid=${sid}&uid=${uid}&role=${role}`, 'POST')
+export async function acceptUser(sid, uid, level) {
+  return new Promise((resolve) => {
+    supabase
+      .from('roles')
+      .insert({sid, uid, level})
+      .then((res) => {
+        if (!res.error) {
+          deleteEnrolledUser(sid, uid).then(() => {
+            resolve(res.data)
+          })
+        }
+      })
+  })
 }

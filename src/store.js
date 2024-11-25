@@ -9,6 +9,7 @@ export const currentRole = writable(null)
 export const schoolNames = writable(null)
 export const rooms = writable(null)
 export const groups = writable(null)
+export const groupUserCount = writable(null)
 
 export const menuList = writable(null)
 export const currentRoom = writable(null)

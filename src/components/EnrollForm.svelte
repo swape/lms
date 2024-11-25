@@ -9,19 +9,20 @@ let name = ''
 let feedback = ''
 
 schoolNames.subscribe(async (schools) => {
+  if (!schools || schools.length === 0) {
+    return
+  }
   localSchools = schools.filter((school) => !`${school.title}`.toLowerCase().startsWith('test'))
   const enrollments = await getEnrollmentsFromEmail($user.email)
 
-  // TODO: check if the user has enrolled to that school and show feedback
   if (enrollments.length > 0) {
-    feedback = 'Du har allerede sendt en forespørsel.'
+    feedback = 'Du har allerede sendt en forespørsel. Administratoren vil legge deg i systemet så snart som mulig.'
   }
 })
 
 async function sendForm() {
-  const res = await insertEnrollment({sid: selectedSchool, message, email: $user.email, uid: $user.uid, name})
-  feedback = 'Meldingen er sendt til skolen'
-  console.log(res)
+  await insertEnrollment({sid: selectedSchool, message, email: $user.email, uid: $user.id, name})
+  feedback = 'Meldingen er sendt til skolen. Administratoren vil legge deg i systemet så snart som mulig.'
 }
 </script>
 

@@ -1,9 +1,9 @@
 <script>
 import Modal from '../../components/Modal.svelte'
 import EditGroup from './EditGroup.svelte'
-import {isTeacherOrAdmin} from '../../store.js'
+import {isTeacherOrAdmin, groupUserCount} from '../../store.js'
 export let groups = []
-
+let localGroups = groups || []
 let selectedGroup = {}
 
 function selectGroup(group) {
@@ -14,6 +14,18 @@ function selectGroup(group) {
 let isOpen = false
 function toggleModal() {
   isOpen = !isOpen
+}
+
+let localGroupUserCount = []
+
+groupUserCount.subscribe((value) => {
+  if (value) {
+    localGroupUserCount = value
+  }
+})
+
+function getUserCount(gid) {
+  return localGroupUserCount.find((group) => group.gid === gid)?.count || 0
 }
 </script>
 
@@ -34,12 +46,12 @@ function toggleModal() {
         </tr>
       </thead>
       <tbody>
-        {#each groups as group}
+        {#each localGroups as group}
           <tr>
             <td>{group.title}</td>
-            <td>{group?.users?.length || 0}</td>
-            <td class="flex justify-end"
-              ><button class="btn btn-primary btn-sm" on:click={() => selectGroup(group)}>Rediger</button></td>
+            <td>{getUserCount(group.id)}</td>
+            <td class="flex justify-end">
+              <button class="btn btn-primary btn-sm" on:click={() => selectGroup(group)}>Rediger</button></td>
           </tr>
         {/each}
       </tbody>
