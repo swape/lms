@@ -1,10 +1,7 @@
-import {fetchApi} from '../utils/dataFetching'
 import {supabase} from '../supabase.js'
 import {allUsers} from '../store.js'
 
-export function getUserInfo() {
-  // return fetchApi(`api/user`, 'GET')
-}
+export function getUserInfo() {}
 
 export function getRegisteredUsers(sid) {
   supabase
@@ -18,9 +15,7 @@ export function getRegisteredUsers(sid) {
     })
 }
 
-export function deleteUser(sid, uid) {
-  // return fetchApi(`api/user?sid=${sid}&uid=${uid}`, 'DELETE')
-}
+export function deleteUser(sid, uid) {}
 
 export async function saveEditedUser(data) {
   await supabase.from('user_info').update(data).eq('uid', data.uid).select()
