@@ -7,12 +7,21 @@ import {onMount} from 'svelte'
 import {populateRoomsAndGroups} from '../../services.js'
 
 let isOpen = false
+let localGroups = []
+
 function toggleModal() {
   isOpen = !isOpen
 }
 
 onMount(() => {
   populateRoomsAndGroups($sid)
+})
+
+groups.subscribe((value) => {
+  localGroups = []
+  if (value) {
+    localGroups = value
+  }
 })
 </script>
 
@@ -30,6 +39,6 @@ onMount(() => {
   {/if}
 </div>
 
-{#if $groups?.length > 0}
-  <GroupList groups={$groups} />
+{#if localGroups?.length > 0}
+  <GroupList groups={localGroups} />
 {/if}
