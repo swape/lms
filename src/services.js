@@ -9,31 +9,27 @@ import {getRegisteredUsers} from './apiCalls/user.js'
 import {getUnregisteredUsers} from './apiCalls/enroll.js'
 
 export async function populateRoomsAndGroups(sid, reFetch = false) {
-  /*
-const roomSidName = `rooms-for-sid-${sid}`
-let roomsList = getStorage(roomSidName)
+  const roomSidName = `rooms-for-sid-${sid}`
+  let roomsList = getStorage(roomSidName)
 
-if (!roomsList?.data || reFetch) {
-  roomsList = await getRooms(sid)
-  saveStorage(roomSidName, {data: roomsList})
-} else {
-  roomsList = roomsList.data
-}
- rooms.set(roomsList)
-*/
+  if (reFetch || !roomsList) {
+    rooms.set([])
+    roomsList = await getRooms(sid)
+    saveStorage(roomSidName, roomsList)
+  }
+  rooms.set(roomsList)
 
   const groupSidName = `groups-for-sid-${sid}`
   const storedGroups = getStorage(groupSidName)
   let groupList = []
-
-  if (!storedGroups?.data || reFetch) {
+  if (reFetch || !storedGroups?.length) {
+    groups.set([])
     groupList = await getGroups(sid)
-    saveStorage(groupSidName, {data: groupList})
+    saveStorage(groupSidName, groupList)
   } else {
-    groupList = storedGroups.data
+    groupList = storedGroups
   }
   groups.set(groupList)
-
   await getGroupUserCount(sid)
 }
 

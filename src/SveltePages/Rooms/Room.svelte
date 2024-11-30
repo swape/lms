@@ -25,7 +25,10 @@ function toggleGroupsModal() {
       <Icon name="chevron_left" />
     </button>
 
-    <h1 class="text-3xl">{$currentRoom.title}</h1>
+    <div>
+      <h1 class="text-xl md:text-3xl">{$currentRoom.title}</h1>
+      <small class="text-gray-500">ID: {$currentRoom.id}</small>
+    </div>
 
     <div class="flex justify-end gap-3">
       {#if $isTeacherOrAdmin}

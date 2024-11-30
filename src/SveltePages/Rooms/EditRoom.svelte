@@ -1,8 +1,8 @@
 <script>
-import {updateRoom} from '../../apiCalls/rooms.js'
+import {updateRoom, updateRoomGroups} from '../../apiCalls/rooms.js'
 import {createEventDispatcher} from 'svelte'
 import {populateRoomsAndGroups} from '../../services.js'
-import {sid} from '../../store.js'
+import {currentRoom, sid} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
 import TabArea from '../../components/TabArea.svelte'
 import GroupCheckbox from '../../components/GroupCheckbox.svelte'
@@ -15,10 +15,12 @@ export let defaultRoom = {
   groups: []
 }
 
-const roomEditModalMenu = [
-  {id: 1, title: 'Rominstillinger'},
-  {id: 2, title: 'Grupper'}
-]
+let roomEditModalMenu = [{id: 1, title: 'Rominstillinger'}]
+
+if (defaultRoom.id) {
+  roomEditModalMenu.push({id: 2, title: 'Grupper'})
+}
+
 let activeTab = roomEditModalMenu[0]
 let errorMessage = ''
 
@@ -34,7 +36,12 @@ function editRoom() {
     if (res.error) {
       errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
     } else {
+      if (defaultRoom?.id) {
+        await updateRoomGroups(defaultRoom.id, defaultRoom.groups)
+      }
+
       await populateRoomsAndGroups($sid, true)
+      currentRoom.set(null)
       dispatch('toggle')
     }
   })
@@ -64,7 +71,7 @@ function replaceGroups({detail}) {
     </div>
   {/if}
 
-  {#if activeTab.id === 2}
+  {#if activeTab.id === 2 && defaultRoom.id}
     <GroupCheckbox selectedGroups={defaultRoom.groups} on:change={replaceGroups} />
   {/if}
 

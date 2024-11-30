@@ -17,7 +17,7 @@ onMount(() => {
 })
 </script>
 
-{#if localMessages.length > 0}
+{#if localMessages?.length > 0}
   <div class="flex gap-4 flex-col mt-4">
     {#each localMessages as localMessage}
       <Card title={localMessage.title}>

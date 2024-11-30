@@ -1,5 +1,5 @@
 <script>
-import {rooms, currentRoom, currentRole, isTeacherOrAdmin} from '../../store.js'
+import {rooms, currentRoom, isTeacherOrAdmin} from '../../store.js'
 
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
@@ -10,24 +10,21 @@ import RoomList from './RoomList.svelte'
 
 let userRooms = []
 
-currentRole.subscribe((value) => {
+rooms.subscribe((value) => {
+  userRooms = []
   if (value) {
-    populateUserRooms($isTeacherOrAdmin)
+    if ($isTeacherOrAdmin) {
+      userRooms = value
+    } else {
+      // TODO: filter rooms based on user/group
+    }
   }
 })
 
-function populateUserRooms(forAdmin) {
-  if (forAdmin) {
-    userRooms = $rooms
-  } else {
-    // TODO filter rooms based on user/group
-  }
-}
-
 let isOpen = false
+
 function toggleModal() {
   isOpen = !isOpen
-  populateUserRooms(true)
 }
 </script>
 
@@ -47,9 +44,11 @@ function toggleModal() {
       </Modal>
     {/if}
   </div>
+  {#if userRooms.length > 0}
+    <RoomList userRooms={userRooms} />
+  {/if}
 
-  <RoomList userRooms={userRooms} />
-  {#if userRooms.length === 0 && $isTeacherOrAdmin}
-    <EmptyPlaceholder message="Her kan du legge til nye klasserom" />
+  {#if userRooms.length === 0}
+    <EmptyPlaceholder message="Fant ingen room" />
   {/if}
 {/if}
