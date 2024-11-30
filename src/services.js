@@ -1,9 +1,7 @@
-import {getRoles} from './apiCalls/roles.js'
-import {getSchools} from './apiCalls/schools.js'
 import {getRooms} from './apiCalls/rooms.js'
 import {getGroups, getGroupUserCount} from './apiCalls/groups.js'
 
-import {myRoles, schoolNames, rooms, groups, allUsers, unregisteredUsers} from './store.js'
+import {rooms, groups} from './store.js'
 import {getStorage, saveStorage} from './utils/localStorage.ts'
 import {getRegisteredUsers} from './apiCalls/user.js'
 import {getUnregisteredUsers} from './apiCalls/enroll.js'
