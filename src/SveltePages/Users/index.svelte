@@ -107,7 +107,6 @@ function editUseModalConfirm(user) {
       <table class="table bg-white">
         <thead>
           <tr>
-            <th>UID-RID</th>
             <th>E-post</th>
             <th>Navn</th>
             <th>&nbsp;</th>
@@ -116,8 +115,10 @@ function editUseModalConfirm(user) {
         <tbody>
           {#each filteredUsers as user}
             <tr>
-              <th>{user.uid} - {user.rid || ''}</th>
-              <th>{user.email}</th>
+              <th class="flex gap-2 flex-col">
+                <span class="font-bold">{user.email}</span>
+                <span class="text-xs text-gray-400">{user.uid} - {user.rid || ''}</span>
+              </th>
               <td>
                 <span class="font-bold">{user.name || ''}</span>
                 {#if user.message}<div class="min-w-40">{user?.message || ''}</div>{/if}
