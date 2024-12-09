@@ -49,7 +49,7 @@ function toggleGroupsModal() {
     <TabArea bind:activeTab={activeTab} menu={roomSections} />
 
     {#if activeTab.id === 1}
-      <RoomMessages rid={$currentRoom.id} />
+      <RoomMessages roomId={$currentRoom.id} />
     {/if}
   </div>
 </section>
