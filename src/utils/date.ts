@@ -6,3 +6,5 @@ export const getLocaleMonthName = (date: Date | string) => new Date(date).toLoca
 export const getLocaleDayName = (date: Date | string) => new Date(date).toLocaleString('default', {weekday: 'long'})
 
 export const getDay = (date: Date | string) => new Date(date).getDate()
+
+export const isOldDueDate = (date: Date | string) => new Date(date) < new Date()

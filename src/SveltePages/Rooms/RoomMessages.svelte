@@ -7,6 +7,7 @@ import {isTeacherOrAdmin} from '../../store.js'
 import Modal from '../../components/Modal.svelte'
 import EditMessage from './EditMessage.svelte'
 import DateCard from '../../components/DateCard.svelte'
+import {isOldDueDate} from '../../utils/date.ts'
 
 export let roomId = null
 
@@ -39,11 +40,6 @@ function fetchAndPopulateMessages() {
 function openThisMessage(message) {
   messageObject = {...message}
   toggleModal()
-}
-
-// TODO: move to helper
-function isOldDueDate(date) {
-  return new Date(date) < new Date()
 }
 
 // TODO: show as markdown and expand as modal
