@@ -8,10 +8,12 @@ const dispatch = createEventDispatcher()
 export let defaultMessage = {
   title: '',
   message: '',
-  dueDate: ''
+  dueDate: null
 }
 
 function saveMessage() {
+  defaultMessage.dueDate = !defaultMessage.dueDate ? null : defaultMessage.dueDate
+
   let newMessage = {...defaultMessage, roomId}
 
   if (defaultMessage.title && defaultMessage.message) {
