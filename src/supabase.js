@@ -39,4 +39,6 @@ function setUserInfo(userInfo) {
 
 export async function signOut() {
   await supabase.auth.signOut()
+  localStorage.clear()
+  window.location.reload()
 }
