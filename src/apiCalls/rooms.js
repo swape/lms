@@ -46,3 +46,24 @@ export async function getRoomGroups(roomId) {
       return []
     })
 }
+
+export async function insertRoomTime(roomId, day, from, to) {
+  return supabase.from('room_time').insert({room_id: roomId, day, time_from: from, time_to: to}).select()
+}
+
+export async function getAllRoomTimes(roomId) {
+  return await supabase
+    .from('room_time')
+    .select('*')
+    .eq('room_id', roomId)
+    .then((res) => {
+      if (res?.data?.length > 0) {
+        return res.data
+      }
+      return []
+    })
+}
+
+export async function deleteRoomTime(id) {
+  return supabase.from('room_time').delete().eq('id', id).select()
+}
