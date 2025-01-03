@@ -1,5 +1,5 @@
 <script>
-import {updateRoom, updateRoomGroups} from '../../apiCalls/rooms.js'
+import {getRoomGroups, updateRoom, updateRoomGroups} from '../../apiCalls/rooms.js'
 import {createEventDispatcher} from 'svelte'
 import {populateRoomsAndGroups} from '../../services.js'
 import {currentRoom, sid} from '../../store.js'
@@ -19,6 +19,9 @@ let roomEditModalMenu = [{id: 1, title: 'Rominstillinger'}]
 
 if (defaultRoom.id) {
   roomEditModalMenu.push({id: 2, title: 'Grupper'})
+  getRoomGroups(defaultRoom.id).then((data) => {
+    defaultRoom.groups = data.map((group) => group.gid)
+  })
 }
 
 let activeTab = roomEditModalMenu[0]

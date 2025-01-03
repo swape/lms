@@ -33,3 +33,16 @@ export async function updateRoomGroups(roomId, groups) {
     return supabase.from('group_room').insert(newGroups)
   }
 }
+
+export async function getRoomGroups(roomId) {
+  return await supabase
+    .from('group_room')
+    .select('*')
+    .eq('roomId', roomId)
+    .then((res) => {
+      if (res?.data?.length > 0) {
+        return res.data
+      }
+      return []
+    })
+}
