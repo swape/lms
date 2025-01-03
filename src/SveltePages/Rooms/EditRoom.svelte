@@ -6,6 +6,7 @@ import {currentRoom, sid} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
 import TabArea from '../../components/TabArea.svelte'
 import GroupCheckbox from '../../components/GroupCheckbox.svelte'
+import AddDayAndTime from '../../components/AddDayAndTime.svelte'
 
 const dispatch = createEventDispatcher()
 
@@ -15,10 +16,17 @@ export let defaultRoom = {
   groups: []
 }
 
-let roomEditModalMenu = [{id: 1, title: 'Rominstillinger'}]
+const TAB_GROUP_ID = 3
+const TAB_ROOM_ID = 1
+const TAB_TIME_ID = 2
+
+let roomEditModalMenu = [
+  {id: TAB_ROOM_ID, title: 'Rominstillinger'},
+  {id: TAB_TIME_ID, title: 'Tidspunkt'}
+]
 
 if (defaultRoom.id) {
-  roomEditModalMenu.push({id: 2, title: 'Grupper'})
+  roomEditModalMenu.push({id: TAB_GROUP_ID, title: 'Grupper'})
   getRoomGroups(defaultRoom.id).then((data) => {
     defaultRoom.groups = data.map((group) => group.gid)
   })
@@ -57,7 +65,7 @@ function replaceGroups({detail}) {
 <TabArea bind:activeTab={activeTab} menu={roomEditModalMenu} />
 
 <div>
-  {#if activeTab.id === 1}
+  {#if activeTab.id === TAB_ROOM_ID}
     <div class="form-control w-full">
       <label class="label" for="title">
         <span class="label-text">Tittel</span>
@@ -74,7 +82,11 @@ function replaceGroups({detail}) {
     </div>
   {/if}
 
-  {#if activeTab.id === 2 && defaultRoom.id}
+  {#if activeTab.id === TAB_TIME_ID && defaultRoom.id}
+    <AddDayAndTime rid={defaultRoom.id} />
+  {/if}
+
+  {#if activeTab.id === TAB_GROUP_ID && defaultRoom.id}
     <GroupCheckbox selectedGroups={defaultRoom.groups} on:change={replaceGroups} />
   {/if}
 
