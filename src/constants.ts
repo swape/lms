@@ -1,5 +1,7 @@
 import type {Menu, RoleTitles, User} from './types.ts'
 
+export const dayStrings = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag']
+
 export const roleTitles: RoleTitles[] = [
   {
     id: 1,
