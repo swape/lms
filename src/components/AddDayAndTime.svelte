@@ -1,6 +1,8 @@
 <script>
 import {deleteRoomTime, getAllRoomTimes, insertRoomTime} from '../apiCalls/rooms.js'
 import {onMount} from 'svelte'
+import {dayStrings} from '../constants.ts'
+import Icon from './Icon.svelte'
 
 export let rid = 0
 
@@ -33,7 +35,6 @@ function getTimeTable() {
     localTimes = data
   })
 }
-const dayStrings = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag']
 
 function dayToString(day) {
   return dayStrings[day - 1]
@@ -44,6 +45,15 @@ function deleteTime(id) {
     getTimeTable()
   })
 }
+
+function checkIfFromIsBeforeTo(fromTime, toTime) {
+  const fromTimeInt = parseInt(fromTime.replace(':', ''))
+  const toTimeInt = parseInt(toTime.replace(':', ''))
+  if (fromTimeInt && toTimeInt) {
+    return fromTimeInt < toTimeInt
+  }
+  return true
+}
 </script>
 
 <div>
@@ -51,12 +61,15 @@ function deleteTime(id) {
     <div class="flex gap-4 justify-between items-center border-b border-gray-200 py-2">
       <div>{dayToString(time.day)}</div>
       <div>{time.time_from} - {time.time_to}</div>
+      {#if !checkIfFromIsBeforeTo(time.time_from, time.time_to)}
+        <div class="text-red-500 flex gap-2 justify-center"><Icon name="error" /> Ugyldig tid</div>
+      {/if}
       <div><button class="btn btn-sm btn-error" on:click={() => deleteTime(time.id)}>Slett</button></div>
     </div>
   {/each}
 </div>
 
-<div class="mt-5">
+<div class="mt-5 border-b border-gray-200 pb-5">
   <div class="flex flex-col gap-4">
     <div class="flex flex-col gap-2">
       <label for="day">Dag</label>
@@ -76,6 +89,14 @@ function deleteTime(id) {
       <label for="time">Til tidspunkt</label>
       <input type="time" id="time" name="time" class="input input-bordered w-full max-w-xs" bind:value={to} />
     </div>
-    <button class="btn btn-secondary btn-sm" on:click={() => save()}>Legg til</button>
+
+    {#if !checkIfFromIsBeforeTo(from, to)}
+      <div class="text-red-500 flex gap-2 justify-center"><Icon name="error" /> Ugyldig tid</div>
+    {/if}
+    {#if day && from && to && checkIfFromIsBeforeTo(from, to)}
+      <div class="flex gap-4">
+        <button class="btn btn-secondary btn-sm" on:click={() => save()}>Legg til</button>
+      </div>
+    {/if}
   </div>
 </div>
