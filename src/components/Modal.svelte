@@ -1,27 +1,18 @@
 <script>
-import {createEventDispatcher} from 'svelte'
-export let id = 'my_modal_1'
-export let openText = null
-export let btnClass = 'btn'
-
-export let isOpen = false
-
-const dispatch = createEventDispatcher()
-
-function toggleModal() {
-  dispatch('toggle')
-}
+  let {isOpen = false, btnClass = 'btn', openText = null, id = 'my_modal_1' , children, toggle = ()=>{} } = $props()
 </script>
 
-{#if openText}<button class={btnClass} on:click={() => toggleModal()}>{openText}</button>{/if}
+{#if openText}<button class={btnClass} onclick={() => toggle()}>{openText}</button>{/if}
 <dialog id={id} class="modal {isOpen ? 'modal-open' : ''}">
   <div class="modal-box">
     <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" on:click={() => toggleModal()}>✕</button>
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick={() => toggle()}>✕</button>
     </form>
-    <slot />
+    {#if isOpen}
+      {@render children()}
+    {/if}
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button on:click={() => toggleModal()} type="button">close</button>
+    <button onclick={() => toggle()} type="button">close</button>
   </form>
 </dialog>

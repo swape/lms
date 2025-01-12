@@ -1,7 +1,9 @@
 <script>
 import {groups} from '../store.js'
-export let gid = null
-let localGroups = []
+
+let {gid = null} = $props()
+
+let localGroups = $state([])
 
 groups.subscribe((value) => {
   localGroups = value

@@ -1,5 +1,5 @@
 <script>
-import {roleTitles, emptyUser} from '../../constants.ts'
+import {roleTitles} from '../../constants.ts'
 
 import TabArea from '../../components/TabArea.svelte'
 import Modal from '../../components/Modal.svelte'
@@ -12,16 +12,16 @@ import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
 import AcceptUser from './AcceptUser.svelte'
 import {populateRoomsAndGroups, populateUsersAndUnregisteredUsers} from '../../services.js'
 
-let selectedUser = null
+let selectedUser = $state(null)
 
-$: activeTab = roleTitles[0]
-let roleFilter = ''
-let filteredUsers = []
-let localUsers = []
-let localUnregisteredUsers = []
-let isOpen = false
-let isOpenAccept = false
-let isOpenEdit = false
+let activeTab = $state(roleTitles[0])
+let roleFilter = $state('')
+let filteredUsers = $state([])
+let localUsers = $state([])
+let localUnregisteredUsers = $state([])
+let isOpen = $state(false)
+let isOpenAccept = $state(false)
+let isOpenEdit = $state(false)
 
 onMount(() => {
   populateUsersAndUnregisteredUsers($sid)
@@ -38,15 +38,6 @@ allUsers.subscribe((value) => {
 unregisteredUsers.subscribe((value) => {
   localUnregisteredUsers = value || []
 })
-
-$: {
-  if (localUsers?.length > 0 && activeTab?.id && activeTab.id !== 0) {
-    filteredUsers = filterUsers(roleFilter, localUsers, activeTab.id)
-  }
-  if (activeTab.id === 0) {
-    filteredUsers = localUnregisteredUsers
-  }
-}
 
 function toggleEditUser() {
   isOpenEdit = !isOpenEdit
@@ -71,13 +62,28 @@ function acceptUserConfirm(user) {
 }
 
 function editUseModalConfirm(user) {
-  selectedUser = structuredClone(user)
+  selectedUser = {...user}
   toggleEditUser()
 }
+
+function tabChange(selectedTab) {
+  activeTab = selectedTab
+  if (selectedTab.id === 0) {
+    filteredUsers = localUnregisteredUsers
+  } else {
+    if (localUsers?.length > 0) {
+      filteredUsers = filterUsers(roleFilter, localUsers, selectedTab.id)
+    }
+  }
+}
+
+$effect(() => {
+  tabChange(activeTab)
+})
 </script>
 
 <section class="m-4">
-  <TabArea bind:activeTab={activeTab} menu={roleTitles} />
+  <TabArea bind:activeTab={activeTab} menu={roleTitles} change={tabChange} />
 
   <div class="mt-3 flex justify-between">
     {#if activeTab.id !== 0}
@@ -93,7 +99,7 @@ function editUseModalConfirm(user) {
           class="input input-sm input-bordered w-full max-w-xs" />
       </div>
       <!-- not done yet
-      <button class="btn btn-primary btn-sm" type="button" on:click={() => editUseModalConfirm(emptyUser)}
+      <button class="btn btn-primary btn-sm" type="button" onclick={() => editUseModalConfirm(emptyUser)}
         ><Icon name="add" /> Ny bruker</button>
 
       <Modal id="add-user">
@@ -126,12 +132,12 @@ function editUseModalConfirm(user) {
 
               <td class="flex justify-end gap-2 flex-wrap">
                 {#if activeTab.id === 0}
-                  <button class="btn btn-primary btn-sm" type="button" on:click={() => acceptUserConfirm(user)}
+                  <button class="btn btn-primary btn-sm" type="button" onclick={() => acceptUserConfirm(user)}
                     ><Icon name="check" /> Godkjenn som ...</button>
-                  <button class="btn btn-error btn-sm" type="button" on:click={() => deleteEnrolledUserConfirm(user)}
+                  <button class="btn btn-error btn-sm" type="button" onclick={() => deleteEnrolledUserConfirm(user)}
                     ><Icon name="delete" /> Slett</button>
                 {:else}
-                  <button class="btn btn-primary btn-sm" type="button" on:click={() => editUseModalConfirm(user)}
+                  <button class="btn btn-primary btn-sm" type="button" onclick={() => editUseModalConfirm(user)}
                     >Rediger</button>
                   {#if user.level === 1}
                     <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
@@ -147,18 +153,18 @@ function editUseModalConfirm(user) {
 </section>
 {#if $isTeacherOrAdmin && selectedUser}
   {#if isOpen}
-    <Modal id="userDeleteModal" isOpen={isOpen} on:toggle={toggleDeleteUser}>
-      <DeleteUnregisteredUser user={selectedUser} on:toggle={toggleDeleteUser} />
+    <Modal id="userDeleteModal" isOpen={isOpen} toggle={toggleDeleteUser}>
+      <DeleteUnregisteredUser user={selectedUser} toggle={toggleDeleteUser} />
     </Modal>
   {/if}
   {#if isOpenAccept}
-    <Modal id="userAcceptModal" isOpen={isOpenAccept} on:toggle={toggleAcceptUser}>
-      <AcceptUser user={selectedUser} on:toggle={toggleAcceptUser} />
+    <Modal id="userAcceptModal" isOpen={isOpenAccept} toggle={toggleAcceptUser}>
+      <AcceptUser user={selectedUser} toggle={toggleAcceptUser} />
     </Modal>
   {/if}
   {#if isOpenEdit}
-    <Modal id="editUserModal" isOpen={isOpenEdit} on:toggle={toggleEditUser}>
-      <UserEdit user={selectedUser} on:toggle={toggleEditUser} />
+    <Modal id="editUserModal" isOpen={isOpenEdit} toggle={toggleEditUser}>
+      <UserEdit user={selectedUser} toggle={toggleEditUser} />
     </Modal>
   {/if}
 {/if}

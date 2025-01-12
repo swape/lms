@@ -1,5 +1,5 @@
 <script>
-import {createEventDispatcher, onMount} from 'svelte'
+import {onMount} from 'svelte'
 import {roleTitles} from '../../constants.ts'
 import {saveEditedUser} from '../../apiCalls/user.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
@@ -16,10 +16,17 @@ const userEditModalMenu = [
   {id: 2, title: 'Grupper'}
 ]
 
-let activeTab = userEditModalMenu[0]
+let {user = null, toggle = () => {}} = $props()
+let localUserGroups = $state([])
+let activeTab = $state(userEditModalMenu[0])
 
-export let user = null
-let localUserGroups = []
+let selectedRole = $state(user?.level ? roleTitles.find((role) => role.id === user.level) : null)
+
+$effect(() => {
+  if (selectedRole) {
+    user.level = selectedRole.id
+  }
+})
 
 onMount(async () => {
   localUserGroups = []
@@ -27,30 +34,28 @@ onMount(async () => {
   localUserGroups = fetchedGroups.map((group) => group.gid)
 })
 
-const dispatch = createEventDispatcher()
-
 async function saveUser() {
   await saveEditedUser({uid: user.uid, name: user.name, phone: user.phone})
   await updateRole(user.rid, user.level)
   await updateUserGroups(user.rid, user.groups || [], user.uid)
   await populateUsersAndUnregisteredUsers($sid)
-  dispatch('toggle')
+
+  toggle()
 }
 
 function replaceGroups(e) {
-  user.groups = e.detail
-}
-
-let selectedRole = user?.level ? roleTitles.find((role) => role.id === user.level) : null
-
-$: if (selectedRole) {
-  user.level = selectedRole.id
+  user.groups = e
 }
 </script>
 
 {#if user}
   <div>
-    <TabArea bind:activeTab={activeTab} menu={userEditModalMenu} />
+    <TabArea
+      bind:activeTab={activeTab}
+      menu={userEditModalMenu}
+      change={(active) => {
+        activeTab = active
+      }} />
 
     {#if activeTab.id === 0}
       <div class="form-control w-full">
@@ -99,11 +104,11 @@ $: if (selectedRole) {
     {/if}
 
     {#if activeTab.id === 2}
-      <GroupCheckbox selectedGroups={localUserGroups} on:change={replaceGroups} />
+      <GroupCheckbox selectedGroups={localUserGroups} change={replaceGroups} />
     {/if}
 
     <div class="pt-5">
-      <button class="btn btn-primary btn-sm" type="button" on:click={saveUser}>Lagre</button>
+      <button class="btn btn-primary btn-sm" type="button" onclick={saveUser}>Lagre</button>
     </div>
   </div>
 {/if}

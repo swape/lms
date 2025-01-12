@@ -1,6 +1,5 @@
 <script lang="ts">
-export let name = 'chevron_left'
-export let ariaHidden = true
+let {name = 'chevron_left', ariaHidden = true} = $props()
 </script>
 
 <span class="material-symbols-outlined" aria-hidden={ariaHidden}>{name}</span>

@@ -1,34 +1,28 @@
 <script>
-import {createEventDispatcher} from 'svelte'
 import {populateRoomsAndGroups} from '../../services.js'
 import {updateGroup} from '../../apiCalls/groups.js'
 import {sid} from '../../store.js'
-
 import ErrorBox from '../../components/ErrorBox.svelte'
 
-const dispatch = createEventDispatcher()
+let {defaultGroup = {}, toggle = () => {}} = $props()
 
-export let defaultGroup = {
-  title: '',
-  description: ''
-}
-
-let errorMessage = ''
+let localGroup = $state({...defaultGroup})
+let errorMessage = $state('')
 
 function editGroup() {
   errorMessage = ''
-  if (defaultGroup.title === '' || defaultGroup.description === '') {
+  if (localGroup.title === '' || localGroup.description === '') {
     errorMessage = 'Fyll ut alle feltene'
     return
   }
 
-  defaultGroup.sid = $sid
-  updateGroup(defaultGroup).then((res) => {
+  updateGroup({...localGroup, sid: $sid}).then((res) => {
     if (res.error) {
       errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
     } else {
       populateRoomsAndGroups($sid, true)
-      dispatch('toggle')
+
+      toggle()
     }
   })
 }
@@ -36,10 +30,11 @@ function editGroup() {
 
 <div>
   <div class="form-control w-full">
+    <div><small class="text-gray-400">ID: {localGroup.id}</small></div>
     <label class="label" for="title">
       <span class="label-text">Tittel</span>
     </label>
-    <input name="title" type="text" class="input input-bordered w-full input-sm" bind:value={defaultGroup.title} />
+    <input name="title" type="text" class="input input-bordered w-full input-sm" bind:value={localGroup.title} />
 
     <label class="label" for="description">
       <span class="label-text">Beskrivelse</span>
@@ -47,7 +42,7 @@ function editGroup() {
     <textarea
       name="description"
       class="textarea h-24 textarea-bordered textarea-primary w-full"
-      bind:value={defaultGroup.description}></textarea>
+      bind:value={localGroup.description}></textarea>
 
     {#if errorMessage}
       <div class="pt-4">
@@ -56,7 +51,10 @@ function editGroup() {
     {/if}
 
     <div class="mt-3">
-      <button class="btn btn-primary btn-sm" on:click={editGroup}>Lagre</button>
+      <button
+        class="btn btn-primary btn-sm"
+        onclick={editGroup}
+        disabled={!(localGroup.title && localGroup.description)}>Lagre</button>
     </div>
   </div>
 </div>

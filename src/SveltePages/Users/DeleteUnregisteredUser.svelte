@@ -1,16 +1,14 @@
 <script>
-import {createEventDispatcher} from 'svelte'
 import {sid} from '../../store.js'
 import {deleteEnrolledUser} from '../../apiCalls/enroll.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
-export let user = null
-const dispatch = createEventDispatcher()
+let {user = null, toggle = () => {}} = $props()
 
 function deleteUser() {
   deleteEnrolledUser($sid, user.uid)
     .then(() => {
       populateUsersAndUnregisteredUsers($sid)
-      dispatch('toggle')
+      toggle()
     })
     .catch((e) => {
       // TODO show error message
@@ -26,7 +24,7 @@ function deleteUser() {
     {user.email}<br />{user.name}
   </p>
   <div class="flex pt-4 justify-between">
-    <button class="btn btn-sm btn-ghost" on:click={() => dispatch('toggle')}>Avbryt</button>
-    <button class="btn btn-error btn-sm" on:click={deleteUser}>Slett</button>
+    <button class="btn btn-sm btn-ghost" onclick={() => toggle()}>Avbryt</button>
+    <button class="btn btn-error btn-sm" onclick={deleteUser}>Slett</button>
   </div>
 </div>

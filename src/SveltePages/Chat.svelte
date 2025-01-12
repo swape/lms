@@ -21,7 +21,7 @@ function changeRoom(id) {
       {#each chatRooms as chatRoom}
         <li>
           <button
-            on:click={() => changeRoom(chatRoom.id)}
+            onclick={() => changeRoom(chatRoom.id)}
             class={`${chatRoom.id === selectedRoom ? 'bg-primary text-primary-content' : ''} `}>{chatRoom.name}</button>
         </li>
       {/each}
@@ -29,7 +29,7 @@ function changeRoom(id) {
   </div>
 
   <div class="block sm:hidden mb-3">
-    <select bind:value={selectedRoom} class="select select-primary w-full" on:change={() => changeRoom(selectedRoom)}>
+    <select bind:value={selectedRoom} class="select select-primary w-full" onchange={() => changeRoom(selectedRoom)}>
       <option disabled selected value={null}>Select a chat room</option>
       {#each chatRooms as chatRoom}
         <option value={chatRoom.id}>{chatRoom.name}</option>

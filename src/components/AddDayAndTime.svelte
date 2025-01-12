@@ -4,13 +4,13 @@ import {onMount} from 'svelte'
 import {dayStrings} from '../constants.ts'
 import Icon from './Icon.svelte'
 
-export let rid = 0
+let {rid = 0} = $props()
 
-let day = null
-let from = ''
-let to = ''
+let day = $state(null)
+let from = $state('')
+let to = $state('')
 
-let localTimes = []
+let localTimes = $state([])
 
 onMount(() => {
   if (rid) {
@@ -64,7 +64,7 @@ function checkIfFromIsBeforeTo(fromTime, toTime) {
       {#if !checkIfFromIsBeforeTo(time.time_from, time.time_to)}
         <div class="text-red-500 flex gap-2 justify-center"><Icon name="error" /> Ugyldig tid</div>
       {/if}
-      <div><button class="btn btn-sm btn-error" on:click={() => deleteTime(time.id)}>Slett</button></div>
+      <div><button class="btn btn-sm btn-error" onclick={() => deleteTime(time.id)}>Slett</button></div>
     </div>
   {/each}
 </div>
@@ -95,7 +95,7 @@ function checkIfFromIsBeforeTo(fromTime, toTime) {
     {/if}
     {#if day && from && to && checkIfFromIsBeforeTo(from, to)}
       <div class="flex gap-4">
-        <button class="btn btn-secondary btn-sm" on:click={() => save()}>Legg til</button>
+        <button class="btn btn-secondary btn-sm" onclick={() => save()}>Legg til</button>
       </div>
     {/if}
   </div>

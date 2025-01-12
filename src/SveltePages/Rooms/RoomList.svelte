@@ -1,18 +1,7 @@
 <script>
 import {currentRoom} from '../../store.js'
 import Card from '../../components/Card.svelte'
-// import {populateGroupRooms} from '../../services.js'
-export let userRooms = []
-
-let roomsGroups = {}
-
-userRooms.map((room) => {
-  if (room.id) {
-    /*  populateGroupRooms(room.id).then((groupRooms) => {
-      roomsGroups[room.id] = groupRooms
-    })*/
-  }
-})
+let {userRooms = []} = $props()
 
 function selectRoom(room) {
   $currentRoom = room
@@ -23,14 +12,8 @@ function selectRoom(room) {
   {#each userRooms as room}
     <Card title={room.title}>
       <p>{room.description}</p>
-      {#if roomsGroups[room.id]?.length > 0}<div class="text-xs flex gap-2 flex-wrap">
-          {#each roomsGroups[room.id] as group}
-            <span>{group?.groups?.title}</span>
-          {/each}
-        </div>
-      {/if}
       <div class="card-actions">
-        <button class="btn btn-primary btn-sm" on:click={() => selectRoom(room)} type="button">Vis</button>
+        <button class="btn btn-primary btn-sm" onclick={() => selectRoom(room)} type="button">Vis</button>
       </div>
     </Card>
   {/each}

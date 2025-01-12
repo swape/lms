@@ -2,21 +2,22 @@
 import Modal from '../../components/Modal.svelte'
 import EditGroup from './EditGroup.svelte'
 import {isTeacherOrAdmin, groupUserCount} from '../../store.js'
-export let groups = []
-let localGroups = groups || []
-let selectedGroup = {}
+let {groups = []} = $props()
+let localGroups = $state(groups)
+let selectedGroup = $state({})
 
 function selectGroup(group) {
-  selectedGroup = group
+  selectedGroup = {...group}
   toggleModal()
 }
 
-let isOpen = false
+let isOpen = $state(false)
+
 function toggleModal() {
   isOpen = !isOpen
 }
 
-let localGroupUserCount = []
+let localGroupUserCount = $state([])
 
 groupUserCount.subscribe((value) => {
   if (value) {
@@ -30,8 +31,8 @@ function getUserCount(gid) {
 </script>
 
 {#if $isTeacherOrAdmin}
-  <Modal id="edit-group" isOpen={isOpen} on:toggle={toggleModal}>
-    <EditGroup on:toggle={toggleModal} defaultGroup={selectedGroup} />
+  <Modal id="edit-group" isOpen={isOpen} toggle={toggleModal}>
+    <EditGroup toggle={toggleModal} defaultGroup={selectedGroup} />
   </Modal>
 {/if}
 
@@ -51,7 +52,7 @@ function getUserCount(gid) {
             <td>{group.title}</td>
             <td>{getUserCount(group.id)}</td>
             <td class="flex justify-end">
-              <button class="btn btn-primary btn-sm" on:click={() => selectGroup(group)}>Rediger</button></td>
+              <button class="btn btn-primary btn-sm" onclick={() => selectGroup(group)}>Rediger</button></td>
           </tr>
         {/each}
       </tbody>

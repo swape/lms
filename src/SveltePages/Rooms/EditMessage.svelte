@@ -1,38 +1,27 @@
 <script>
 import {upsertRoomMessage} from '../../apiCalls/roomMessages.js'
-import {createEventDispatcher} from 'svelte'
 
-export let roomId = null
-const dispatch = createEventDispatcher()
-
-export let defaultMessage = {
-  title: '',
-  message: '',
-  dueDate: null
-}
+let {defaultMessage = {}, roomId = null, toggle = () => {}} = $props()
+let localMessage = $state({...defaultMessage})
 
 function saveMessage() {
-  defaultMessage.dueDate = !defaultMessage.dueDate ? null : defaultMessage.dueDate
+  localMessage.dueDate = localMessage.dueDate ?? null
 
-  let newMessage = {...defaultMessage, roomId}
+  let newMessage = {...localMessage, roomId}
 
-  if (defaultMessage.title && defaultMessage.message) {
-    upsertRoomMessage(newMessage).then(() => {
-      dispatch('toggle')
-    })
+  if (newMessage.title && newMessage.message) {
+    upsertRoomMessage(newMessage).then(toggle)
   }
 }
-
-// TODO: add validation and error handling
 </script>
 
-<h2 class="text-xl">{defaultMessage?.id ? 'Rediger melding' : 'Ny melding'}</h2>
+<h2 class="text-xl">{localMessage?.id ? 'Rediger melding' : 'Ny melding'}</h2>
 <div>
   <div class="form-control w-full">
     <label class="label" for="title">
       <span class="label-text">Tittel</span>
     </label>
-    <input name="title" type="text" class="input input-bordered w-full input-sm" bind:value={defaultMessage.title} />
+    <input name="title" type="text" class="input input-bordered w-full input-sm" bind:value={localMessage.title} />
 
     <label class="label" for="description">
       <span class="label-text">Beskrivelse</span>
@@ -40,7 +29,7 @@ function saveMessage() {
     <textarea
       name="description"
       class="textarea h-24 textarea-bordered textarea-primary w-full"
-      bind:value={defaultMessage.message}></textarea>
+      bind:value={localMessage.message}></textarea>
   </div>
 
   <div>
@@ -51,10 +40,13 @@ function saveMessage() {
       name="dueDate"
       type="datetime-local"
       class="input input-bordered w-full input-sm"
-      bind:value={defaultMessage.dueDate} />
+      bind:value={localMessage.dueDate} />
   </div>
 
   <div class="mt-5">
-    <button class="btn btn-primary btn-sm" on:click={saveMessage}>Lagre</button>
+    <button
+      class="btn btn-primary btn-sm"
+      onclick={saveMessage}
+      disabled={!(localMessage.title && localMessage.message)}>Lagre</button>
   </div>
 </div>

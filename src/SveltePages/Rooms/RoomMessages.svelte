@@ -8,11 +8,13 @@ import Modal from '../../components/Modal.svelte'
 import EditMessage from './EditMessage.svelte'
 import DateCard from '../../components/DateCard.svelte'
 import {isOldDueDate} from '../../utils/date.ts'
+import LoadingSpinner from '../../components/LoadingSpinner.svelte'
 
-export let roomId = null
+let {roomId = null} = $props()
 
-let localMessages = []
-let messageObject = {title: '', message: '', dueDate: ''}
+let localMessages = $state([])
+let messageObject = $state({title: '', message: '', dueDate: ''})
+let loading = $state(false)
 
 onMount(() => {
   if (roomId) {
@@ -20,7 +22,7 @@ onMount(() => {
   }
 })
 
-let isOpen = false
+let isOpen = $state(false)
 
 function toggleModal() {
   isOpen = !isOpen
@@ -32,8 +34,10 @@ function toggleModal() {
 
 function fetchAndPopulateMessages() {
   localMessages = []
+  loading = true
   getRoomMessages(roomId).then((messages) => {
     localMessages = messages
+    loading = false
   })
 }
 
@@ -50,13 +54,15 @@ function openThisMessage(message) {
     <Modal
       id="add-message"
       isOpen={isOpen}
-      on:toggle={toggleModal}
+      toggle={toggleModal}
       btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
       openText="add_circle">
-      <EditMessage on:toggle={toggleModal} roomId={roomId} defaultMessage={messageObject} />
+      <EditMessage toggle={toggleModal} roomId={roomId} defaultMessage={messageObject} />
     </Modal>
   </div>
 {/if}
+
+<LoadingSpinner inline={true} loading={loading} />
 
 {#if localMessages?.length > 0}
   <div class="flex gap-4 flex-col mt-4">
@@ -66,14 +72,13 @@ function openThisMessage(message) {
           <div class={isOldDueDate(localMessage.dueDate || new Date()) ? 'text-gray-400' : ''}>
             {localMessage.message}
           </div>
-
           {#if localMessage.dueDate}
             <DateCard date={localMessage.dueDate} />
           {/if}
         </div>
         {#if $isTeacherOrAdmin}
           <div class="mt-5">
-            <button on:click={() => openThisMessage(localMessage)} class="btn btn-primary btn-sm">Rediger</button>
+            <button onclick={() => openThisMessage(localMessage)} class="btn btn-primary btn-sm">Rediger</button>
           </div>
         {/if}
       </Card>

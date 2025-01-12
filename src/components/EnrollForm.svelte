@@ -2,11 +2,11 @@
 import {user, schoolNames} from '../store.js'
 import {getEnrollmentsFromEmail, insertEnrollment} from '../apiCalls/enroll.js'
 
-let localSchools = []
-let selectedSchool = ''
-let message = ''
-let name = ''
-let feedback = ''
+let localSchools = $state([])
+let selectedSchool = $state('')
+let message = $state('')
+let name = $state('')
+let feedback = $state('')
 
 schoolNames.subscribe(async (schools) => {
   if (!schools || schools.length === 0) {
@@ -59,7 +59,7 @@ async function sendForm() {
           bind:value={message}></textarea>
       </div>
       <div>
-        <button class="btn btn-primary mt-4" on:click={sendForm} disabled={!selectedSchool || name?.length < 2}
+        <button class="btn btn-primary mt-4" onclick={sendForm} disabled={!selectedSchool || name?.length < 2}
           >Send forespørsel</button>
       </div>
     {/if}

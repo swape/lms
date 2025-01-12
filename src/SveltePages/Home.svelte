@@ -24,7 +24,7 @@ function getSchoolName(sid) {
           Du er logget inn som: {roleTitles.filter((role) => role.id === $currentRole?.level)?.[0]?.title}
         </p>
         <div class="card-actions justify-end">
-          <button type="button" on:click={resetRole} class="btn btn-primary btn-sm">Bytt rolle</button>
+          <button type="button" onclick={resetRole} class="btn btn-primary btn-sm">Bytt rolle</button>
         </div>
       </Card>
     {/if}

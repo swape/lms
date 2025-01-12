@@ -1,10 +1,9 @@
 <script>
-export let menu = []
-export let activeTab = null
-let activeTabId = menu[0]?.id
+let {activeTab = null, menu = [], change = () => {}} = $props()
+
 function changeTab(id) {
-  activeTabId = id
   activeTab = menu.find((menuItem) => menuItem.id === id)
+  change(activeTab)
 }
 </script>
 
@@ -12,7 +11,7 @@ function changeTab(id) {
   {#each menu as menuItem}
     <button
       type="button"
-      class={`tab ${activeTabId === menuItem.id ? 'tab-active text-white' : ''}`}
-      on:click={() => changeTab(menuItem.id)}>{menuItem.title}</button>
+      class={`tab ${activeTab?.id === menuItem.id ? 'tab-active text-white' : ''}`}
+      onclick={() => changeTab(menuItem.id)}>{menuItem.title}</button>
   {/each}
 </div>

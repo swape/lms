@@ -1,11 +1,10 @@
 <script>
 import {groups} from '../store.js'
-import {createEventDispatcher} from 'svelte'
 
-export let selectedGroups = []
-let ready = false
-let localGroups = []
-const dispatch = createEventDispatcher()
+let {selectedGroups = [], change = () => {}} = $props()
+
+let ready = $state(false)
+let localGroups = $state([])
 
 groups.subscribe((value) => {
   if (value) {
@@ -24,10 +23,7 @@ function changeThisGroup(id) {
     return group
   })
 
-  dispatch(
-    'change',
-    localGroups.filter((group) => group.checked).map((group) => group.id)
-  )
+  change(localGroups.filter((group) => group.checked).map((group) => group.id))
 }
 
 function isSelected(id) {
@@ -46,7 +42,7 @@ function isSelected(id) {
           name={`gid-${group.id}`}
           value={group.id}
           checked={group.checked}
-          on:change={() => changeThisGroup(group.id)} />
+          onchange={() => changeThisGroup(group.id)} />
         <span class="badge badge-ghost h-auto">{group.title}</span>
       </label>
     </div>

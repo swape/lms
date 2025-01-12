@@ -1,5 +1,5 @@
 <script>
-export let message = 'Ingen data'
+let {message = 'Ingen data'} = $props()
 </script>
 
 <div class="p-4 flex flex-col gap-4 items-center mt-8">

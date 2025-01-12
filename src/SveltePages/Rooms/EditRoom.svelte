@@ -1,6 +1,6 @@
 <script>
 import {getRoomGroups, updateRoom, updateRoomGroups} from '../../apiCalls/rooms.js'
-import {createEventDispatcher} from 'svelte'
+
 import {populateRoomsAndGroups} from '../../services.js'
 import {currentRoom, sid} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
@@ -8,61 +8,59 @@ import TabArea from '../../components/TabArea.svelte'
 import GroupCheckbox from '../../components/GroupCheckbox.svelte'
 import AddDayAndTime from '../../components/AddDayAndTime.svelte'
 
-const dispatch = createEventDispatcher()
-
-export let defaultRoom = {
-  title: '',
-  description: '',
-  groups: []
-}
+let {defaultRoom = {}, toggle = () => {}} = $props()
+let localRoom = $state({...defaultRoom})
 
 const TAB_GROUP_ID = 3
 const TAB_ROOM_ID = 1
 const TAB_TIME_ID = 2
 
-let roomEditModalMenu = [
-  {id: TAB_ROOM_ID, title: 'Rominstillinger'},
-  {id: TAB_TIME_ID, title: 'Tidspunkt'}
-]
+let roomEditModalMenu = $state([{id: TAB_ROOM_ID, title: 'Rominstillinger'}])
 
-if (defaultRoom.id) {
+if (localRoom.id) {
   roomEditModalMenu.push({id: TAB_GROUP_ID, title: 'Grupper'})
-  getRoomGroups(defaultRoom.id).then((data) => {
-    defaultRoom.groups = data.map((group) => group.gid)
+  roomEditModalMenu.push({id: TAB_TIME_ID, title: 'Tidspunkt'})
+  getRoomGroups(localRoom.id).then((data) => {
+    localRoom.groups = data.map((group) => group.gid)
   })
 }
 
-let activeTab = roomEditModalMenu[0]
-let errorMessage = ''
+let activeTab = $state(roomEditModalMenu[0])
+let errorMessage = $state('')
 
 function editRoom() {
   errorMessage = ''
-  if (defaultRoom.title === '' || defaultRoom.description === '') {
+  if (localRoom.title === '' || localRoom.description === '') {
     errorMessage = 'Fyll ut alle feltene'
     return
   }
 
-  defaultRoom.sid = $sid
-  updateRoom(defaultRoom).then(async (res) => {
+  updateRoom({...localRoom, sid: $sid}).then(async (res) => {
     if (res.error) {
       errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
     } else {
-      if (defaultRoom?.id) {
-        await updateRoomGroups(defaultRoom.id, defaultRoom.groups)
+      if (localRoom?.id) {
+        await updateRoomGroups(localRoom.id, localRoom.groups)
       }
 
       await populateRoomsAndGroups($sid, true)
       currentRoom.set(null)
-      dispatch('toggle')
+
+      toggle()
     }
   })
 }
-function replaceGroups({detail}) {
-  defaultRoom.groups = [...detail]
+function replaceGroups(value) {
+  localRoom.groups = [...value]
 }
 </script>
 
-<TabArea bind:activeTab={activeTab} menu={roomEditModalMenu} />
+<TabArea
+  bind:activeTab={activeTab}
+  menu={roomEditModalMenu}
+  change={(tab) => {
+    activeTab = tab
+  }} />
 
 <div>
   {#if activeTab.id === TAB_ROOM_ID}
@@ -70,7 +68,7 @@ function replaceGroups({detail}) {
       <label class="label" for="title">
         <span class="label-text">Tittel</span>
       </label>
-      <input name="title" type="text" class="input input-bordered w-full input-sm" bind:value={defaultRoom.title} />
+      <input name="title" type="text" class="input input-bordered w-full input-sm" bind:value={localRoom.title} />
 
       <label class="label" for="description">
         <span class="label-text">Beskrivelse</span>
@@ -78,16 +76,16 @@ function replaceGroups({detail}) {
       <textarea
         name="description"
         class="textarea h-24 textarea-bordered textarea-primary w-full"
-        bind:value={defaultRoom.description}></textarea>
+        bind:value={localRoom.description}></textarea>
     </div>
   {/if}
 
-  {#if activeTab.id === TAB_TIME_ID && defaultRoom.id}
-    <AddDayAndTime rid={defaultRoom.id} />
+  {#if activeTab.id === TAB_TIME_ID && localRoom.id}
+    <AddDayAndTime rid={localRoom.id} />
   {/if}
 
-  {#if activeTab.id === TAB_GROUP_ID && defaultRoom.id}
-    <GroupCheckbox selectedGroups={defaultRoom.groups} on:change={replaceGroups} />
+  {#if activeTab.id === TAB_GROUP_ID && localRoom.id}
+    <GroupCheckbox selectedGroups={localRoom.groups} change={replaceGroups} />
   {/if}
 
   {#if errorMessage}
@@ -97,6 +95,6 @@ function replaceGroups({detail}) {
   {/if}
 
   <div class="mt-5">
-    <button class="btn btn-primary btn-sm" on:click={editRoom}>Lagre</button>
+    <button class="btn btn-primary btn-sm" onclick={editRoom}>Lagre</button>
   </div>
 </div>

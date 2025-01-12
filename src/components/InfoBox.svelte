@@ -1,7 +1,7 @@
 <script>
 import Icon from './Icon.svelte'
 
-export let message = null
+let {message = null} = $props()
 </script>
 
 {#if message}

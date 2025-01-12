@@ -4,7 +4,7 @@ import DateCard from '../../components/DateCard.svelte'
 import {infos} from './testInfo.ts'
 import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
 
-let roomsList = []
+let roomsList = $state([])
 
 rooms.subscribe((value) => {
   if (value && value.length > 0) {

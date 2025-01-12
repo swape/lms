@@ -4,11 +4,17 @@ import {rooms, currentRoom, isTeacherOrAdmin} from '../../store.js'
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
-
+import {sid} from '../../store.js'
 import Room from './Room.svelte'
 import RoomList from './RoomList.svelte'
+import {getRegisteredUsers} from '../../apiCalls/user.js'
+import {onMount} from 'svelte'
 
-let userRooms = []
+let userRooms = $state([])
+
+onMount(() => {
+  getRegisteredUsers($sid)
+})
 
 rooms.subscribe((value) => {
   userRooms = []
@@ -21,7 +27,7 @@ rooms.subscribe((value) => {
   }
 })
 
-let isOpen = false
+let isOpen = $state(false)
 
 function toggleModal() {
   isOpen = !isOpen
@@ -37,10 +43,10 @@ function toggleModal() {
       <Modal
         id="add-room"
         isOpen={isOpen}
-        on:toggle={toggleModal}
+        toggle={toggleModal}
         btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
         openText="add_circle">
-        <EditRoom on:toggle={toggleModal} />
+        <EditRoom toggle={toggleModal} />
       </Modal>
     {/if}
   </div>

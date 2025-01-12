@@ -1,9 +1,9 @@
 <script>
 import {signInWithEmail} from '../supabase.js'
 
-let email = null
-let haveError = false
-let showLogin = true
+let email = $state(null)
+let haveError = $state(false)
+let showLogin = $state(true)
 
 function checkIfValid(inputEmail) {
   if (inputEmail) {
@@ -37,7 +37,7 @@ async function login() {
         <span>E-post: </span>
         <input bind:value={email} class="input input-bordered w-full {haveError ? 'input-error' : ''}" type="email" />
       </label>
-      <button class="btn btn-primary mt-4 w-full" on:click={login}>Logg inn</button>
+      <button class="btn btn-primary mt-4 w-full" onclick={login}>Logg inn</button>
     </div>
   </main>
 {:else}

@@ -1,7 +1,5 @@
 <script>
-export let loading = true
-export let loadingText = 'Loading'
-export let inline = false
+let {loading = true, loadingText = 'Loading', inline = false} = $props()
 </script>
 
 {#if loading}

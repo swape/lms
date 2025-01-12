@@ -6,11 +6,13 @@ import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 import Icon from '../../components/Icon.svelte'
 import RoomMessages from './RoomMessages.svelte'
+import RoomGroupMembers from './RoomGroupMembers.svelte'
 
-let activeTab = roomSections[0]
+let activeTab = $state(roomSections[0])
 
-let isOpen = false
-let isOpenGroups = false
+let isOpen = $state(false)
+let isOpenGroups = $state(false)
+
 function toggleModal() {
   isOpen = !isOpen
 }
@@ -21,7 +23,7 @@ function toggleGroupsModal() {
 
 <section class="m-4">
   <div class="flex gap-3 items-center justify-between">
-    <button type="button" class="btn btn-primary btn-circle btn-sm" on:click={() => ($currentRoom = null)}>
+    <button type="button" class="btn btn-primary btn-circle btn-sm" onclick={() => ($currentRoom = null)}>
       <Icon name="chevron_left" />
     </button>
 
@@ -35,10 +37,10 @@ function toggleGroupsModal() {
         <Modal
           id="edit-room"
           isOpen={isOpen}
-          on:toggle={toggleModal}
+          toggle={toggleModal}
           btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
           openText="edit">
-          <EditRoom on:toggle={toggleModal} defaultRoom={$currentRoom} />
+          <EditRoom toggle={toggleModal} defaultRoom={$currentRoom} />
         </Modal>
       {/if}
     </div>
@@ -46,10 +48,16 @@ function toggleGroupsModal() {
 
   <p class="p-4 ml-7">{$currentRoom.description}</p>
   <div class="mt-3">
-    <TabArea bind:activeTab={activeTab} menu={roomSections} />
+    <TabArea bind:activeTab={activeTab} menu={roomSections} change={(changedTab) => (activeTab = changedTab)} />
 
     {#if activeTab.id === 1}
       <RoomMessages roomId={$currentRoom.id} />
+    {/if}
+    {#if activeTab.id === 2}
+      Innleveringer
+    {/if}
+    {#if activeTab.id === 3}
+      <RoomGroupMembers roomId={$currentRoom.id} />
     {/if}
   </div>
 </section>

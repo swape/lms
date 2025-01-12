@@ -4,7 +4,7 @@ import {defaultMenu} from '../constants.ts'
 import Icon from './Icon.svelte'
 import {signOut} from '../supabase.js'
 
-let drawerValue = false
+let drawerValue = $state(false)
 
 currentRole.subscribe((role) => {
   if (role) {
@@ -28,7 +28,7 @@ function selectPage(page) {
           <li>
             <button
               type="button"
-              on:click={() => selectPage(page.page)}
+              onclick={() => selectPage(page.page)}
               class={$currentPage === page.page ? 'active' : ''}>
               <span class="indicator">
                 <Icon name={page.icon} />
@@ -41,7 +41,7 @@ function selectPage(page) {
           </li>
         {/each}
         <li>
-          <button on:click={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
+          <button onclick={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
         </li>
       </menu>
     </div>
@@ -52,7 +52,7 @@ function selectPage(page) {
     </div>
     <div class="sm:flex flex-col hidden desktop-buttons">
       {#each $menuList as page}
-        <button on:click={() => selectPage(page.page)} class={$currentPage === page.page ? 'active' : ''}>
+        <button onclick={() => selectPage(page.page)} class={$currentPage === page.page ? 'active' : ''}>
           <span class="indicator">
             <Icon name={page.icon} />
             {#if page.haveIndicator}
@@ -62,7 +62,7 @@ function selectPage(page) {
           <span>{page.name}</span>
         </button>
       {/each}
-      <button on:click={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
+      <button onclick={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
     </div>
   </nav>
 {/if}

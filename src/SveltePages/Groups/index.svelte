@@ -31,10 +31,10 @@ groups.subscribe((value) => {
     <Modal
       id="add-group"
       isOpen={isOpen}
-      on:toggle={toggleModal}
+      toggle={toggleModal}
       btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
       openText="add_circle">
-      <EditGroup on:toggle={toggleModal} />
+      <EditGroup toggle={toggleModal} />
     </Modal>
   {/if}
 </div>

@@ -55,7 +55,7 @@ function getLevelTitle(level) {
             {#each $myRoles as role}
               <button
                 type="button"
-                on:click={() => selectRole(role)}
+                onclick={() => selectRole(role)}
                 class="btn {role.level === 4 ? 'btn-secondary' : 'btn-primary'}  btn-md"
                 >{getLevelTitle(role.level)} @ {getSchoolName(role.sid)}
               </button>

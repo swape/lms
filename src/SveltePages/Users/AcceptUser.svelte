@@ -1,18 +1,16 @@
 <script>
-import {createEventDispatcher} from 'svelte'
 import {sid} from '../../store.js'
 import {acceptUser} from '../../apiCalls/enroll.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import {roleTitles} from '../../constants.ts'
-export let user = null
-const dispatch = createEventDispatcher()
-let selectedRole = null
+let {user = null, toggle = () => {}} = $props()
+let selectedRole = $state(null)
 
 function acceptUserAction() {
   acceptUser($sid, user.uid, selectedRole)
     .then(() => {
       populateUsersAndUnregisteredUsers($sid)
-      dispatch('toggle')
+      toggle()
     })
     .catch((e) => {
       // TODO show error message
@@ -35,7 +33,7 @@ function acceptUserAction() {
   </select>
 
   <div class="flex pt-5 justify-between">
-    <button class="btn btn-sm btn-ghost" on:click={() => dispatch('toggle')}>Avbryt</button>
-    <button class="btn btn-primary btn-sm" on:click={acceptUserAction} disabled={!selectedRole}>Leggtil bruker</button>
+    <button class="btn btn-sm btn-ghost" onclick={() => toggle()}>Avbryt</button>
+    <button class="btn btn-primary btn-sm" onclick={acceptUserAction} disabled={!selectedRole}>Leggtil bruker</button>
   </div>
 </div>
