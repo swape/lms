@@ -15,6 +15,13 @@ export function getRegisteredUsers(sid) {
     })
 }
 
+export async function getLevelFromRoleAndUser(rid, uid) {
+  const res = await supabase.from('users_roles').select('level').eq('uid', uid).eq('rid', rid)
+  if (res?.data?.length > 0) {
+    return res.data[0].level
+  }
+}
+
 export function deleteUser(sid, uid) {}
 
 export async function saveEditedUser(data) {

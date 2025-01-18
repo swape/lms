@@ -4,11 +4,12 @@ import {rooms, currentRoom, isTeacherOrAdmin} from '../../store.js'
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
-import {sid} from '../../store.js'
+import {sid, isAdmin, user} from '../../store.js'
 import Room from './Room.svelte'
 import RoomList from './RoomList.svelte'
 import {getRegisteredUsers} from '../../apiCalls/user.js'
 import {onMount} from 'svelte'
+import {getUsersRooms} from '../../apiCalls/rooms.js'
 
 let userRooms = $state([])
 
@@ -19,10 +20,13 @@ onMount(() => {
 rooms.subscribe((value) => {
   userRooms = []
   if (value) {
-    if ($isTeacherOrAdmin) {
+    if ($isAdmin) {
       userRooms = value
     } else {
-      // TODO: filter rooms based on user/group
+      getUsersRooms($user.uid).then((rooms) => {
+        const allUserRoomIDs = [...new Set(rooms.map((room) => room.roomId))]
+        userRooms = value.filter((room) => allUserRoomIDs.includes(room.id))
+      })
     }
   }
 })

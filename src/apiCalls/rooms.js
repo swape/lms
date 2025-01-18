@@ -68,6 +68,19 @@ export async function deleteRoomTime(id) {
   return supabase.from('room_time').delete().eq('id', id).select()
 }
 
+export async function getUsersRooms(uid) {
+  return await supabase
+    .from('users_groups_rooms')
+    .select('*')
+    .eq('uid', uid)
+    .then((res) => {
+      if (res?.data?.length > 0) {
+        return res.data
+      }
+      return []
+    })
+}
+
 export async function getUsersInRoom(roomId) {
   return await supabase
     .from('users_groups_rooms')

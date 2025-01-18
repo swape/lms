@@ -1,7 +1,7 @@
 <script>
 import {user, myRoles, currentRole, isAdmin, schoolNames} from '../store.js'
 import Card from '../components/Card.svelte'
-import {roleTitles} from '../constants.ts'
+import RoleName from '../components/RoleName.svelte'
 
 function resetRole() {
   $currentRole = null
@@ -21,7 +21,7 @@ function getSchoolName(sid) {
     {#if $myRoles?.length > 1}
       <Card title={`Hello ${$user.name || ''}`}>
         <p>
-          Du er logget inn som: {roleTitles.filter((role) => role.id === $currentRole?.level)?.[0]?.title}
+          Du er logget inn som: <RoleName role={$currentRole?.id} uid={$user.uid} />
         </p>
         <div class="card-actions justify-end">
           <button type="button" onclick={resetRole} class="btn btn-primary btn-sm">Bytt rolle</button>

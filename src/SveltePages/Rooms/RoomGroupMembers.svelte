@@ -5,6 +5,7 @@ import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
 import LoadingSpinner from '../../components/LoadingSpinner.svelte'
 import UserCard from '../../components/UserCard.svelte'
 import GroupName from '../../components/GroupName.svelte'
+import RoleName from '../../components/RoleName.svelte'
 
 let {roomId = null} = $props()
 
@@ -58,8 +59,9 @@ function fetchAndPopulateMembers() {
             {/each}
           </div>
           <div>
-            <!-- todo: do the same for role names -->
-            {member.role}
+            <span class="badge badge-ghost h-auto">
+              <RoleName role={member.role} uid={member.uid} />
+            </span>
           </div>
         </div>
       </div>
