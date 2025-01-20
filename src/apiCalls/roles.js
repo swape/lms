@@ -19,7 +19,7 @@ export async function getRoles(uid, reFetch = false) {
         } else if (res.data.length === 0) {
           localRoles = []
         } else {
-          localRoles = res.data
+          localRoles = res.data.sort((a, b) => a.level - b.level)
         }
       })
     saveStorage(rolesName, {data: localRoles})
