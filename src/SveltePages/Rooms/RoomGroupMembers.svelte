@@ -30,7 +30,8 @@ function fetchAndPopulateMembers() {
           name: member.name,
           groups: [member.gid],
           uid: member.uid,
-          role: member.role
+          role: member.role,
+          level: member.roles.level
         }
       }
     })
@@ -48,7 +49,7 @@ function fetchAndPopulateMembers() {
   </section>
 {/if}
 {#if localMembers.length > 0}
-  <section class="m-4 flex gap-3 flex-col">
+  <section class="mt-4 flex gap-3 flex-col">
     {#each localMembers as member}
       <div class="bg-white p-3 rounded-md">
         <div class="flex justify-between">
@@ -60,7 +61,7 @@ function fetchAndPopulateMembers() {
           </div>
           <div>
             <span class="badge badge-ghost h-auto">
-              <RoleName role={member.role} uid={member.uid} />
+              <RoleName level={member.level} />
             </span>
           </div>
         </div>
