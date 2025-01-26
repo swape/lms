@@ -7,14 +7,20 @@ import {getRoles} from '../apiCalls/roles.js'
 import {getSchools} from '../apiCalls/schools.js'
 import {user} from '../store.js'
 import {saveStorage} from '../utils/localStorage.ts'
+import {onMount} from 'svelte'
+
+onMount(() => {
+  $authStateReady = true
+})
 
 user.subscribe(async (value) => {
   if (value) {
-    saveStorage('uid', $user.id)
+    const uid = value.id
+    saveStorage('uid', uid)
     $authStateReady = true
 
     await getSchools(true)
-    await getRoles($user.id, true)
+    await getRoles(uid, true)
   }
 })
 </script>
