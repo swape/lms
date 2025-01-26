@@ -1,5 +1,5 @@
 <script>
-import {user, myRoles, currentRole, isAdmin} from '../store.js'
+import {user, myRoles, currentRole} from '../store.js'
 import Card from '../components/Card.svelte'
 import RoleName from '../components/RoleName.svelte'
 import {getSchoolName} from '../utils/helper.ts'
@@ -22,34 +22,6 @@ function resetRole() {
         <div class="card-actions justify-end">
           <button type="button" onclick={resetRole} class="btn btn-primary btn-sm">Bytt rolle</button>
         </div>
-      </Card>
-    {/if}
-    {#if $isAdmin}
-      <Card title="Debugging">
-        <dl class="flex gap-3">
-          <dt class="w-20 font-bold">UID</dt>
-          <dd>{$user.uid}</dd>
-        </dl>
-        <dl class="flex gap-3">
-          <dt class="w-20 font-bold">Name</dt>
-          <dd>{$user.name || ''}</dd>
-        </dl>
-        <dl class="flex gap-3">
-          <dt class="w-20 font-bold">PHONE</dt>
-          <dd>{$user.phone || ''}</dd>
-        </dl>
-        <dl class="flex gap-3">
-          <dt class="w-20 font-bold">EMAIL</dt>
-          <dd>{$user.email}</dd>
-        </dl>
-        <dl class="flex gap-3">
-          <dt class="w-20 font-bold">Sid</dt>
-          <dd>{$currentRole?.sid}</dd>
-        </dl>
-        <dl class="flex gap-3">
-          <dt class="w-20 font-bold">Level</dt>
-          <dd>{$currentRole?.level}</dd>
-        </dl>
       </Card>
     {/if}
   </section>
