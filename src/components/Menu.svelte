@@ -97,22 +97,23 @@ menu {
   margin: 0;
   display: flex;
   flex-direction: column;
+
+  button {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    margin-top: 2px;
+    font-size: 1.3rem;
+    padding: 0 10px;
+    height: 60px;
+
+    &.active,
+    &:hover {
+      opacity: 0.9;
+    }
+  }
 }
 
-button {
-  width: 100%;
-  border: none;
-  border-radius: 0;
-  margin-top: 2px;
-  font-size: 1.3rem;
-  padding: 0 10px;
-  height: 60px;
-}
-
-button.active,
-button:hover {
-  opacity: 0.9;
-}
 .indicator {
   position: relative;
 }

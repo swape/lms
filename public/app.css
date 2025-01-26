@@ -33,9 +33,38 @@ main {
   gap: 1rem;
   min-height: 90vh;
   align-content: center;
-  margin: 2rem auto;
+  margin: 0 auto;
   max-width: 90svw;
 }
+
+section {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  main {
+    margin-inline-start: 2rem;
+    margin: 2rem auto;
+    place-items: start;
+    align-content: start;
+  }
+}
+
+@media (min-width: 768px) {
+  body:has(menu) {
+    main {
+      margin-inline-start: 250px;
+      place-items: start;
+      align-content: start;
+
+      section {
+        width: 96%;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
 /* INPUTS */
 input[type='email'],
 input[type='text'],
