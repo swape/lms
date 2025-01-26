@@ -18,41 +18,11 @@ function selectPage(page) {
 }
 </script>
 
-{#if $menuList}
-  <div class="drawer z-30">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerValue} aria-hidden="true" />
-    <div class="drawer-side">
-      <label for="my-drawer" class="drawer-overlay"></label>
-      <menu class="menu px-4 py-5 w-80 min-h-full bg-indigo-900 text-white text-2xl">
-        {#each $menuList as page}
-          <li>
-            <button
-              type="button"
-              onclick={() => selectPage(page.page)}
-              class={$currentPage === page.page ? 'active' : ''}>
-              <span class="indicator">
-                <Icon name={page.icon} />
-                {#if page.haveIndicator}
-                  <span class="indicator-item">&nbsp;</span>
-                {/if}
-              </span>
-              <span>{page.name}</span>
-            </button>
-          </li>
-        {/each}
-        <li>
-          <button onclick={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
-        </li>
-      </menu>
-    </div>
-  </div>
-  <nav class="inset-0 right-auto overflow-scroll sm:fixed bg-indigo-900 text-white">
-    <div class="sm:hidden flex gap-3 justify-between items-center m-4">
-      <label for="my-drawer" class="btn btn-sm"><Icon name="menu" /></label>
-    </div>
-    <div class="sm:flex flex-col hidden desktop-buttons">
-      {#each $menuList as page}
-        <button onclick={() => selectPage(page.page)} class={$currentPage === page.page ? 'active' : ''}>
+<nav>
+  <menu>
+    {#each $menuList as page}
+      <li>
+        <button type="button" onclick={() => selectPage(page.page)} class={$currentPage === page.page ? 'active' : ''}>
           <span class="indicator">
             <Icon name={page.icon} />
             {#if page.haveIndicator}
@@ -61,29 +31,61 @@ function selectPage(page) {
           </span>
           <span>{page.name}</span>
         </button>
-      {/each}
+      </li>
+    {/each}
+    <li>
       <button onclick={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
-    </div>
-  </nav>
-{/if}
+    </li>
+  </menu>
+</nav>
 
 <style>
-.desktop-buttons > button {
-  @apply text-white min-h-[66px] indicator w-20 h-20 text-xs flex flex-col justify-center items-center gap-2;
+nav {
+  position: fixed;
+  left: 0;
+  top: 3px;
+  bottom: 0;
+  background-color: light-dark(var(--primary), var(--primary-dark));
+  width: 250px;
+  z-index: 1000;
 }
 
-button.active {
-  @apply bg-indigo-950 text-white;
+menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-button:focus-visible {
-  @apply ring-1 ring-white text-white outline-none;
-}
-.desktop-buttons > button:focus-visible {
-  @apply bg-indigo-800 text-white ring-2;
+button {
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  margin-top: 2px;
+  font-size: 1.3rem;
+  padding: 0 10px;
+  height: 60px;
 }
 
-.indicator-item {
-  @apply rounded-full bg-secondary w-2 h-2;
+button.active,
+button:hover {
+  opacity: 0.9;
+}
+.indicator {
+  position: relative;
+}
+
+.indicator-item:after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: light-dark(var(--primary), var(--primary-dark));
+  transform: translateY(-50%);
+  border-radius: 50%;
 }
 </style>
