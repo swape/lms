@@ -6,6 +6,10 @@ import {signOut} from '../supabase.js'
 
 let drawerValue = $state(false)
 
+function toggleDrawer() {
+  drawerValue = !drawerValue
+}
+
 currentRole.subscribe((role) => {
   if (role) {
     menuList.set(defaultMenu.filter((menu) => menu.roles.includes(role.level)))
@@ -18,7 +22,9 @@ function selectPage(page) {
 }
 </script>
 
-<nav>
+<div class={drawerValue ? 'open backdrop' : 'backdrop'} onclick={toggleDrawer} role="none"></div>
+<button onclick={toggleDrawer} class="menu-button"><Icon name="menu" /></button>
+<nav class={drawerValue ? 'open' : ''}>
   <menu>
     {#each $menuList as page}
       <li>
@@ -40,6 +46,15 @@ function selectPage(page) {
 </nav>
 
 <style>
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(5px);
+  display: none;
+}
+
 nav {
   position: fixed;
   left: 0;
@@ -48,6 +63,32 @@ nav {
   background-color: light-dark(var(--primary), var(--primary-dark));
   width: 250px;
   z-index: 1000;
+  transition: all 0.3s;
+}
+.menu-button {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  background: light-dark(var(--primary), var(--primary-dark));
+  padding: 5px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  nav {
+    translate: -250px;
+  }
+  nav.open {
+    translate: 0;
+  }
+  .menu-button {
+    display: inline-block;
+  }
+  .backdrop.open {
+    display: block;
+  }
 }
 
 menu {
