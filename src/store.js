@@ -8,6 +8,8 @@ export const myRoles = writable(null)
 export const currentRole = writable(null)
 export const schoolNames = writable(null)
 export const rooms = writable(null)
+export const usersRooms = writable(null)
+
 export const groups = writable(null)
 export const groupUserCount = writable(null)
 
