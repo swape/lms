@@ -1,31 +1,13 @@
 <script>
-import {rooms, currentRoom, isTeacherOrAdmin} from '../../store.js'
+import {currentRoom, isTeacherOrAdmin} from '../../store.js'
 
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
-import {isAdmin, user} from '../../store.js'
 import Room from './Room.svelte'
 import RoomList from './RoomList.svelte'
 
-import {getUsersRooms} from '../../apiCalls/rooms.js'
-
 let userRooms = $state([])
-
-rooms.subscribe((value) => {
-  userRooms = []
-  if (value) {
-    if ($isAdmin) {
-      userRooms = value
-    } else {
-      getUsersRooms($user.uid).then((rooms) => {
-        const allUserRoomIDs = [...new Set(rooms.map((room) => room.roomId))]
-        userRooms = value.filter((room) => allUserRoomIDs.includes(room.id))
-      })
-    }
-  }
-})
-
 let isOpen = $state(false)
 
 function toggleModal() {

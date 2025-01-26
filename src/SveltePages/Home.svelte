@@ -1,15 +1,11 @@
 <script>
-import {user, myRoles, currentRole, isAdmin, schoolNames} from '../store.js'
+import {user, myRoles, currentRole, isAdmin} from '../store.js'
 import Card from '../components/Card.svelte'
 import RoleName from '../components/RoleName.svelte'
+import {getSchoolName} from '../utils/helper.ts'
 
 function resetRole() {
   $currentRole = null
-}
-
-// TODO: move to helper file
-function getSchoolName(sid) {
-  return $schoolNames.find((s) => s.id === sid)?.title || ''
 }
 </script>
 
