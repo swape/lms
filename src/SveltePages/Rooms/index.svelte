@@ -4,18 +4,13 @@ import {rooms, currentRoom, isTeacherOrAdmin} from '../../store.js'
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
 import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
-import {sid, isAdmin, user} from '../../store.js'
+import {isAdmin, user} from '../../store.js'
 import Room from './Room.svelte'
 import RoomList from './RoomList.svelte'
-import {getRegisteredUsers} from '../../apiCalls/user.js'
-import {onMount} from 'svelte'
+
 import {getUsersRooms} from '../../apiCalls/rooms.js'
 
 let userRooms = $state([])
-
-onMount(() => {
-  getRegisteredUsers($sid)
-})
 
 rooms.subscribe((value) => {
   userRooms = []

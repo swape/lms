@@ -2,26 +2,19 @@
 import Login from './Login.svelte'
 import {auth, currentRole, authStateReady} from '../store.js'
 import RoleSelect from './RoleSelect.svelte'
-import {onMount} from 'svelte'
 import LoadingSpinner from './LoadingSpinner.svelte'
 import {getRoles} from '../apiCalls/roles.js'
 import {getSchools} from '../apiCalls/schools.js'
 import {user} from '../store.js'
-
-onMount(async () => {
-  $authStateReady = true
-  if ($user) {
-    await getSchools(true).then(async () => {
-      await getRoles($user.id, true)
-    })
-  }
-})
+import {saveStorage} from '../utils/localStorage.ts'
 
 user.subscribe(async (value) => {
   if (value) {
-    await getSchools(true).then(async () => {
-      await getRoles($user.id, true)
-    })
+    saveStorage('uid', $user.id)
+    $authStateReady = true
+
+    await getSchools(true)
+    await getRoles($user.id, true)
   }
 })
 </script>
