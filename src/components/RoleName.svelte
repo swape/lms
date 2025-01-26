@@ -1,11 +1,7 @@
 <script lang="ts">
-import {roleTitles} from '../constants.ts'
+import {getLevelTitle} from '../utils/helper.ts'
 
 let {level} = $props()
-
-function getRoleTitle(levelId: number) {
-  return roleTitles.filter(({id}) => id === levelId)?.[0]?.title
-}
 </script>
 
-<span class="role-title" data-role-id={level}>{getRoleTitle(level)}</span>
+<span class="role-title" data-role-id={level}>{getLevelTitle(level)}</span>

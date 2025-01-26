@@ -1,26 +1,16 @@
 <script>
-import {currentPage, myRoles, currentRole, user, schoolNames} from '../store.js'
-import {onMount} from 'svelte'
-import {roleTitles} from '../constants.ts'
+import {currentPage, myRoles, currentRole, schoolNames} from '../store.js'
+
 import LoadingSpinner from './LoadingSpinner.svelte'
 import EnrollForm from './EnrollForm.svelte'
 import {populateRoomsAndGroups} from '../services.js'
-import {getRoles} from '../apiCalls/roles.js'
-import {getSchools} from '../apiCalls/schools.js'
+import {getLevelTitle} from '../utils/helper.ts'
 
 function selectRole(role) {
   $currentRole = role
   $currentPage = 'home'
   populateRoomsAndGroups(role.sid, true)
 }
-
-onMount(async () => {
-  if ($user) {
-    await getSchools(true).then(async () => {
-      await getRoles($user.id, true)
-    })
-  }
-})
 
 myRoles.subscribe((value) => {
   if (value?.length === 1) {
@@ -33,11 +23,6 @@ function getSchoolName(sid) {
     return ''
   }
   return $schoolNames.find((s) => s.id === sid)?.title || ''
-}
-
-// TODO: move this to helper file
-function getLevelTitle(level) {
-  return roleTitles.find((role) => role.id === level)?.title
 }
 </script>
 
