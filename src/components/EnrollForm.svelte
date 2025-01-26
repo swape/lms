@@ -26,18 +26,18 @@ async function sendForm() {
 }
 </script>
 
-<div class="text-left">
+<div class="form-container">
   {#if !feedback}
-    <p class="py-6">Oi, det ser ut som om {$user.email} ikke er koblet til en konto hos oss.</p>
-    <p class="pb-6">Du kan be om å bli lagt til i systemet.</p>
+    <p>Oi, det ser ut som om {$user.email} ikke er koblet til en konto hos oss.</p>
+    <p>Du kan be om å bli lagt til i systemet.</p>
     {#if localSchools.length > 0}
-      <div class="flex flex-col items-start mb-4">
+      <div>
         {#if localSchools.length === 1}
-          <div class="mb-2 text-2xl">{localSchools[0].title}</div>
+          <div>{localSchools[0].title}</div>
         {/if}
         {#if localSchools.length > 1}
-          <label for="my-select" class="mb-2"><span>Velg skole:</span></label>
-          <select class="select select-primary w-full max-w-xs" id="my-select" bind:value={selectedSchool}>
+          <label for="my-select"><span>Velg skole:</span></label>
+          <select id="my-select" bind:value={selectedSchool}>
             <option value="">Velg skole</option>
             {#each localSchools as school}
               <option value={school.id}>{school.title}</option>
@@ -46,25 +46,57 @@ async function sendForm() {
         {/if}
       </div>
 
-      <div class="flex flex-col items-start mb-4">
-        <label for="my-name" class="mb-2"><span>Navn:</span></label>
-        <input class="input input-bordered w-full max-w-xs" id="my-name" bind:value={name} />
+      <div>
+        <label for="my-name"><span>Navn:</span></label>
+        <input id="my-name" bind:value={name} type="text" />
       </div>
 
-      <div class="flex flex-col items-start">
-        <label for="my-textarea" class="mb-2"><span>Melding:</span></label>
+      <div>
+        <label for="my-textarea"><span>Melding:</span></label>
         <textarea
           class="textarea textarea-bordered textarea-xs w-full max-w-xs h-36"
           id="my-textarea"
           bind:value={message}></textarea>
       </div>
       <div>
-        <button class="btn btn-primary mt-4" onclick={sendForm} disabled={!selectedSchool || name?.length < 2}
-          >Send forespørsel</button>
+        <button onclick={sendForm} disabled={!selectedSchool || name?.length < 2}>Send forespørsel</button>
       </div>
     {/if}
   {/if}
 </div>
 {#if feedback}
-  <p class="mt-4">{feedback}</p>
+  <p>{feedback}</p>
 {/if}
+
+<style>
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+label {
+  display: block;
+  margin-block-end: 0.5rem;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+textarea {
+  width: 100%;
+  min-height: 12ch;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    gap: 0.5rem;
+  }
+
+  button,
+  select,
+  input {
+    width: 100%;
+  }
+}
+</style>

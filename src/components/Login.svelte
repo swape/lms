@@ -25,23 +25,56 @@ async function login() {
 </script>
 
 {#if showLogin}
-  <main class="container mx-auto flex gap-4 justify-center flex-col items-center p-4">
-    <h1 class="text-3xl p-4">LMS</h1>
-    <img
-      src="/svg/undraw_education_f8ru.svg"
-      alt="Illustration av en person som står over en bok"
-      class="w-1/2 max-w-md" />
+  <main>
+    <h1>LMS</h1>
+    <img src="/svg/undraw_education_f8ru.svg" alt="Illustration av en person som står over en bok" />
 
-    <div class="max-w-[400px] w-full">
+    <div class="login-form">
       <label>
         <span>E-post: </span>
-        <input bind:value={email} class="input input-bordered w-full {haveError ? 'input-error' : ''}" type="email" />
+        <input bind:value={email} class={haveError ? 'input-error' : ''} type="email" />
       </label>
-      <button class="btn btn-primary mt-4 w-full" onclick={login}>Logg inn</button>
+      <button onclick={login}>Logg inn</button>
     </div>
   </main>
 {:else}
-  <div class="container mx-auto flex gap-4 justify-center flex-col items-center p-4 text-2xl">
-    Sjekk e-posten for innlogginslenke
-  </div>
+  <div class="feedback">Sjekk e-posten for innlogginslenke</div>
 {/if}
+
+<style>
+img {
+  width: 100%;
+  max-width: 200px;
+}
+
+.login-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feedback {
+  padding: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .login-form {
+    flex-direction: column;
+    align-items: end;
+    width: 90svw;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  input,
+  label,
+  button {
+    width: 100%;
+  }
+}
+</style>

@@ -10,19 +10,14 @@
     "astro": "astro",
     "format": "prettier --write --plugin prettier-plugin-svelte ."
   },
-  "dependencies": {
-    "@astrojs/svelte": "^7.0.3",
-    "@astrojs/tailwind": "^5.1.4",
-    "astro": "^5.1.4",
-    "svelte": "^5.17.2",
-    "tailwindcss": "^3.4.17"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@supabase/supabase-js": "^2.47.12",
-    "daisyui": "^4.12.23",
-    "postcss-nesting": "^13.0.1",
+    "@supabase/supabase-js": "^2.48.1",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-svelte": "^3.3.2"
+    "prettier-plugin-svelte": "^3.3.3",
+    "@astrojs/svelte": "^7.0.4",
+    "astro": "^5.1.9",
+    "svelte": "^5.19.3"
   }
 }
