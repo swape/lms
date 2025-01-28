@@ -4,13 +4,5 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [svelte()],
-  vite: {
-    plugins: [tailwindcss()],
-    server: {
-      watch: {
-        ignored: ['**/.idea/**/*']
-      }
-    }
-  }
+  integrations: [svelte(), tailwindcss()]
 })
