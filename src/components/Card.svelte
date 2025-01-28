@@ -9,8 +9,7 @@ let {title = '', children} = $props()
 
 <style>
 .card {
-  --bg: light-dark(var(--light), var(--dark));
-  background-color: color-mix(in hsl, hsl(200 50 80), var(--bg) 80%);
+  background-color: color-mix(in hsl, hsl(200 50 80), var(--bg-color) 60%);
   border-radius: 5px;
 
   h2 {

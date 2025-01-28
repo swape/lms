@@ -18,17 +18,23 @@ function changeTab(id) {
 
 <style>
 .tabs {
-  background-color: light-dark(var(--dark), var(--light));
+  background-color: var(--bg-secondary-text);
   border-radius: 0.5rem;
   padding: 10px;
 
   button {
-    border: 1px solid light-dark(var(--dark), var(--light));
+    border: 1px solid var(--text-color);
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
-    background-color: light-dark(var(--light), var(--dark));
-    color: light-dark(var(--dark), var(--light));
+    background-color: var(--bg-color);
+    color: var(--text-color);
     cursor: pointer;
+
+    &.active,
+    &:hover {
+      background-color: var(--bg-secondary);
+      color: var(--bg-secondary-text);
+    }
   }
 }
 </style>
