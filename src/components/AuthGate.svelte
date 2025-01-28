@@ -9,6 +9,8 @@ import {user} from '../store.js'
 import {saveStorage} from '../utils/localStorage.ts'
 import {onMount} from 'svelte'
 
+let {children} = $props()
+
 onMount(() => {
   $authStateReady = true
 })
@@ -29,7 +31,7 @@ user.subscribe(async (value) => {
   {#if !$auth}
     <Login />
   {:else if $currentRole}
-    <slot />
+    {@render children()}
   {:else}
     <RoleSelect />
   {/if}

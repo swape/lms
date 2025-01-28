@@ -33,17 +33,16 @@ function isSelected(id) {
 
 {#if ready}
   {#each localGroups as group}
-    <div>
-      <label class="cursor-pointer label border-b">
+    <div class="form-control w-full pb-2">
+      <label class="cursor-pointer">
         <input
           type="checkbox"
-          class="toggle toggle-primary"
           id={`gid-${group.id}`}
           name={`gid-${group.id}`}
           value={group.id}
           checked={group.checked}
           onchange={() => changeThisGroup(group.id)} />
-        <span class="badge badge-ghost h-auto">{group.title}</span>
+        <span class="badge">{group.title}</span>
       </label>
     </div>
   {/each}

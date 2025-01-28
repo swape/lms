@@ -7,7 +7,7 @@ let {isOpen = false, btnClass = 'btn', openText = null, id = 'my_modal_1', child
 {/if}
 <dialog id={id} class="modal {isOpen ? 'modal-open' : ''}">
   <div class="modal-box">
-    <form method="dialog">
+    <form method="dialog" class="p-2">
       <button class="btn btn-primary btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick={() => toggle()}
         >✕
       </button>

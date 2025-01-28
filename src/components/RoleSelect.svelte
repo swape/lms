@@ -25,20 +25,32 @@ function getSchoolName(sid) {
   }
   return $schoolNames.find((s) => s.id === sid)?.title || ''
 }
+
+function buttonClass(level) {
+  let returnClass = ['btn']
+  if (level === 4) {
+    returnClass.push('btn-primary')
+  } else if (level === 3) {
+    returnClass.push('btn-secondary')
+  } else if (level === 2) {
+    returnClass.push('btn-tertiary')
+  }
+  return returnClass.join(' ')
+}
 </script>
 
 {#if !$myRoles}
   <LoadingSpinner loadingText="Henter roller" />
 {:else}
-  <main>
-    <img src="/svg/undraw_my_answer_re_k4dv.svg" alt="Velg rolle" role="none" />
-    <h1>Hei du!</h1>
+  <div class="max-w-auto flex flex-col gap-4 items-center mt-4">
+    <img src="/svg/undraw_my_answer_re_k4dv.svg" alt="Velg rolle" role="none" class="max-w-90" />
+    <h1 class="text-2xl">Hei du!</h1>
 
     {#if $myRoles.length > 1}
       <p>Du har flere roller. Velg role for å gå videre.</p>
-      <div class="button-list">
+      <div class="flex gap-2 flex-wrap mt-4">
         {#each $myRoles as role}
-          <button type="button" onclick={() => selectRole(role)} class={role.level === 4 ? 'btn-admin btn' : 'btn'}
+          <button type="button" onclick={() => selectRole(role)} class={buttonClass(role.level)}
             >{getLevelTitle(role.level)} @ {getSchoolName(role.sid)}
           </button>
         {/each}
@@ -48,5 +60,5 @@ function getSchoolName(sid) {
     {#if $myRoles.length === 0}
       <EnrollForm />
     {/if}
-  </main>
+  </div>
 {/if}
