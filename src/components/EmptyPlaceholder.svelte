@@ -6,12 +6,3 @@ let {message = 'Ingen data'} = $props()
   <img src="/svg/undraw_void_-3-ggu.svg" alt="Illustrasjon av et tomt rom" />
   <p>{message}</p>
 </div>
-
-<style>
-.empty-placeholder {
-  img {
-    max-width: 300px;
-    margin: 10px auto;
-  }
-}
-</style>

@@ -25,7 +25,7 @@ groups.subscribe((value) => {
 })
 </script>
 
-<div class="flex justify-between p-4">
+<div class="flex justify-between p-4 w-full">
   <h1 class="text-3xl text-center grow">Grupper</h1>
   {#if $isTeacherOrAdmin}
     <Modal

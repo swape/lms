@@ -11,7 +11,7 @@ function resetRole() {
 
 {#if $user?.uid}
   <section>
-    <h1>{getSchoolName($currentRole?.sid)}</h1>
+    <h1 class="text-3xl text-center">{getSchoolName($currentRole?.sid)}</h1>
     {#if $myRoles?.length > 1}
       <Card title={`Hei ${$user.name || ''}`}>
         <p>

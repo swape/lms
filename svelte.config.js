@@ -1,7 +1,5 @@
-import {vitePreprocess} from '@astrojs/svelte'
-import tailwindcss from '@tailwindcss/vite'
+import {vitePreprocess} from '@sveltejs/vite-plugin-svelte'
 
 export default {
-  preprocess: [vitePreprocess()],
-  plugins: [tailwindcss({})]
+  preprocess: vitePreprocess()
 }

@@ -64,37 +64,3 @@ async function sendForm() {
 {#if feedback}
   <p>{feedback}</p>
 {/if}
-
-<style>
-.form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-label {
-  display: block;
-  margin-block-end: 0.5rem;
-}
-
-p {
-  margin: 0.5rem 0;
-}
-
-textarea {
-  width: 100%;
-  min-height: 12ch;
-}
-
-@media (max-width: 768px) {
-  .form-container {
-    gap: 0.5rem;
-  }
-
-  button,
-  select,
-  input {
-    width: 100%;
-  }
-}
-</style>

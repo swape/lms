@@ -1,10 +1,10 @@
 <script>
-import Home from '../SveltePages/Home.svelte'
-import Chat from '../SveltePages/Chat.svelte'
-import Rooms from '../SveltePages/Rooms/index.svelte'
-import GroupsPage from '../SveltePages/Groups/index.svelte'
-import UsersPage from '../SveltePages/Users/index.svelte'
-import Calendar from '../SveltePages/Calendar/index.svelte'
+import Home from '../pages/Home.svelte'
+import Chat from '../pages/Chat.svelte'
+import Rooms from '../pages/Rooms/index.svelte'
+import GroupsPage from '../pages/Groups/index.svelte'
+import UsersPage from '../pages/Users/index.svelte'
+import Calendar from '../pages/Calendar/index.svelte'
 
 import {currentPage} from '../store.js'
 </script>

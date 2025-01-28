@@ -50,35 +50,3 @@ function getSchoolName(sid) {
     {/if}
   </main>
 {/if}
-
-<style>
-img {
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  display: block;
-}
-
-.button-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.btn-admin {
-  border: 1px solid light-dark(var(--light), var(--dark));
-  color: light-dark(var(--light), var(--dark));
-  background-color: light-dark(var(--dark), var(--light));
-}
-
-@media (max-width: 768px) {
-  .button-list {
-    flex-direction: column;
-    width: 90svw;
-  }
-
-  button {
-    width: 100%;
-  }
-}
-</style>
