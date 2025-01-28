@@ -15,10 +15,11 @@ function resetRole() {
     {#if $myRoles?.length > 1}
       <Card title={`Hei ${$user.name || ''}`}>
         <p>
-          Du er logget inn som: <RoleName level={$currentRole?.level} />
+          Du er logget inn som:
+          <RoleName level={$currentRole?.level} />
         </p>
-        <div>
-          <button type="button" onclick={resetRole}>Bytt rolle</button>
+        <div class="mt-4">
+          <button class="btn" type="button" onclick={resetRole}>Bytt rolle</button>
         </div>
       </Card>
     {/if}

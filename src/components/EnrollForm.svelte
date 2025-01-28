@@ -53,10 +53,7 @@ async function sendForm() {
 
       <div>
         <label for="my-textarea"><span>Melding:</span></label>
-        <textarea
-          class="textarea textarea-bordered textarea-xs w-full max-w-xs h-36"
-          id="my-textarea"
-          bind:value={message}></textarea>
+        <textarea id="my-textarea" bind:value={message}></textarea>
       </div>
       <div>
         <button onclick={sendForm} disabled={!selectedSchool || name?.length < 2}>Send forespørsel</button>
@@ -74,6 +71,7 @@ async function sendForm() {
   flex-direction: column;
   gap: 1rem;
 }
+
 label {
   display: block;
   margin-block-end: 0.5rem;

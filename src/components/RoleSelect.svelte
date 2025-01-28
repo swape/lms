@@ -38,7 +38,7 @@ function getSchoolName(sid) {
       <p>Du har flere roller. Velg role for å gå videre.</p>
       <div class="button-list">
         {#each $myRoles as role}
-          <button type="button" onclick={() => selectRole(role)} class={role.level === 4 ? 'btn-admin' : ''}
+          <button type="button" onclick={() => selectRole(role)} class={role.level === 4 ? 'btn-admin btn' : 'btn'}
             >{getLevelTitle(role.level)} @ {getSchoolName(role.sid)}
           </button>
         {/each}
@@ -58,11 +58,13 @@ img {
   margin: 0 auto;
   display: block;
 }
+
 .button-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
+
 .btn-admin {
   border: 1px solid light-dark(var(--light), var(--dark));
   color: light-dark(var(--light), var(--dark));
@@ -74,6 +76,7 @@ img {
     flex-direction: column;
     width: 90svw;
   }
+
   button {
     width: 100%;
   }

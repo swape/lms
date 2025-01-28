@@ -110,7 +110,7 @@ $effect(() => {
   </div>
   <div>
     <div class="overflow-x-auto">
-      <table class="table bg-white">
+      <table class="table">
         <thead>
           <tr>
             <th>E-post</th>
@@ -127,18 +127,25 @@ $effect(() => {
               </th>
               <td>
                 <span class="font-bold">{user.name || ''}</span>
-                {#if user.message}<div class="min-w-40">{user?.message || ''}</div>{/if}
+                {#if user.message}
+                  <div class="min-w-40">{user?.message || ''}</div>
+                {/if}
               </td>
 
               <td class="flex justify-end gap-2 flex-wrap">
                 {#if activeTab.id === 0}
-                  <button class="btn btn-primary btn-sm" type="button" onclick={() => acceptUserConfirm(user)}
-                    ><Icon name="check" /> Godkjenn som ...</button>
-                  <button class="btn btn-error btn-sm" type="button" onclick={() => deleteEnrolledUserConfirm(user)}
-                    ><Icon name="delete" /> Slett</button>
+                  <button class="btn btn-primary btn-sm" type="button" onclick={() => acceptUserConfirm(user)}>
+                    <Icon name="check" />
+                    Godkjenn som ...
+                  </button>
+                  <button class="btn btn-error btn-sm" type="button" onclick={() => deleteEnrolledUserConfirm(user)}>
+                    <Icon name="delete" />
+                    Slett
+                  </button>
                 {:else}
                   <button class="btn btn-primary btn-sm" type="button" onclick={() => editUseModalConfirm(user)}
-                    >Rediger</button>
+                    >Rediger
+                  </button>
                   {#if user.level === 1}
                     <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
                   {/if}

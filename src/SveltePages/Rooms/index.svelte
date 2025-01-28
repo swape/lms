@@ -10,6 +10,8 @@ import RoomList from './RoomList.svelte'
 let userRooms = $state([])
 let isOpen = $state(false)
 
+console.log('here', $currentRoom)
+
 function toggleModal() {
   isOpen = !isOpen
 }
@@ -19,7 +21,7 @@ function toggleModal() {
   <Room />
 {:else}
   <div class="flex justify-between p-4">
-    <h1 class="text-3xl text-center grow">Klasserommene</h1>
+    <h1 class="text-3xl text-center grow">Klasserommene er her</h1>
     {#if $isTeacherOrAdmin}
       <Modal
         id="add-room"

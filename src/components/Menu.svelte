@@ -23,7 +23,9 @@ function selectPage(page) {
 </script>
 
 <div class={drawerValue ? 'open backdrop' : 'backdrop'} onclick={toggleDrawer} role="none"></div>
-<button onclick={toggleDrawer} class="menu-button"><Icon name="menu" /></button>
+<button onclick={toggleDrawer} class="menu-button">
+  <Icon name="menu" />
+</button>
 <nav class={drawerValue ? 'open' : ''}>
   <menu>
     {#each $menuList as page}
@@ -40,7 +42,9 @@ function selectPage(page) {
       </li>
     {/each}
     <li>
-      <button onclick={() => signOut()}><Icon name="logout" /><span>Logg ut</span></button>
+      <button onclick={() => signOut()}>
+        <Icon name="logout" />
+        <span>Logg ut</span></button>
     </li>
   </menu>
 </nav>
@@ -58,20 +62,21 @@ function selectPage(page) {
 nav {
   position: fixed;
   left: 0;
-  top: 3px;
+  top: 5px;
   bottom: 0;
   background-color: light-dark(var(--primary), var(--primary-dark));
   width: 250px;
   z-index: 1000;
   transition: all 0.3s;
 }
+
 .menu-button {
   display: none;
   position: fixed;
-  top: 0;
+  top: 5px;
   left: 0;
   width: auto;
-  background: light-dark(var(--primary), var(--primary-dark));
+  background-color: light-dark(var(--primary), var(--primary-dark));
   padding: 5px;
   height: auto;
 }
@@ -80,12 +85,15 @@ nav {
   nav {
     translate: -250px;
   }
+
   nav.open {
     translate: 0;
   }
+
   .menu-button {
     display: inline-block;
   }
+
   .backdrop.open {
     display: block;
   }
@@ -106,10 +114,15 @@ menu {
     font-size: 1.3rem;
     padding: 0 10px;
     height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
 
     &.active,
     &:hover {
-      opacity: 0.9;
+      background-color: color-mix(in oklab, black, var(--primary) 50%);
+      color: color-mix(in oklab, white, var(--primary) 20%);
     }
   }
 }
