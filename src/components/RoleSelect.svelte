@@ -10,7 +10,7 @@ function selectRole(role) {
   $currentRole = role
   $currentPage = 'home'
   $currentRoom = null
-  populateRoomsAndGroups(role.sid, true)
+  populateRoomsAndGroups(role.sid, $currentRole, true)
 }
 
 myRoles.subscribe((value) => {

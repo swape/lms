@@ -1,5 +1,5 @@
 <script>
-import {currentRoom, isTeacherOrAdmin} from '../../store.js'
+import {currentRoom, isTeacherOrAdmin, rooms, usersRooms} from '../../store.js'
 
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
@@ -7,7 +7,7 @@ import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
 import Room from './Room.svelte'
 import RoomList from './RoomList.svelte'
 
-let userRooms = $state([])
+let localUserRooms = $state([])
 let isOpen = $state(false)
 
 console.log('here', $currentRoom)
@@ -15,6 +15,22 @@ console.log('here', $currentRoom)
 function toggleModal() {
   isOpen = !isOpen
 }
+
+isTeacherOrAdmin.subscribe((value) => {
+  if (value) {
+    rooms.subscribe((roomValue) => {
+      if (roomValue) {
+        localUserRooms = roomValue
+      }
+    })
+  } else {
+    usersRooms.subscribe((roomsValue) => {
+      if (roomsValue) {
+        localUserRooms = roomsValue
+      }
+    })
+  }
+})
 </script>
 
 {#if $currentRoom}
@@ -33,11 +49,11 @@ function toggleModal() {
       </Modal>
     {/if}
   </div>
-  {#if userRooms.length > 0}
-    <RoomList userRooms={userRooms} />
+  {#if localUserRooms.length > 0}
+    <RoomList userRooms={localUserRooms} />
   {/if}
 
-  {#if userRooms.length === 0}
+  {#if localUserRooms.length === 0}
     <EmptyPlaceholder message="Fant ingen room" />
   {/if}
 {/if}

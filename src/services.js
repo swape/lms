@@ -1,17 +1,21 @@
-import {getRooms} from './apiCalls/rooms.js'
+import {getRooms, getUsersRooms} from './apiCalls/rooms.js'
 import {getGroups, getGroupUserCount} from './apiCalls/groups.js'
 
-import {rooms, groups} from './store.js'
+import {rooms, groups, usersRooms} from './store.js'
 import {getStorage, saveStorage} from './utils/localStorage.ts'
 import {getRegisteredUsers} from './apiCalls/user.js'
 import {getUnregisteredUsers} from './apiCalls/enroll.js'
 
-export async function populateRoomsAndGroups(sid, reFetch = false) {
+// role
+export async function populateRoomsAndGroups(sid, role, reFetch = false) {
   const roomSidName = `rooms-for-sid-${sid}`
   let roomsList = getStorage(roomSidName)
   const groupSidName = `groups-for-sid-${sid}`
   const storedGroups = getStorage(groupSidName)
   let groupList = []
+
+  const usersRoomsName = `users-rooms-${role.id}`
+  let usersRoomsList = getStorage(usersRoomsName)
 
   if (reFetch || !roomsList) {
     rooms.set([])
@@ -29,6 +33,19 @@ export async function populateRoomsAndGroups(sid, reFetch = false) {
   }
   groups.set(groupList)
   await getGroupUserCount(sid)
+
+  // getUsersRooms
+  if (reFetch || !usersRoomsList) {
+    usersRooms.set([])
+    const uid = role.uid
+    let usersRoomsData = await getUsersRooms(uid, role.id)
+    if (usersRoomsData && usersRoomsData.length > 0) {
+      const roomIds = usersRoomsData.map((item) => item.roomId)
+      const filteredRooms = roomsList.filter((room) => roomIds.includes(room.id))
+      saveStorage(usersRoomsName, filteredRooms)
+    }
+  }
+  usersRooms.set(usersRoomsList)
 }
 
 export async function populateUsersAndUnregisteredUsers(sid) {

@@ -6,7 +6,7 @@ import Modal from '../../components/Modal.svelte'
 import UserEdit from './UserEdit.svelte'
 import Icon from '../../components/Icon.svelte'
 import {onMount} from 'svelte'
-import {allUsers, unregisteredUsers, sid, isTeacherOrAdmin} from '../../store.js'
+import {allUsers, unregisteredUsers, sid, isTeacherOrAdmin, currentRole} from '../../store.js'
 import {filterUsers} from './helpers.ts'
 import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
 import AcceptUser from './AcceptUser.svelte'
@@ -25,7 +25,7 @@ let isOpenEdit = $state(false)
 
 onMount(() => {
   populateUsersAndUnregisteredUsers($sid)
-  populateRoomsAndGroups($sid)
+  populateRoomsAndGroups($sid, $currentRole)
 })
 
 allUsers.subscribe((value) => {
@@ -109,53 +109,55 @@ $effect(() => {
     {/if}
   </div>
   <div>
-    <div class="overflow-x-auto">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>E-post</th>
-            <th>Navn</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each filteredUsers as user}
+    {#if filteredUsers.length > 0}
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
             <tr>
-              <th class="flex gap-2 flex-col">
-                <span class="font-bold">{user.email}</span>
-                <span class="text-xs text-gray-400">{user.uid} - {user.rid || ''}</span>
-              </th>
-              <td>
-                <span class="font-bold">{user.name || ''}</span>
-                {#if user.message}
-                  <div class="min-w-40">{user?.message || ''}</div>
-                {/if}
-              </td>
-
-              <td class="flex justify-end gap-2 flex-wrap">
-                {#if activeTab.id === 0}
-                  <button class="btn btn-primary btn-sm" type="button" onclick={() => acceptUserConfirm(user)}>
-                    <Icon name="check" />
-                    Godkjenn som ...
-                  </button>
-                  <button class="btn btn-error btn-sm" type="button" onclick={() => deleteEnrolledUserConfirm(user)}>
-                    <Icon name="delete" />
-                    Slett
-                  </button>
-                {:else}
-                  <button class="btn btn-primary btn-sm" type="button" onclick={() => editUseModalConfirm(user)}
-                    >Rediger
-                  </button>
-                  {#if user.level === 1}
-                    <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
-                  {/if}
-                {/if}
-              </td>
+              <th>E-post</th>
+              <th>Navn</th>
+              <th>&nbsp;</th>
             </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {#each filteredUsers as user}
+              <tr>
+                <th class="flex gap-2 flex-col">
+                  <span class="font-bold">{user.email}</span>
+                  <span class="text-xs text-gray-400">{user.uid} - {user.rid || ''}</span>
+                </th>
+                <td>
+                  <span class="font-bold">{user.name || ''}</span>
+                  {#if user.message}
+                    <div class="min-w-40">{user?.message || ''}</div>
+                  {/if}
+                </td>
+
+                <td class="flex justify-end gap-2 flex-wrap">
+                  {#if activeTab.id === 0}
+                    <button class="btn btn-primary btn-sm" type="button" onclick={() => acceptUserConfirm(user)}>
+                      <Icon name="check" />
+                      Godkjenn som ...
+                    </button>
+                    <button class="btn btn-error btn-sm" type="button" onclick={() => deleteEnrolledUserConfirm(user)}>
+                      <Icon name="delete" />
+                      Slett
+                    </button>
+                  {:else}
+                    <button class="btn btn-primary btn-sm" type="button" onclick={() => editUseModalConfirm(user)}
+                      >Rediger
+                    </button>
+                    {#if user.level === 1}
+                      <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
+                    {/if}
+                  {/if}
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
+    {/if}
   </div>
 </section>
 {#if $isTeacherOrAdmin && selectedUser}

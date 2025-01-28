@@ -2,7 +2,7 @@
 import {getRoomGroups, updateRoom, updateRoomGroups} from '../../apiCalls/rooms.js'
 
 import {populateRoomsAndGroups} from '../../services.js'
-import {currentRoom, sid} from '../../store.js'
+import {currentRoom, sid, currentRole} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
 import TabArea from '../../components/TabArea.svelte'
 import GroupCheckbox from '../../components/GroupCheckbox.svelte'
@@ -43,13 +43,14 @@ function editRoom() {
         await updateRoomGroups(localRoom.id, localRoom.groups)
       }
 
-      await populateRoomsAndGroups($sid, true)
+      await populateRoomsAndGroups($sid, $currentRole, true)
       currentRoom.set(null)
 
       toggle()
     }
   })
 }
+
 function replaceGroups(value) {
   localRoom.groups = [...value]
 }

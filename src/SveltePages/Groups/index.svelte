@@ -1,5 +1,5 @@
 <script>
-import {groups, isTeacherOrAdmin, sid} from '../../store.js'
+import {groups, isTeacherOrAdmin, sid, currentRole} from '../../store.js'
 import Modal from '../../components/Modal.svelte'
 import GroupList from './GroupList.svelte'
 import EditGroup from './EditGroup.svelte'
@@ -14,7 +14,7 @@ function toggleModal() {
 }
 
 onMount(() => {
-  populateRoomsAndGroups($sid)
+  populateRoomsAndGroups($sid, $currentRole)
 })
 
 groups.subscribe((value) => {

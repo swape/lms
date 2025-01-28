@@ -1,6 +1,7 @@
 import {supabase} from '../supabase.js'
 
 export async function getRooms(sid) {
+  // cache this data
   return await supabase
     .from('rooms')
     .select('*')
@@ -68,11 +69,11 @@ export async function deleteRoomTime(id) {
   return supabase.from('room_time').delete().eq('id', id).select()
 }
 
-export async function getUsersRooms(uid) {
+export async function getUsersInRoom(roomId) {
   return await supabase
     .from('users_groups_rooms')
-    .select('*')
-    .eq('uid', uid)
+    .select('*, roles (level)')
+    .eq('roomId', roomId)
     .then((res) => {
       if (res?.data?.length > 0) {
         return res.data
@@ -81,11 +82,13 @@ export async function getUsersRooms(uid) {
     })
 }
 
-export async function getUsersInRoom(roomId) {
+export async function getUsersRooms(uid, role) {
+  // cache this data
   return await supabase
     .from('users_groups_rooms')
-    .select('*, roles (level)')
-    .eq('roomId', roomId)
+    .select('*')
+    .eq('uid', uid)
+    .eq('role', role)
     .then((res) => {
       if (res?.data?.length > 0) {
         return res.data

@@ -1,7 +1,7 @@
 <script>
 import {populateRoomsAndGroups} from '../../services.js'
 import {updateGroup} from '../../apiCalls/groups.js'
-import {sid} from '../../store.js'
+import {sid, currentRole} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
 
 let {defaultGroup = {}, toggle = () => {}} = $props()
@@ -20,7 +20,7 @@ function editGroup() {
     if (res.error) {
       errorMessage = res.error?.message || 'Noe gikk galt, prøv igjen senere'
     } else {
-      populateRoomsAndGroups($sid, true)
+      populateRoomsAndGroups($sid, $currentRole, true)
 
       toggle()
     }
@@ -54,7 +54,9 @@ function editGroup() {
       <button
         class="btn btn-primary btn-sm"
         onclick={editGroup}
-        disabled={!(localGroup.title && localGroup.description)}>Lagre</button>
+        disabled={!(localGroup.title && localGroup.description)}
+        >Lagre
+      </button>
     </div>
   </div>
 </div>
