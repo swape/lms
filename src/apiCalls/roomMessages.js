@@ -1,5 +1,5 @@
 import {supabase} from '../supabase.js'
-import {getStorage, saveStorage} from '../utils/localstorage.ts'
+import {getStorage, saveStorage} from '../utils/localStorage.ts'
 
 export async function getRoomMessages(roomId, force = false) {
   const roomMessageName = `room-messages-${roomId}`
