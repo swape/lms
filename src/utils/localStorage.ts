@@ -1,9 +1,25 @@
 export function saveStorage(name: string, data: any) {
-  return localStorage.setItem(name, JSON.stringify(data))
+  const storeDate = new Date().getTime()
+  const newData = {data, storeDate}
+
+  return localStorage.setItem(name, JSON.stringify(newData))
 }
 
-export function getStorage(name: string) {
-  return JSON.parse(localStorage.getItem(name) ?? '{}')
+/**
+ *
+ * @param name getStorage
+ * @param validateTime Validate time in minutes
+ * @returns
+ */
+export function getStorage(name: string, validateTime: number = 60) {
+  const timeNow = new Date().getTime()
+  const storedData = JSON.parse(localStorage.getItem(name) ?? '{}')
+
+  if (!storedData || storedData.storeDate + validateTime * 60000 < timeNow) {
+    return null
+  }
+
+  return storedData.data
 }
 
 export function resetAllStorage() {
