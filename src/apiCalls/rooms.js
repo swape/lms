@@ -2,7 +2,6 @@ import {supabase} from '../supabase.js'
 import {getStorage, saveStorage} from '../utils/localStorage.ts'
 
 export async function getRooms(sid) {
-  // cache this data
   return await supabase
     .from('rooms')
     .select('*')
@@ -16,7 +15,11 @@ export async function getRooms(sid) {
 }
 
 export function updateRoom({sid, title, description, id = null}) {
-  return supabase.from('rooms').upsert({sid, title, description, id}).select()
+  if (id) {
+    return supabase.from('rooms').upsert({sid, title, description, id}).select()
+  } else {
+    return supabase.from('rooms').upsert({sid, title, description}).select()
+  }
 }
 
 export async function updateRoomGroups(roomId, groups) {
