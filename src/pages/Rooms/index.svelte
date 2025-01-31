@@ -10,8 +10,6 @@ import RoomList from './RoomList.svelte'
 let localUserRooms = $state([])
 let isOpen = $state(false)
 
-console.log('here', $currentRoom)
-
 function toggleModal() {
   isOpen = !isOpen
 }

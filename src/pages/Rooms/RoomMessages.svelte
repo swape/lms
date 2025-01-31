@@ -1,18 +1,18 @@
 <script>
 import {onMount} from 'svelte'
 import {getRoomMessages} from '../../apiCalls/roomMessages.js'
-import Card from '../../components/Card.svelte'
 import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
 import {isTeacherOrAdmin} from '../../store.js'
 import Modal from '../../components/Modal.svelte'
 import EditMessage from './EditMessage.svelte'
-import DateCard from '../../components/DateCard.svelte'
 import {isOldDueDate} from '../../utils/date.ts'
 import LoadingSpinner from '../../components/LoadingSpinner.svelte'
+import RoomMessageCard from './RoomMessageCard.svelte'
 
 let {roomId = null} = $props()
 
 let localMessages = $state([])
+let localOldMessages = $state([])
 let messageObject = $state({title: '', message: '', dueDate: ''})
 let loading = $state(false)
 
@@ -36,7 +36,8 @@ function fetchAndPopulateMessages() {
   localMessages = []
   loading = true
   getRoomMessages(roomId).then((messages) => {
-    localMessages = messages
+    localMessages = messages.filter((message) => !isOldDueDate(message.dueDate || new Date()))
+    localOldMessages = messages.filter((message) => isOldDueDate(message.dueDate || new Date()))
     loading = false
   })
 }
@@ -67,21 +68,10 @@ function openThisMessage(message) {
 {#if localMessages?.length > 0}
   <div class="flex gap-4 flex-col mt-4">
     {#each localMessages as localMessage}
-      <Card title={localMessage.title}>
-        <div class="flex justify-between">
-          <div class={isOldDueDate(localMessage.dueDate || new Date()) ? 'text-gray-400' : ''}>
-            {localMessage.message}
-          </div>
-          {#if localMessage.dueDate}
-            <DateCard date={localMessage.dueDate} />
-          {/if}
-        </div>
-        {#if $isTeacherOrAdmin}
-          <div class="mt-5">
-            <button onclick={() => openThisMessage(localMessage)} class="btn btn-primary btn-sm">Rediger</button>
-          </div>
-        {/if}
-      </Card>
+      <RoomMessageCard localMessage={localMessage} openThisMessage={openThisMessage} />
+    {/each}
+    {#each localOldMessages as localMessage}
+      <RoomMessageCard localMessage={localMessage} openThisMessage={openThisMessage} />
     {/each}
   </div>
 {:else}

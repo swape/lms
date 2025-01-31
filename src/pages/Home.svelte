@@ -19,7 +19,7 @@ function resetRole() {
           <RoleName level={$currentRole?.level} />
         </p>
         <div class="mt-4">
-          <button class="btn" type="button" onclick={resetRole}>Bytt rolle</button>
+          <button class="btn btn-primary" type="button" onclick={resetRole}>Bytt rolle</button>
         </div>
       </Card>
     {/if}

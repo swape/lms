@@ -35,7 +35,7 @@ function selectPage(page) {
       <ul
         class="{drawerValue
           ? ''
-          : 'hidden'} relative z-2 menu dropdown-content bg-base-100 rounded-box p-2 shadow-sm w-full">
+          : 'hidden'} sm:relative z-2 menu dropdown-content bg-base-100 rounded-box sm:p-2 shadow-sm w-full fixed top-10 left-0 right-0">
         {#each $menuList as page}
           <li>
             <button

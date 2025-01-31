@@ -6,6 +6,8 @@ import LoadingSpinner from '../../components/LoadingSpinner.svelte'
 import UserCard from '../../components/UserCard.svelte'
 import GroupName from '../../components/GroupName.svelte'
 import RoleName from '../../components/RoleName.svelte'
+import {sid} from '../../store.js'
+import {getRegisteredUsers} from '../../apiCalls/user.js'
 
 let {roomId = null} = $props()
 
@@ -14,6 +16,7 @@ let loading = $state(false)
 
 onMount(() => {
   if (roomId) {
+    getRegisteredUsers($sid)
     fetchAndPopulateMembers()
   }
 })

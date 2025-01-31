@@ -3,7 +3,7 @@ import {currentRole} from '../store.js'
 
 let bg = $state('')
 
-const colors = ['', 'bg-student', 'bg-parent', 'bg-teacher', 'bg-admin']
+const colors = ['', 'bg-primary', 'bg-amber-500', 'bg-green-500', 'bg-rose-700']
 
 currentRole.subscribe((role) => {
   const level = role?.level ?? 0
@@ -11,4 +11,4 @@ currentRole.subscribe((role) => {
 })
 </script>
 
-<div class={`${bg} role-bg`}>&nbsp;</div>
+<div class={`${bg} h-1`}>&nbsp;</div>

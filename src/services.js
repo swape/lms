@@ -1,12 +1,10 @@
 import {getRooms, getUsersRooms} from './apiCalls/rooms.js'
 import {getGroups, getGroupUserCount} from './apiCalls/groups.js'
-
 import {rooms, groups, usersRooms} from './store.js'
 import {getStorage, saveStorage} from './utils/localStorage.ts'
 import {getRegisteredUsers} from './apiCalls/user.js'
 import {getUnregisteredUsers} from './apiCalls/enroll.js'
 
-// role
 export async function populateRoomsAndGroups(sid, role, reFetch = false) {
   const roomSidName = `rooms-for-sid-${sid}`
   let roomsList = getStorage(roomSidName)

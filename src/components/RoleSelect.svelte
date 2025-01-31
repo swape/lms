@@ -42,8 +42,8 @@ function buttonClass(level) {
 {#if !$myRoles}
   <LoadingSpinner loadingText="Henter roller" />
 {:else}
-  <div class="max-w-auto flex flex-col gap-4 items-center mt-4">
-    <img src="/svg/undraw_my_answer_re_k4dv.svg" alt="Velg rolle" role="none" class="max-w-90" />
+  <div class="max-w-auto flex flex-col gap-4 items-center mt-4 p-4">
+    <img src="/svg/undraw_my_answer_re_k4dv.svg" alt="Velg rolle" role="none" class="max-w-90 w-full" />
     <h1 class="text-2xl">Hei du!</h1>
 
     {#if $myRoles.length > 1}

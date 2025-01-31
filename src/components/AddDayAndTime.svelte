@@ -31,7 +31,7 @@ function save() {
 }
 
 function getTimeTable() {
-  getAllRoomTimes(rid).then((data) => {
+  getAllRoomTimes(rid, true).then((data) => {
     localTimes = data
   })
 }

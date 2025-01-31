@@ -1,4 +1,5 @@
 import {supabase} from '../supabase.js'
+import {getStorage, saveStorage} from '../utils/localStorage.ts'
 
 export async function getRooms(sid) {
   // cache this data
@@ -52,13 +53,20 @@ export async function insertRoomTime(roomId, day, from, to) {
   return supabase.from('room_time').insert({room_id: roomId, day, time_from: from, time_to: to}).select()
 }
 
-export async function getAllRoomTimes(roomId) {
+export async function getAllRoomTimes(roomId, force = false) {
+  const roomTimeName = `room-time-${roomId}`
+  const cachedTime = getStorage(roomTimeName)
+
+  if (cachedTime?.length && !force) {
+    return cachedTime
+  }
   return await supabase
     .from('room_time')
     .select('*')
     .eq('room_id', roomId)
     .then((res) => {
       if (res?.data?.length > 0) {
+        saveStorage(roomTimeName, res.data)
         return res.data
       }
       return []
