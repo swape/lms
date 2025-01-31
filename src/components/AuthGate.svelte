@@ -21,8 +21,8 @@ user.subscribe(async (value) => {
     saveStorage('uid', uid)
     $authStateReady = true
 
-    await getSchools(true)
-    await getRoles(uid, true)
+    await getSchools()
+    await getRoles(uid)
   }
 })
 </script>
