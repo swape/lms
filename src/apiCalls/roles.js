@@ -4,7 +4,7 @@ import {getStorage, saveStorage} from '../utils/localStorage.ts'
 
 export async function getRoles(uid, reFetch = false) {
   const rolesName = `roles-for-uid-${uid}`
-  let rolesList = getStorage(rolesName)
+  let rolesList = getStorage(rolesName, 60 * 2)
   let localRoles = []
 
   if (reFetch || !rolesList) {
@@ -19,12 +19,12 @@ export async function getRoles(uid, reFetch = false) {
         } else if (res.data.length === 0) {
           localRoles = []
         } else {
-          localRoles = res.data.sort((a, b) => a.level - b.level)
+          localRoles = res.data.toSorted((a, b) => a.level - b.level)
         }
       })
-    saveStorage(rolesName, {data: localRoles})
+    saveStorage(rolesName, localRoles)
   } else {
-    localRoles = rolesList.data
+    localRoles = rolesList
   }
   myRoles.set(localRoles)
   return localRoles

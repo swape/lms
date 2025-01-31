@@ -3,9 +3,7 @@ import {getStorage, saveStorage} from '../utils/localstorage.ts'
 
 export async function getRoomMessages(roomId, force = false) {
   const roomMessageName = `room-messages-${roomId}`
-  const roomMessages = getStorage(roomMessageName)
-
-  // TODO: cache this for 1 hour
+  const roomMessages = getStorage(roomMessageName, 60)
 
   if (roomMessages?.length && !force) {
     return roomMessages

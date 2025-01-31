@@ -3,21 +3,19 @@ import {schoolNames} from '../store.js'
 import {getStorage, saveStorage} from '../utils/localStorage.ts'
 
 export async function getSchools(fetch = false) {
-  let schools = getStorage('schools')
+  let schools = getStorage('schools', 60 * 24 * 7)
 
   if (fetch || !schools) {
     await supabase
       .from('schools')
       .select('*')
-      .then((res) => {
+      .then(async (res) => {
         if (res?.data?.length > 0) {
-          schoolNames.set(res.data)
+          await schoolNames.set(res.data)
           schools = res.data
         }
       })
-    saveStorage('schools', {data: schools})
-  } else {
-    schools = schools.data
+    saveStorage('schools', schools)
   }
   return schools
 }

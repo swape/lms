@@ -9,11 +9,11 @@ export async function populateRoomsAndGroups(sid, role, reFetch = false) {
   const roomSidName = `rooms-for-sid-${sid}`
   let roomsList = getStorage(roomSidName)
   const groupSidName = `groups-for-sid-${sid}`
-  const storedGroups = getStorage(groupSidName)
+  const storedGroups = getStorage(groupSidName, 60 * 24)
   let groupList = []
 
   const usersRoomsName = `users-rooms-${role.id}`
-  let usersRoomsList = getStorage(usersRoomsName)
+  let usersRoomsList = getStorage(usersRoomsName, 60 * 24)
 
   if (reFetch || !roomsList) {
     rooms.set([])
