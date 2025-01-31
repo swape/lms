@@ -29,7 +29,7 @@ function fetchAndPopulateMembers() {
       if (members[member.uid]) {
         members[member.uid].groups.push(member.gid)
       } else {
-        members[member.uid] = {
+        members[member.role] = {
           name: member.name,
           groups: [member.gid],
           uid: member.uid,
@@ -39,7 +39,6 @@ function fetchAndPopulateMembers() {
       }
     })
     localMembers = Object.values(members)
-
     loading = false
   })
 }

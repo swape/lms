@@ -1,10 +1,14 @@
 <script>
-import {currentPage, myRoles, currentRole, schoolNames, currentRoom} from '../store.js'
+import {currentPage, myRoles, currentRole, currentRoom} from '../store.js'
 
 import LoadingSpinner from './LoadingSpinner.svelte'
 import EnrollForm from './EnrollForm.svelte'
 import {populateRoomsAndGroups} from '../services.js'
 import {getLevelTitle} from '../utils/helper.ts'
+import {getSchools} from '../apiCalls/schools.js'
+import {onMount} from 'svelte'
+
+let localSchools = $state([])
 
 function selectRole(role) {
   $currentRole = role
@@ -19,11 +23,19 @@ myRoles.subscribe((value) => {
   }
 })
 
+onMount(async () => {
+  localSchools = await getSchools()
+})
+
 function getSchoolName(sid) {
-  if (!$schoolNames || $schoolNames.length === 0) {
+  if (!localSchools || localSchools.length === 0) {
     return ''
   }
-  return $schoolNames.find((s) => s.id === sid)?.title || ''
+  const school = localSchools.find((s) => s.id === sid)
+  if (!school) {
+    return ''
+  }
+  return school.title || ''
 }
 
 function buttonClass(level) {

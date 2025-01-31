@@ -17,7 +17,7 @@ onMount(() => {
   <div>
     {#each roomTimes as time}
       <div class="text-sm">
-        <span class="font-medium">{dayStrings[time.day]}:</span>
+        <span class="font-medium">{dayStrings[time.day - 1]}:</span>
         <span>{time.time_from} - {time.time_to}</span>
       </div>
     {/each}
