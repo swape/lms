@@ -3,6 +3,7 @@ import {user, myRoles, currentRole} from '../store.js'
 import Card from '../components/Card.svelte'
 import RoleName from '../components/RoleName.svelte'
 import {getSchoolName} from '../utils/helper.ts'
+import Button from '../components/Button.svelte'
 
 function resetRole() {
   $currentRole = null
@@ -19,7 +20,7 @@ function resetRole() {
           <RoleName level={$currentRole?.level} />
         </p>
         <div class="mt-4">
-          <button class="btn btn-primary" type="button" onclick={resetRole}>Bytt rolle</button>
+          <Button action={resetRole} icon="supervisor_account" text="Bytt rolle" classList="btn-primary" />
         </div>
       </Card>
     {/if}

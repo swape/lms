@@ -35,14 +35,14 @@ isTeacherOrAdmin.subscribe((value) => {
   <Room />
 {:else}
   <div class="flex justify-between p-4 w-full">
-    <h1 class="text-3xl text-center grow">Klasserommene er her</h1>
+    <h1 class="text-3xl text-center grow">Klasserom du har tilgang til</h1>
     {#if $isTeacherOrAdmin}
       <Modal
         id="add-room"
         isOpen={isOpen}
         toggle={toggleModal}
         btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
-        openText="add_circle">
+        openText="add">
         <EditRoom toggle={toggleModal} />
       </Modal>
     {/if}

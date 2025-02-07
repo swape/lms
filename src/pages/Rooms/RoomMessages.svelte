@@ -57,7 +57,7 @@ function openThisMessage(message) {
       isOpen={isOpen}
       toggle={toggleModal}
       btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
-      openText="add_circle">
+      openText="add">
       <EditMessage toggle={toggleModal} roomId={roomId} defaultMessage={messageObject} />
     </Modal>
   </div>

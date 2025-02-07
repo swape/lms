@@ -2,6 +2,7 @@
 import Modal from '../../components/Modal.svelte'
 import EditGroup from './EditGroup.svelte'
 import {isTeacherOrAdmin, groupUserCount} from '../../store.js'
+import Button from '../../components/Button.svelte'
 
 let {groups = []} = $props()
 let localGroups = $state(groups)
@@ -53,7 +54,7 @@ function getUserCount(gid) {
             <td>{group.title}</td>
             <td>{getUserCount(group.id)}</td>
             <td class="flex justify-end">
-              <button class="btn btn-primary btn-sm" onclick={() => selectGroup(group)}>Rediger</button>
+              <Button action={() => selectGroup(group)} text="Rediger" />
             </td>
           </tr>
         {/each}

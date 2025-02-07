@@ -3,6 +3,7 @@ import {populateRoomsAndGroups} from '../../services.js'
 import {updateGroup} from '../../apiCalls/groups.js'
 import {sid, currentRole} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
+import Button from '../../components/Button.svelte'
 
 let {defaultGroup = {}, toggle = () => {}} = $props()
 
@@ -51,12 +52,7 @@ function editGroup() {
     {/if}
 
     <div class="mt-3">
-      <button
-        class="btn btn-primary btn-sm"
-        onclick={editGroup}
-        disabled={!(localGroup.title && localGroup.description)}
-        >Lagre
-      </button>
+      <Button action={editGroup} text="Lagre" disabled={!(localGroup.title && localGroup.description)} />
     </div>
   </div>
 </div>

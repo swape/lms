@@ -4,22 +4,17 @@ import TabArea from '../../components/TabArea.svelte'
 import {roomSections} from '../../constants.ts'
 import EditRoom from './EditRoom.svelte'
 import Modal from '../../components/Modal.svelte'
-import Icon from '../../components/Icon.svelte'
 import RoomMessages from './RoomMessages.svelte'
 import RoomGroupMembers from './RoomGroupMembers.svelte'
 import RoomTimeList from '../../components/RoomTimeList.svelte'
+import Button from '../../components/Button.svelte'
 
 let activeTab = $state(roomSections[0])
 let localRoomSection = $state([])
-
 let isOpen = $state(false)
-let isOpenGroups = $state(false)
 
 function toggleModal() {
   isOpen = !isOpen
-}
-function toggleGroupsModal() {
-  isOpenGroups = !isOpenGroups
 }
 
 // TODO: make this more dynamic
@@ -28,9 +23,7 @@ localRoomSection = $isTeacherOrAdmin ? roomSections : roomSections.filter((secti
 
 <section class="m-4">
   <div class="flex gap-3 items-center justify-between">
-    <button type="button" class="btn btn-primary btn-circle btn-sm" onclick={() => ($currentRoom = null)}>
-      <Icon name="chevron_left" />
-    </button>
+    <Button action={() => ($currentRoom = null)} icon="chevron_left" classList="btn-primary btn-circle btn-sm" />
 
     <div>
       <h1 class="text-xl md:text-3xl" data-id={$currentRoom.id}>{$currentRoom.title}</h1>
@@ -62,7 +55,7 @@ localRoomSection = $isTeacherOrAdmin ? roomSections : roomSections.filter((secti
       <RoomMessages roomId={$currentRoom.id} />
     {/if}
     {#if activeTab.id === 2}
-      Innleveringer
+      Innleveringer ( ikke ferdig )
     {/if}
     {#if activeTab.id === 3 && $isTeacherOrAdmin}
       <RoomGroupMembers roomId={$currentRoom.id} />

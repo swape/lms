@@ -3,6 +3,7 @@ import Card from '../../components/Card.svelte'
 import DateCard from '../../components/DateCard.svelte'
 import {isTeacherOrAdmin} from '../../store.js'
 import {isOldDueDate} from '../../utils/date.ts'
+import Button from '../../components/Button.svelte'
 
 let {localMessage = {}, openThisMessage} = $props()
 </script>
@@ -18,7 +19,7 @@ let {localMessage = {}, openThisMessage} = $props()
   </div>
   {#if $isTeacherOrAdmin}
     <div class="card-actions">
-      <button onclick={() => openThisMessage(localMessage)} class="btn btn-primary btn-sm">Rediger</button>
+      <Button action={() => openThisMessage(localMessage)} text="Rediger" />
     </div>
   {/if}
 </Card>

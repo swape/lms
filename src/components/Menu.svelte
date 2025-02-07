@@ -3,6 +3,7 @@ import {currentPage, currentRole, menuList} from '../store.js'
 import {defaultMenu} from '../constants.ts'
 import Icon from './Icon.svelte'
 import {signOut} from '../supabase.js'
+import Button from './Button.svelte'
 
 let drawerValue = $state(false)
 
@@ -25,9 +26,8 @@ function selectPage(page) {
 <div class="navbar bg-base-100 shadow-sm">
   <div class="navbar-start">
     <div class="block sm:hidden">
-      <button class="btn btn-ghost btn-circle" onclick={toggleDrawer}>
-        <Icon name="menu" />
-      </button>
+      <Button action={toggleDrawer} icon="menu" classList="btn-ghost btn-circle" />
+
       {#if drawerValue}
         <button class="drawer-backdrop" onclick={toggleDrawer}><span class="hidden">Close menu</span></button>
       {/if}
@@ -58,12 +58,10 @@ function selectPage(page) {
     </div>
   </div>
   <div class="navbar-center">
-    <button class="btn btn-ghost text-xl" onclick={() => selectPage('home')}>LMS</button>
+    <Button action={() => selectPage('home')} text="LMS" classList="btn-ghost text-xl" />
   </div>
   <div class="navbar-end">
-    <button onclick={() => signOut()} class="btn btn-ghost btn-circle">
-      <Icon name="logout" />
-    </button>
+    <Button action={() => signOut()} icon="logout" classList="btn-ghost btn-circle" />
   </div>
 </div>
 

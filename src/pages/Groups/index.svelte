@@ -33,7 +33,7 @@ groups.subscribe((value) => {
       isOpen={isOpen}
       toggle={toggleModal}
       btnClass="btn btn-circle btn-primary btn-sm material-symbols-outlined"
-      openText="add_circle">
+      openText="add">
       <EditGroup toggle={toggleModal} />
     </Modal>
   {/if}

@@ -7,6 +7,7 @@ import ErrorBox from '../../components/ErrorBox.svelte'
 import TabArea from '../../components/TabArea.svelte'
 import GroupCheckbox from '../../components/GroupCheckbox.svelte'
 import AddDayAndTime from '../../components/AddDayAndTime.svelte'
+import Button from '../../components/Button.svelte'
 
 let {defaultRoom = {}, toggle = () => {}} = $props()
 let localRoom = $state({...defaultRoom})
@@ -96,6 +97,6 @@ function replaceGroups(value) {
   {/if}
 
   <div class="mt-5">
-    <button class="btn btn-primary btn-sm" onclick={editRoom}>Lagre</button>
+    <Button action={editRoom} text="Lagre" />
   </div>
 </div>

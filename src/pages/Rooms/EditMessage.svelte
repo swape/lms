@@ -1,5 +1,6 @@
 <script>
 import {upsertRoomMessage} from '../../apiCalls/roomMessages.js'
+import Button from '../../components/Button.svelte'
 
 let {defaultMessage = {}, roomId = null, toggle = () => {}} = $props()
 let localMessage = $state({...defaultMessage})
@@ -44,9 +45,6 @@ function saveMessage() {
   </div>
 
   <div class="mt-5">
-    <button
-      class="btn btn-primary btn-sm"
-      onclick={saveMessage}
-      disabled={!(localMessage.title && localMessage.message)}>Lagre</button>
+    <Button action={saveMessage} text="Lagre" disabled={!(localMessage.title && localMessage.message)} />
   </div>
 </div>

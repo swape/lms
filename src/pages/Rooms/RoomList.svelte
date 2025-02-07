@@ -2,6 +2,7 @@
 import {currentRoom} from '../../store.js'
 import Card from '../../components/Card.svelte'
 import RoomTimeList from '../../components/RoomTimeList.svelte'
+import Button from '../../components/Button.svelte'
 
 let {userRooms = []} = $props()
 
@@ -16,7 +17,7 @@ function selectRoom(room) {
       <p class="flex-1">{room.description}</p>
       <RoomTimeList roomId={room.id} />
       <div class="card-actions justify-end">
-        <button class="btn btn-primary btn-sm" onclick={() => selectRoom(room)} type="button">Vis</button>
+        <Button action={() => selectRoom(room)} text="Vis" />
       </div>
     </Card>
   {/each}

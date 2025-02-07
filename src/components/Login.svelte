@@ -1,5 +1,6 @@
 <script>
 import {signInWithEmail} from '../supabase.js'
+import Button from './Button.svelte'
 
 let email = $state(null)
 let haveError = $state(false)
@@ -34,7 +35,7 @@ async function login() {
         <span>E-post: </span>
         <input class="input {haveError ? 'input-error' : ''} " bind:value={email} type="email" />
       </label>
-      <button onclick={login} class="btn btn-primary">Logg inn</button>
+      <Button action={login} text="Logg inn" classList="btn-primary" />
     </div>
   </div>
 {:else}

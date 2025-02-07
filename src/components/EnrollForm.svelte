@@ -1,6 +1,7 @@
 <script>
 import {user, schoolNames} from '../store.js'
 import {getEnrollmentsFromEmail, insertEnrollment} from '../apiCalls/enroll.js'
+import Button from './Button.svelte'
 
 let localSchools = $state([])
 let selectedSchool = $state('')
@@ -57,9 +58,11 @@ async function sendForm() {
           <textarea id="my-textarea" class="textarea" bind:value={message}></textarea>
         </div>
         <div>
-          <button class="btn btn-primary" onclick={sendForm} disabled={!selectedSchool || name?.length < 2}
-            >Send forespørsel
-          </button>
+          <Button
+            action={sendForm}
+            text="Send forespørsel"
+            classList="btn-primary"
+            disabled={!selectedSchool || name?.length < 2} />
         </div>
       </div>
     {/if}

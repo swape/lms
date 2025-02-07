@@ -4,13 +4,13 @@ import {roleTitles} from '../../constants.ts'
 import TabArea from '../../components/TabArea.svelte'
 import Modal from '../../components/Modal.svelte'
 import UserEdit from './UserEdit.svelte'
-import Icon from '../../components/Icon.svelte'
 import {onMount} from 'svelte'
 import {allUsers, unregisteredUsers, sid, isTeacherOrAdmin, currentRole} from '../../store.js'
 import {filterUsers} from './helpers.ts'
 import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
 import AcceptUser from './AcceptUser.svelte'
 import {populateRoomsAndGroups, populateUsersAndUnregisteredUsers} from '../../services.js'
+import Button from '../../components/Button.svelte'
 
 let selectedUser = $state(null)
 
@@ -99,9 +99,7 @@ $effect(() => {
           class="input input-sm input-bordered w-full max-w-xs" />
       </div>
       <!-- not done yet
-      <button class="btn btn-primary btn-sm" type="button" onclick={() => editUseModalConfirm(emptyUser)}
-        ><Icon name="add" /> Ny bruker</button>
-
+      <Button action={() => editUseModalConfirm(emptyUser)} text="Ny bruker" icon="add" />
       <Modal id="add-user">
         <UserEdit user={selectedUser} />
       </Modal>
@@ -135,20 +133,13 @@ $effect(() => {
 
                 <td class="flex justify-end gap-2 flex-wrap">
                   {#if activeTab.id === 0}
-                    <button class="btn btn-primary btn-sm" type="button" onclick={() => acceptUserConfirm(user)}>
-                      <Icon name="check" />
-                      Godkjenn som ...
-                    </button>
-                    <button class="btn btn-error btn-sm" type="button" onclick={() => deleteEnrolledUserConfirm(user)}>
-                      <Icon name="delete" />
-                      Slett
-                    </button>
+                    <Button action={() => acceptUserConfirm(user)} text="Godkjenn som ..." icon="check" />
+                    <Button action={() => deleteEnrolledUserConfirm(user)} text="Slett" icon="delete" />
                   {:else}
-                    <button class="btn btn-primary btn-sm" type="button" onclick={() => editUseModalConfirm(user)}
-                      >Rediger
-                    </button>
+                    <Button action={() => editUseModalConfirm(user)} text="Rediger" icon="add" />
+
                     {#if user.level === 1}
-                      <button class="btn btn-secondary btn-sm" type="button">Fravær</button>
+                      <Button action={() => {}} text="Fravær" icon="person_alert" />
                     {/if}
                   {/if}
                 </td>

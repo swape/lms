@@ -1,6 +1,6 @@
 <script>
 import {onMount} from 'svelte'
-import {roleTitles} from '../../constants.ts'
+import {roleTitles, userEditModalMenu} from '../../constants.ts'
 import {saveEditedUser} from '../../apiCalls/user.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import {sid, currentRole} from '../../store.js'
@@ -8,13 +8,7 @@ import GroupCheckbox from '../../components/GroupCheckbox.svelte'
 import TabArea from '../../components/TabArea.svelte'
 import {getGroupsForUser, updateUserGroups} from '../../apiCalls/groups.js'
 import {updateRole} from '../../apiCalls/roles.js'
-
-// TODO: move to constants
-const userEditModalMenu = [
-  {id: 0, title: 'Informasjon'},
-  {id: 1, title: 'Rolle'},
-  {id: 2, title: 'Grupper'}
-]
+import Button from '../../components/Button.svelte'
 
 let {user = null, toggle = () => {}} = $props()
 let localUserGroups = $state([])
@@ -108,7 +102,7 @@ function replaceGroups(e) {
     {/if}
 
     <div class="pt-5">
-      <button class="btn btn-primary btn-sm" type="button" onclick={saveUser}>Lagre</button>
+      <Button action={saveUser} text="Lagre" />
     </div>
   </div>
 {/if}

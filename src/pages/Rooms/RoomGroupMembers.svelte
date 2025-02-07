@@ -8,6 +8,7 @@ import GroupName from '../../components/GroupName.svelte'
 import RoleName from '../../components/RoleName.svelte'
 import {sid} from '../../store.js'
 import {getRegisteredUsers} from '../../apiCalls/user.js'
+import Card from '../../components/Card.svelte'
 
 let {roomId = null} = $props()
 
@@ -51,23 +52,23 @@ function fetchAndPopulateMembers() {
   </section>
 {/if}
 {#if localMembers.length > 0}
-  <section class="mt-4 flex gap-3 flex-col">
+  <section class="mt-4 flex gap-2 flex-col">
     {#each localMembers as member}
-      <div class="bg-white p-3 rounded-md">
+      <Card>
         <div class="flex justify-between">
-          <div class="p-3">
+          <div>
             <UserCard uid={member.uid} />
             {#each member.groups as group}
               <GroupName gid={group} />
             {/each}
           </div>
           <div>
-            <span class="badge badge-ghost h-auto">
+            <span class="badge h-auto">
               <RoleName level={member.level} />
             </span>
           </div>
         </div>
-      </div>
+      </Card>
     {/each}
   </section>
 {/if}

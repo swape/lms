@@ -2,6 +2,8 @@
 import {sid} from '../../store.js'
 import {deleteEnrolledUser} from '../../apiCalls/enroll.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
+import Button from '../../components/Button.svelte'
+
 let {user = null, toggle = () => {}} = $props()
 
 function deleteUser() {
@@ -24,7 +26,7 @@ function deleteUser() {
     {user.email}<br />{user.name}
   </p>
   <div class="flex pt-4 justify-between">
-    <button class="btn btn-sm btn-ghost" onclick={() => toggle()}>Avbryt</button>
-    <button class="btn btn-error btn-sm" onclick={deleteUser}>Slett</button>
+    <Button action={toggle} text="Avbryt" classList="btn-sm btn-ghost" />
+    <Button action={deleteUser} text="Slett" classList="btn-error btn-sm" />
   </div>
 </div>

@@ -3,6 +3,8 @@ import {sid} from '../../store.js'
 import {acceptUser} from '../../apiCalls/enroll.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import {roleTitles} from '../../constants.ts'
+import Button from '../../components/Button.svelte'
+
 let {user = null, toggle = () => {}} = $props()
 let selectedRole = $state(null)
 
@@ -33,7 +35,7 @@ function acceptUserAction() {
   </select>
 
   <div class="flex pt-5 justify-between">
-    <button class="btn btn-sm btn-ghost" onclick={() => toggle()}>Avbryt</button>
-    <button class="btn btn-primary btn-sm" onclick={acceptUserAction} disabled={!selectedRole}>Leggtil bruker</button>
+    <Button action={() => toggle()} text="Avbryt" classList="btn-sm btn-ghost" />
+    <Button action={acceptUserAction} text="Leggtil bruker" />
   </div>
 </div>

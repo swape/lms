@@ -3,6 +3,7 @@ import {deleteRoomTime, getAllRoomTimes, insertRoomTime} from '../apiCalls/rooms
 import {onMount} from 'svelte'
 import {dayStrings} from '../constants.ts'
 import Icon from './Icon.svelte'
+import Button from './Button.svelte'
 
 let {rid = 0} = $props()
 
@@ -64,7 +65,9 @@ function checkIfFromIsBeforeTo(fromTime, toTime) {
       {#if !checkIfFromIsBeforeTo(time.time_from, time.time_to)}
         <div class="text-red-500 flex gap-2 justify-center"><Icon name="error" /> Ugyldig tid</div>
       {/if}
-      <div><button class="btn btn-sm btn-error" onclick={() => deleteTime(time.id)}>Slett</button></div>
+      <div>
+        <Button action={() => deleteTime(time.id)} text="Slett" icon="delete" classList="btn-sm btn-error" />
+      </div>
     </div>
   {/each}
 </div>
@@ -95,7 +98,7 @@ function checkIfFromIsBeforeTo(fromTime, toTime) {
     {/if}
     {#if day && from && to && checkIfFromIsBeforeTo(from, to)}
       <div class="flex gap-4">
-        <button class="btn btn-secondary btn-sm" onclick={() => save()}>Legg til</button>
+        <Button action={() => save()} text="Legg til" icon="add" />
       </div>
     {/if}
   </div>
