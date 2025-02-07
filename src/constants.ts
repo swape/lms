@@ -2,6 +2,12 @@ import type {Menu, RoleTitles, User} from './types.ts'
 
 export const dayStrings = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag']
 
+export const userEditModalMenu = [
+  {id: 0, title: 'Informasjon'},
+  {id: 1, title: 'Rolle'},
+  {id: 2, title: 'Grupper'}
+]
+
 export const roleTitles: RoleTitles[] = [
   {
     id: 1,
