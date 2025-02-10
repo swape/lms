@@ -60,7 +60,7 @@ function buttonClass(level) {
 
     {#if $myRoles.length > 1}
       <p>Du har flere roller. Velg role for å gå videre.</p>
-      <div class="flex gap-2 flex-wrap mt-4">
+      <div class="flex gap-2 flex-wrap mt-4 justify-center">
         {#each $myRoles as role}
           <button type="button" onclick={() => selectRole(role)} class={buttonClass(role.level)}
             >{getLevelTitle(role.level)} @ {getSchoolName(role.sid)}

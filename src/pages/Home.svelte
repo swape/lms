@@ -1,5 +1,5 @@
 <script>
-import {user, myRoles, currentRole} from '../store.js'
+import {user, myRoles, currentRole, isTeacherOrAdmin} from '../store.js'
 import Card from '../components/Card.svelte'
 import RoleName from '../components/RoleName.svelte'
 import {getSchoolName} from '../utils/helper.ts'
@@ -14,11 +14,12 @@ function resetRole() {
   <section>
     <h1 class="text-3xl text-center">{getSchoolName($currentRole?.sid)}</h1>
     {#if $myRoles?.length > 1}
-      <Card title={`Hei ${$user.name || ''}`}>
-        <p>
-          Du er logget inn som:
-          <RoleName level={$currentRole?.level} />
-        </p>
+      <Card title={`Hei ${$user.name || $user.email || ''}`}>
+        {#if $isTeacherOrAdmin}<p>
+            Du er logget inn som:
+            <RoleName level={$currentRole?.level} />
+          </p>
+        {/if}
         <div class="mt-4">
           <Button action={resetRole} icon="supervisor_account" text="Bytt rolle" classList="btn-primary" />
         </div>
