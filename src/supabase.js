@@ -1,6 +1,7 @@
 import {createClient} from '@supabase/supabase-js'
 import {REDIRECT_URL, SUPABASE_KEY, SUPABASE_URL} from './config.js'
 import {auth, user} from './store.js'
+import {getUserInfo} from './apiCalls/user.js'
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
@@ -34,7 +35,9 @@ supabase.auth.onAuthStateChange((authState) => {
 
 function setUserInfo(userInfo) {
   userInfo.uid = userInfo.id
-  user.set(userInfo)
+  getUserInfo(userInfo.uid).then((res) => {
+    user.set({...res, ...userInfo, registeredPhone: res?.phone})
+  })
 }
 
 export async function signOut() {
