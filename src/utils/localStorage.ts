@@ -11,7 +11,7 @@ export function saveStorage(name: string, data: any) {
  * @param validateTime Validate time in minutes
  * @returns
  */
-export function getStorage(name: string, validateTime: number = 60) {
+export function getStorage(name: string, validateTime = 60) {
   const timeNow = new Date().getTime()
   const storedData = JSON.parse(localStorage.getItem(name) ?? '{}')
 

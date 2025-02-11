@@ -6,7 +6,7 @@ export function getLevelTitle(level: number) {
 }
 
 export function getSchoolName(sid: string) {
-  let schools = getStorage('schools')?.data
+  const schools = getStorage('schools')?.data
   if (schools?.length) {
     return schools.find(({id}: {id: string}) => id === sid)?.title || ''
   }
