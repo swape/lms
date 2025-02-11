@@ -1,7 +1,7 @@
 <script>
 import {allUsers} from '../store.js'
 
-let {uid} = $props()
+const {uid} = $props()
 let localUsers = $state([])
 
 allUsers.subscribe((value) => {

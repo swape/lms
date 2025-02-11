@@ -4,8 +4,8 @@ import EditGroup from './EditGroup.svelte'
 import {isTeacherOrAdmin, groupUserCount} from '../../store.js'
 import Button from '../../components/Button.svelte'
 
-let {groups = []} = $props()
-let localGroups = $state(groups)
+const {groups = []} = $props()
+const localGroups = $state(groups)
 let selectedGroup = $state({})
 
 function selectGroup(group) {

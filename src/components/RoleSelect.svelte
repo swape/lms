@@ -39,7 +39,8 @@ function getSchoolName(sid) {
 }
 
 function buttonClass(level) {
-  let returnClass = ['btn']
+  const returnClass = ['btn']
+
   if (level === 4) {
     returnClass.push('btn-primary')
   } else if (level === 3) {

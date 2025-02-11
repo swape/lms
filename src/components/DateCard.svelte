@@ -1,7 +1,7 @@
 <script>
 import {getDay, getLocaleDayName, getLocaleMonthName, getYear} from '../utils/date'
 
-let {date} = $props()
+const {date} = $props()
 
 // TODO: move to helper file
 function isOldDueDate(date) {

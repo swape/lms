@@ -18,9 +18,8 @@ export async function getRooms(sid) {
 export function updateRoom({sid, title, description, id = null}) {
   if (id) {
     return supabase.from('rooms').upsert({sid, title, description, id}).select()
-  } else {
-    return supabase.from('rooms').upsert({sid, title, description}).select()
   }
+  return supabase.from('rooms').upsert({sid, title, description}).select()
 }
 
 export async function updateRoomGroups(roomId, groups) {
@@ -98,7 +97,6 @@ export async function getUsersInRoom(roomId) {
 }
 
 export async function getUsersRooms(uid, role) {
-  // cache this data
   return await supabase
     .from('users_groups_rooms')
     .select('*')

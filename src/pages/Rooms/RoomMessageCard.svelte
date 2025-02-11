@@ -5,7 +5,7 @@ import {isTeacherOrAdmin} from '../../store.js'
 import {isOldDueDate} from '../../utils/date.ts'
 import Button from '../../components/Button.svelte'
 
-let {localMessage = {}, openThisMessage} = $props()
+const {localMessage = {}, openThisMessage} = $props()
 </script>
 
 <Card title={localMessage.title}>

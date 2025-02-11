@@ -1,7 +1,7 @@
 <script>
 import {groups} from '../store.js'
 
-let {selectedGroups = [], change = () => {}} = $props()
+const {selectedGroups = [], change = () => {}} = $props()
 
 let ready = $state(false)
 let localGroups = $state([])

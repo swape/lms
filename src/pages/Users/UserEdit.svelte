@@ -10,7 +10,7 @@ import {getGroupsForUser, updateUserGroups} from '../../apiCalls/groups.js'
 import {updateRole} from '../../apiCalls/roles.js'
 import Button from '../../components/Button.svelte'
 
-let {user = null, toggle = () => {}} = $props()
+const {user = null, toggle = () => {}} = $props()
 let localUserGroups = $state([])
 let activeTab = $state(userEditModalMenu[0])
 

@@ -4,7 +4,7 @@ import {getStorage, saveStorage} from '../utils/localStorage.ts'
 
 export async function getRoles(uid, reFetch = false) {
   const rolesName = `roles-for-uid-${uid}`
-  let rolesList = getStorage(rolesName, 60 * 2)
+  const rolesList = getStorage(rolesName, 60 * 2)
   let localRoles = []
 
   if (reFetch || !rolesList) {

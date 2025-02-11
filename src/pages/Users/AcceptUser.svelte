@@ -5,7 +5,7 @@ import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import {roleTitles} from '../../constants.ts'
 import Button from '../../components/Button.svelte'
 
-let {user = null, toggle = () => {}} = $props()
+const {user = null, toggle = () => {}} = $props()
 let selectedRole = $state(null)
 
 function acceptUserAction() {

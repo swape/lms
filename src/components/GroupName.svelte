@@ -1,7 +1,7 @@
 <script>
 import {groups} from '../store.js'
 
-let {gid = null} = $props()
+const {gid = null} = $props()
 
 let localGroups = $state([])
 

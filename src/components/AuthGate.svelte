@@ -9,7 +9,7 @@ import {user} from '../store.js'
 import {saveStorage} from '../utils/localStorage.ts'
 import {onMount} from 'svelte'
 
-let {children} = $props()
+const {children} = $props()
 
 onMount(() => {
   $authStateReady = true

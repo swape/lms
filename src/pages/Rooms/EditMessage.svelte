@@ -2,13 +2,13 @@
 import {upsertRoomMessage} from '../../apiCalls/roomMessages.js'
 import Button from '../../components/Button.svelte'
 
-let {defaultMessage = {}, roomId = null, toggle = () => {}} = $props()
-let localMessage = $state({...defaultMessage})
+const {defaultMessage = {}, roomId = null, toggle = () => {}} = $props()
+const localMessage = $state({...defaultMessage})
 
 function saveMessage() {
   localMessage.dueDate = localMessage.dueDate ?? null
 
-  let newMessage = {...localMessage, roomId}
+  const newMessage = {...localMessage, roomId}
 
   if (newMessage.title && newMessage.message) {
     upsertRoomMessage(newMessage).then(toggle)

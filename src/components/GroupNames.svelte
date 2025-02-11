@@ -1,7 +1,7 @@
 <script>
 import GroupName from './GroupName.svelte'
 
-let {groups = []} = $props()
+const {groups = []} = $props()
 </script>
 
 <div class="flex gap-2 flex-wrap">

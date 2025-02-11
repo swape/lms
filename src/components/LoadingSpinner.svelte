@@ -1,5 +1,5 @@
 <script>
-let {loading = true, loadingText = 'Loading', inline = false} = $props()
+const {loading = true, loadingText = 'Loading', inline = false} = $props()
 </script>
 
 {#if loading}

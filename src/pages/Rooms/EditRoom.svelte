@@ -9,14 +9,14 @@ import GroupCheckbox from '../../components/GroupCheckbox.svelte'
 import AddDayAndTime from '../../components/AddDayAndTime.svelte'
 import Button from '../../components/Button.svelte'
 
-let {defaultRoom = {}, toggle = () => {}} = $props()
-let localRoom = $state({...defaultRoom})
+const {defaultRoom = {}, toggle = () => {}} = $props()
+const localRoom = $state({...defaultRoom})
 
 const TAB_GROUP_ID = 3
 const TAB_ROOM_ID = 1
 const TAB_TIME_ID = 2
 
-let roomEditModalMenu = $state([{id: TAB_ROOM_ID, title: 'Rominstillinger'}])
+const roomEditModalMenu = $state([{id: TAB_ROOM_ID, title: 'Rominstillinger'}])
 
 if (localRoom.id) {
   roomEditModalMenu.push({id: TAB_GROUP_ID, title: 'Grupper'})

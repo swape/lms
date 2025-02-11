@@ -1,6 +1,6 @@
 <script>
 import Icon from './Icon.svelte'
-let {
+const {
   classList = 'btn-primary btn-sm ',
   icon = null,
   text = '',

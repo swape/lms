@@ -3,12 +3,14 @@ import {onMount} from 'svelte'
 import {getAllRoomTimes} from '../apiCalls/rooms.js'
 import {dayStrings} from '../constants.ts'
 
-let {roomId} = $props()
+const {roomId} = $props()
 let roomTimes = $state([])
 
 onMount(() => {
   if (roomId) {
-    getAllRoomTimes(roomId).then((data) => (roomTimes = data))
+    getAllRoomTimes(roomId).then((data) => {
+      roomTimes = data
+    })
   }
 })
 </script>

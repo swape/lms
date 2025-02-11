@@ -9,7 +9,7 @@ import {isOldDueDate} from '../../utils/date.ts'
 import LoadingSpinner from '../../components/LoadingSpinner.svelte'
 import RoomMessageCard from './RoomMessageCard.svelte'
 
-let {roomId = null} = $props()
+const {roomId = null} = $props()
 
 let localMessages = $state([])
 let localOldMessages = $state([])

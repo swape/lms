@@ -1,6 +1,6 @@
 <script>
 import Button from './Button.svelte'
-let {isOpen = false, btnClass = 'btn', openText = null, id = 'my_modal_1', children, toggle = () => {}} = $props()
+const {isOpen = false, btnClass = 'btn', openText = null, id = 'my_modal_1', children, toggle = () => {}} = $props()
 </script>
 
 {#if openText}

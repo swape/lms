@@ -5,7 +5,7 @@ import {dayStrings} from '../constants.ts'
 import Icon from './Icon.svelte'
 import Button from './Button.svelte'
 
-let {rid = 0} = $props()
+const {rid = 0} = $props()
 
 let day = $state(null)
 let from = $state('')
@@ -48,8 +48,8 @@ function deleteTime(id) {
 }
 
 function checkIfFromIsBeforeTo(fromTime, toTime) {
-  const fromTimeInt = parseInt(fromTime.replace(':', ''))
-  const toTimeInt = parseInt(toTime.replace(':', ''))
+  const fromTimeInt = Number.parseInt(fromTime.replace(':', ''))
+  const toTimeInt = Number.parseInt(toTime.replace(':', ''))
   if (fromTimeInt && toTimeInt) {
     return fromTimeInt < toTimeInt
   }

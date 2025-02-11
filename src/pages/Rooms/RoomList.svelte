@@ -4,7 +4,7 @@ import Card from '../../components/Card.svelte'
 import RoomTimeList from '../../components/RoomTimeList.svelte'
 import Button from '../../components/Button.svelte'
 
-let {userRooms = []} = $props()
+const {userRooms = []} = $props()
 
 function selectRoom(room) {
   $currentRoom = room

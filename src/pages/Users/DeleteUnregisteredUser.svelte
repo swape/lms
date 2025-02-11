@@ -4,7 +4,7 @@ import {deleteEnrolledUser} from '../../apiCalls/enroll.js'
 import {populateUsersAndUnregisteredUsers} from '../../services.js'
 import Button from '../../components/Button.svelte'
 
-let {user = null, toggle = () => {}} = $props()
+const {user = null, toggle = () => {}} = $props()
 
 function deleteUser() {
   deleteEnrolledUser($sid, user.uid)

@@ -1,5 +1,5 @@
 <script>
-let {message = 'Ingen data'} = $props()
+const {message = 'Ingen data'} = $props()
 </script>
 
 <div class="max-w-80 mx-auto text-center flex flex-col items-center justify-center space-y-4 mt-8">

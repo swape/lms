@@ -10,7 +10,7 @@ import {sid} from '../../store.js'
 import {getRegisteredUsers} from '../../apiCalls/user.js'
 import Card from '../../components/Card.svelte'
 
-let {roomId = null} = $props()
+const {roomId = null} = $props()
 
 let localMembers = $state([])
 let loading = $state(false)
