@@ -6,7 +6,7 @@ import {getUserInfo} from './apiCalls/user.js'
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 export async function signInWithEmail(email) {
-  const {data, error} = await supabase.auth.signInWithOtp({
+  const {data} = await supabase.auth.signInWithOtp({
     email,
     options: {
       // set this to false if you do not want the user to be automatically signed up
@@ -14,7 +14,9 @@ export async function signInWithEmail(email) {
       emailRedirectTo: REDIRECT_URL
     }
   })
+  // @ts-ignore
   if (data?.data?.user) {
+    // @ts-ignore
     setUserInfo(data.data.user)
   }
 }
@@ -28,8 +30,7 @@ supabase.auth.onAuthStateChange((authState) => {
       }
     })
   } else {
-    console.log('auth changed to:')
-    console.log(authState)
+    console.log('auth changed to: ', authState)
   }
 })
 

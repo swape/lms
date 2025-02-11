@@ -7,6 +7,7 @@ export async function getRooms(sid) {
     .select('*')
     .eq('sid', sid)
     .then((res) => {
+      // @ts-ignore
       if (res?.data?.length > 0) {
         return res.data
       }
@@ -45,6 +46,7 @@ export async function getRoomGroups(roomId) {
     .select('*')
     .eq('roomId', roomId)
     .then((res) => {
+      // @ts-ignore
       if (res?.data?.length > 0) {
         return res.data
       }
@@ -68,6 +70,7 @@ export async function getAllRoomTimes(roomId, force = false) {
     .select('*')
     .eq('room_id', roomId)
     .then((res) => {
+      // @ts-ignore
       if (res?.data?.length > 0) {
         saveStorage(roomTimeName, res.data)
         return res.data
@@ -86,6 +89,7 @@ export async function getUsersInRoom(roomId) {
     .select('*, roles (level)')
     .eq('roomId', roomId)
     .then((res) => {
+      // @ts-ignore
       if (res?.data?.length > 0) {
         return res.data
       }
@@ -101,6 +105,7 @@ export async function getUsersRooms(uid, role) {
     .eq('uid', uid)
     .eq('role', role)
     .then((res) => {
+      // @ts-ignore
       if (res?.data?.length > 0) {
         return res.data
       }

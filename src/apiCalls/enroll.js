@@ -38,7 +38,9 @@ export function getUnregisteredUsers(sid) {
     .select('*')
     .eq('sid', sid)
     .then((res) => {
-      if (res?.data?.length > 0) {
+      // @ts-ignore
+      if (res.data?.length > 0) {
+        // @ts-ignore
         unregisteredUsers.set(res.data)
       }
     })

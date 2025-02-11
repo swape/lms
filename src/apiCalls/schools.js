@@ -9,9 +9,11 @@ export async function getSchools(fetch = false) {
     await supabase
       .from('schools')
       .select('*')
-      .then(async (res) => {
+      .then((res) => {
+        // @ts-ignore
         if (res?.data?.length > 0) {
-          await schoolNames.set(res.data)
+          // @ts-ignore
+          schoolNames.set(res.data)
           schools = res.data
         }
       })

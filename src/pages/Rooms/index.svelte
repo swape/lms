@@ -35,7 +35,9 @@ isTeacherOrAdmin.subscribe((value) => {
   <Room />
 {:else}
   <div class="flex justify-between p-4 w-full">
-    <h1 class="text-3xl text-center grow">Klasserom du har tilgang til</h1>
+    <h1 class="text-3xl text-center grow">
+      {#if $isTeacherOrAdmin}Alle Klasserom{:else}Klasserom du har tilgang til{/if}
+    </h1>
     {#if $isTeacherOrAdmin}
       <Modal
         id="add-room"

@@ -63,7 +63,7 @@ function fetchAndPopulateMembers() {
             {/each}
           </div>
           <div>
-            <span class="badge h-auto">
+            <span class="badge h-auto badge-outline">
               <RoleName level={member.level} />
             </span>
           </div>

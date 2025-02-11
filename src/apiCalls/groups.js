@@ -7,6 +7,7 @@ export async function getGroups(sid) {
     .select('id, sid, title, description')
     .eq('sid', sid)
     .then((res) => {
+      // @ts-ignore
       if (res?.data?.length > 0) {
         return res.data
       }
@@ -55,7 +56,9 @@ export async function getGroupUserCount(sid) {
     .select('*')
     .eq('sid', sid)
     .then((res) => {
+      // @ts-ignore
       if (res?.data?.length > 0) {
+        // @ts-ignore
         groupUserCount.set(res.data)
         return res.data
       }

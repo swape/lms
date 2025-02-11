@@ -7,7 +7,9 @@ export function getRegisteredUsers(sid) {
     .select('*')
     .eq('sid', sid)
     .then((res) => {
-      if (res?.data?.length > 0) {
+      // @ts-ignore
+      if (res.data?.length > 0) {
+        // @ts-ignore
         allUsers.set(res.data)
       }
     })

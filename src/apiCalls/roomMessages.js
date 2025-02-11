@@ -14,7 +14,9 @@ export async function getRoomMessages(roomId, force = false) {
     .select('*')
     .eq('roomId', roomId)
     .then((res) => {
+      // @ts-ignore
       if (res.data?.length > 0) {
+        // @ts-ignore
         const sortedMessages = res.data.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).reverse()
         saveStorage(roomMessageName, sortedMessages)
         return sortedMessages
