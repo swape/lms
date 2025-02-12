@@ -38,6 +38,10 @@ function fetchAndPopulateMessages() {
   getRoomMessages(roomId).then((messages) => {
     localMessages = messages.filter((message) => !isOldDueDate(message.dueDate || new Date()))
     localOldMessages = messages.filter((message) => isOldDueDate(message.dueDate || new Date()))
+
+    if (!$isTeacherOrAdmin) {
+      localOldMessages = localOldMessages.filter((_, index) => index < 3)
+    }
     loading = false
   })
 }
