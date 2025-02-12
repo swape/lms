@@ -14,5 +14,5 @@ function findGroupItem(id) {
 }
 </script>
 
-<span class="badge h-auto badge-outline badge-neutral" title={findGroupItem(gid)?.description}
+<span class="badge h-auto badge-outline" title={findGroupItem(gid)?.description}
   >{findGroupItem(gid)?.title || ''}</span>

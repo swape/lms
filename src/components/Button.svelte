@@ -1,6 +1,6 @@
 <script>
 import Icon from './Icon.svelte'
-const {
+let {
   classList = 'btn-primary btn-sm ',
   icon = null,
   text = '',
@@ -13,9 +13,3 @@ const {
 <button class="btn {classList}" type={type} onclick={action} disabled={disabled}
   >{#if icon}<Icon name={icon} />{/if}
   {text}</button>
-
-<style>
-.btn > span.material-symbol-outlined {
-  margin-inline-start: -0.3rem;
-}
-</style>
