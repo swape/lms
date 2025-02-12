@@ -47,7 +47,7 @@ function selectPage(page) {
               </span>
               <span>
                 {page.name}
-                {#if !page.haveIndicator}
+                {#if page.haveIndicator}
                   <span class="status status-success">&nbsp;</span>
                 {/if}
               </span>
@@ -77,7 +77,7 @@ function selectPage(page) {
         </span>
         <span>
           {page.name}
-          {#if !page.haveIndicator}
+          {#if page.haveIndicator}
             <span class="status status-success">&nbsp;</span>
           {/if}
         </span>
