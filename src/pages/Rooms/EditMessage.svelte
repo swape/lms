@@ -1,5 +1,5 @@
 <script>
-import {upsertRoomMessage} from '../../apiCalls/roomMessages.js'
+import {upsertRoomMessage, getRoomMessages} from '../../apiCalls/roomMessages.js'
 import Button from '../../components/Button.svelte'
 
 const {defaultMessage = {}, roomId = null, toggle = () => {}} = $props()
@@ -11,7 +11,9 @@ function saveMessage() {
   const newMessage = {...localMessage, roomId}
 
   if (newMessage.title && newMessage.message) {
-    upsertRoomMessage(newMessage).then(toggle)
+    upsertRoomMessage(newMessage).then(() => {
+      getRoomMessages(roomId, true).then(toggle)
+    })
   }
 }
 </script>
