@@ -8,6 +8,11 @@ export const userEditModalMenu = [
   {id: 2, title: 'Grupper'}
 ]
 
+export const absenceTabs = [
+  {id: 1, title: 'Hel dag'},
+  {id: 2, title: 'Delvis'}
+]
+
 export const roleTitles: RoleTitles[] = [
   {
     id: 1,

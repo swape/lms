@@ -12,3 +12,13 @@ export function getSchoolName(sid: string) {
   }
   return ''
 }
+
+export function calculateMinutes(from: string, to: string) {
+  const fromTime = from.split(':')
+  const toTime = to.split(':')
+
+  const fromMinutes = parseInt(fromTime[0]) * 60 + parseInt(fromTime[1])
+  const toMinutes = parseInt(toTime[0]) * 60 + parseInt(toTime[1])
+
+  return toMinutes - fromMinutes
+}

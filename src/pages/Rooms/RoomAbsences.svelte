@@ -2,35 +2,58 @@
 import UserCard from '../../components/UserCard.svelte'
 import TabArea from '../../components/TabArea.svelte'
 import Button from '../../components/Button.svelte'
-
-const absenceTabs = [
-  {id: 1, title: 'Hel dag'},
-  {id: 2, title: 'Delvis'}
-]
+import {user} from '../../store.js'
+import {calculateMinutes} from '../../utils/helper.ts'
+import {absenceTabs} from '../../constants.ts'
 
 const {uid = null, roomId = null} = $props()
 let activeTab = $state(absenceTabs[0])
+let isDisabled = $state(true)
 
-const absence = {
+const absence = $state({
   date: new Date().toISOString().split('T')[0],
-  from: '',
-  to: '',
+  time_from: '',
+  time_to: '',
   reason: '',
   uid,
-  roomId
-}
+  roomId,
+  minutes: 0,
+  createdBy: $user.uid
+})
 
 function onChange(section, value) {
   absence[section] = value
+  isDisabled = isButtonDisabled()
+  if (activeTab.id !== 1 && absence.time_from && absence.time_to) {
+    absence.minutes = calculateMinutes(absence.time_from, absence.time_to)
+  }
 }
 
 function registerAbsence() {
   if (activeTab.id === 1) {
-    delete absence.from
-    delete absence.to
+    absence.time_from = null
+    absence.time_to = null
+    absence.minutes = 0
+  } else {
+    absence.minutes = calculateMinutes(absence.time_from, absence.time_to)
+    if (absence.minutes < 0) {
+      isDisabled = true
+      return
+    }
   }
-
   console.log(absence)
+}
+
+function tabChange(tab) {
+  activeTab = tab
+  isDisabled = isButtonDisabled()
+}
+
+function isButtonDisabled() {
+  if (activeTab.id === 1) {
+    return !absence.date || !absence.reason
+  }
+  return !absence.date || !absence.reason || !absence.time_from || !absence.time_to
 }
 </script>
 
@@ -47,7 +70,7 @@ function registerAbsence() {
         onChange('date', target.value)
       }} />
 
-    <TabArea bind:activeTab={activeTab} menu={absenceTabs} change={(changedTab) => (activeTab = changedTab)} />
+    <TabArea bind:activeTab={activeTab} menu={absenceTabs} change={(changedTab) => tabChange(changedTab)} />
 
     {#if activeTab.id === 2}
       <label for="absence-date">Fra:</label>
@@ -56,7 +79,7 @@ function registerAbsence() {
         type="time"
         class="input"
         onchange={({target}) => {
-          onChange('from', target.value)
+          onChange('time_from', target.value)
         }} />
       <label for="absence-date">Til:</label>
       <input
@@ -64,17 +87,22 @@ function registerAbsence() {
         type="time"
         class="input"
         onchange={({target}) => {
-          onChange('to', target.value)
+          onChange('time_to', target.value)
         }} />
+      {#if absence.minutes > 0}
+        <p class="text-green-500">Totalt {absence.minutes} minutter.</p>{/if}
+      {#if absence.minutes < 0 && absence.time_from && absence.time_to}
+        <p class="text-red-500">Ugyldig tidsintervall.</p>
+      {/if}
     {/if}
 
     <label for="absence-reason">Årsak:</label>
     <textarea
       id="absence-reason"
       class="textarea w-full"
-      onchange={({target}) => {
+      onkeyup={({target}) => {
         onChange('reason', target.value)
       }}></textarea>
   </div>
-  <Button text="Registrer fravær" classList="btn-primary" action={registerAbsence} />
+  <Button text="Registrer fravær" classList="btn-primary" action={registerAbsence} disabled={isDisabled} />
 </div>
