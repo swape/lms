@@ -5,8 +5,9 @@ import Button from '../../components/Button.svelte'
 import {user} from '../../store.js'
 import {calculateMinutes} from '../../utils/helper.ts'
 import {absenceTabs} from '../../constants.ts'
+import {insertAbsence} from '../../apiCalls/absence.js'
 
-const {uid = null, roomId = null} = $props()
+const {uid = null, roomId = null, close = () => {}} = $props()
 let activeTab = $state(absenceTabs[0])
 let isDisabled = $state(true)
 
@@ -41,7 +42,10 @@ function registerAbsence() {
       return
     }
   }
-  console.log(absence)
+  isDisabled = true
+  insertAbsence(absence).then(() => {
+    close()
+  })
 }
 
 function tabChange(tab) {

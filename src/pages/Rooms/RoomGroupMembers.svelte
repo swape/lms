@@ -57,7 +57,7 @@ function toggleUserAbsence(uid) {
 
 <LoadingSpinner inline={true} loading={loading} />
 <Modal id="user-absence" isOpen={isAbsenceOpen} toggle={() => toggleUserAbsence(null)}>
-  <RoomAbsences roomId={roomId} uid={selectedUser} />
+  <RoomAbsences roomId={roomId} uid={selectedUser} close={() => toggleUserAbsence(null)} />
 </Modal>
 {#if localMembers.length === 0}
   <section class="m-8">
