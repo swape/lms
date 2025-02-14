@@ -23,7 +23,7 @@ function selectPage(page) {
 }
 </script>
 
-<div class="navbar bg-base-100 shadow-sm">
+<div class="navbar bg-base-100 shadow-sm sticky top-0 z-10">
   <div class="navbar-start">
     <div class="block sm:hidden">
       <Button action={toggleDrawer} icon="menu" classList="btn-ghost btn-circle" />
@@ -65,7 +65,7 @@ function selectPage(page) {
   </div>
 </div>
 
-<menu class="menu hidden bg-base-200 sm:menu-horizontal rounded-box w-full">
+<menu class="menu hidden bg-base-200 sm:menu-horizontal rounded-box w-full sm:sticky top-0 z-10">
   {#each $menuList as page}
     <li>
       <button
