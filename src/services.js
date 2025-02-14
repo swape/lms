@@ -12,9 +12,6 @@ export async function populateRoomsAndGroups(sid, role, reFetch = false) {
   const storedGroups = getStorage(groupSidName, 60 * 24)
   let groupList = []
 
-  const usersRoomsName = `users-rooms-${role.id}`
-  let usersRoomsList = getStorage(usersRoomsName, 60 * 24)
-
   if (reFetch || !roomsList) {
     rooms.set([])
     roomsList = await getRooms(sid)
@@ -32,18 +29,22 @@ export async function populateRoomsAndGroups(sid, role, reFetch = false) {
   groups.set(groupList)
   await getGroupUserCount(sid)
 
-  // getUsersRooms
-  if (reFetch || !usersRoomsList) {
-    usersRooms.set([])
-    const uid = role.uid
-    let usersRoomsData = await getUsersRooms(uid, role.id)
-    if (usersRoomsData && usersRoomsData.length > 0) {
-      const roomIds = usersRoomsData.map((item) => item.roomId)
-      const filteredRooms = roomsList.filter((room) => roomIds.includes(room.id))
-      saveStorage(usersRoomsName, filteredRooms)
+  if (role) {
+    const usersRoomsName = `users-rooms-${role.id}`
+    let usersRoomsList = getStorage(usersRoomsName, 60 * 24)
+    // getUsersRooms
+    if (reFetch || !usersRoomsList) {
+      usersRooms.set([])
+      const uid = role.uid
+      let usersRoomsData = await getUsersRooms(uid, role.id)
+      if (usersRoomsData && usersRoomsData.length > 0) {
+        const roomIds = usersRoomsData.map((item) => item.roomId)
+        const filteredRooms = roomsList.filter((room) => roomIds.includes(room.id))
+        saveStorage(usersRoomsName, filteredRooms)
+      }
     }
+    usersRooms.set(usersRoomsList)
   }
-  usersRooms.set(usersRoomsList)
 }
 
 export async function populateUsersAndUnregisteredUsers(sid) {
