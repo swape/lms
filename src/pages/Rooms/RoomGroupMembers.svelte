@@ -12,12 +12,14 @@ import Card from '../../components/Card.svelte'
 import Button from '../../components/Button.svelte'
 import Modal from '../../components/Modal.svelte'
 import RoomAbsences from './RoomAbsences.svelte'
+import UserAbsencesOverview from '../Users/UserAbsencesOverview.svelte'
 
 const {roomId = null} = $props()
 
 let localMembers = $state([])
 let loading = $state(false)
 let isAbsenceOpen = $state(false)
+let isAbsenceOverviewOpen = $state(false)
 let selectedUser = $state(null)
 
 onMount(() => {
@@ -53,12 +55,21 @@ function toggleUserAbsence(uid) {
   selectedUser = uid
   isAbsenceOpen = !isAbsenceOpen
 }
+
+function toggleUserAbsenceOverview(uid) {
+  selectedUser = uid
+  isAbsenceOverviewOpen = !isAbsenceOverviewOpen
+}
 </script>
 
 <LoadingSpinner inline={true} loading={loading} />
 <Modal id="user-absence" isOpen={isAbsenceOpen} toggle={() => toggleUserAbsence(null)}>
   <RoomAbsences roomId={roomId} uid={selectedUser} close={() => toggleUserAbsence(null)} />
 </Modal>
+<Modal id="user-absence-overview" isOpen={isAbsenceOverviewOpen} toggle={() => toggleUserAbsenceOverview(null)}>
+  <UserAbsencesOverview uid={selectedUser} close={() => toggleUserAbsenceOverview(null)} />
+</Modal>
+
 {#if localMembers.length === 0}
   <section class="m-8">
     <EmptyPlaceholder message="Ingen medlemmer i gruppen" />
@@ -77,8 +88,12 @@ function toggleUserAbsence(uid) {
             {/each}
 
             {#if member.level === 1}
-              <div class="mt-4">
-                <Button text="Fravær" icon="person_alert" action={() => toggleUserAbsence(member.uid)} />
+              <div class="mt-4 flex gap-2">
+                <Button text="Registrer fravær" action={() => toggleUserAbsence(member.uid)} />
+                <Button
+                  text="Fraværoversikt"
+                  icon="person_alert"
+                  action={() => toggleUserAbsenceOverview(member.uid)} />
               </div>
             {/if}
           </div>
