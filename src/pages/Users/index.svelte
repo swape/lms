@@ -11,6 +11,7 @@ import DeleteUnregisteredUser from './DeleteUnregisteredUser.svelte'
 import AcceptUser from './AcceptUser.svelte'
 import {populateRoomsAndGroups, populateUsersAndUnregisteredUsers} from '../../services.js'
 import Button from '../../components/Button.svelte'
+import UserAbsencesOverview from './UserAbsencesOverview.svelte'
 
 let selectedUser = $state(null)
 
@@ -22,6 +23,7 @@ let localUnregisteredUsers = $state([])
 let isOpen = $state(false)
 let isOpenAccept = $state(false)
 let isOpenEdit = $state(false)
+let isAbsenceOverviewOpen = $state(false)
 
 onMount(() => {
   populateUsersAndUnregisteredUsers($sid)
@@ -77,14 +79,22 @@ function tabChange(selectedTab) {
   }
 }
 
+function toggleUserAbsenceOverview(uid) {
+  selectedUser = uid
+  isAbsenceOverviewOpen = !isAbsenceOverviewOpen
+}
+
 $effect(() => {
   tabChange(activeTab)
 })
 </script>
 
+<Modal id="user-absence-overview" isOpen={isAbsenceOverviewOpen} toggle={() => toggleUserAbsenceOverview(null)}>
+  <UserAbsencesOverview uid={selectedUser} close={() => toggleUserAbsenceOverview(null)} />
+</Modal>
+
 <section class="m-4">
   <TabArea bind:activeTab={activeTab} menu={roleTitles} change={tabChange} />
-
   <div class="mt-3 flex justify-between">
     {#if activeTab.id !== 0}
       <div class="form-control w-full max-w-xs mb-5">
@@ -139,7 +149,10 @@ $effect(() => {
                     <Button action={() => editUseModalConfirm(user)} text="Rediger" icon="add" />
 
                     {#if user.level === 1}
-                      <Button action={() => {}} text="Fravær" icon="person_alert" />
+                      <Button
+                        text="Fraværoversikt"
+                        icon="person_alert"
+                        action={() => toggleUserAbsenceOverview(user.uid)} />
                     {/if}
                   {/if}
                 </td>
