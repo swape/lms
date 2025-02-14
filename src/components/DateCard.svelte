@@ -1,12 +1,8 @@
 <script>
 import {getDay, getLocaleDayName, getLocaleMonthName, getYear} from '../utils/date'
+import {isOldDueDate} from '../utils/date.ts'
 
 const {date} = $props()
-
-// TODO: move to helper file
-function isOldDueDate(date) {
-  return new Date(date) < new Date()
-}
 
 function oldColor(date, isBorder = false) {
   if (isBorder) {
@@ -20,7 +16,7 @@ function oldColor(date, isBorder = false) {
   class="{oldColor(
     date,
     true
-  )} border rounded-md flex-col text-center inline-flex w-24 overflow-hidden bg-base-100 text-base-content">
+  )} border rounded-md flex-col text-center inline-flex w-24 overflow-hidden bg-base-100 text-base-content min-w-[94px]">
   <div class="text-sm {oldColor(date)}  text-primary-content px-3">{getLocaleMonthName(date)}</div>
   <div class="text-sm pt-3">{getLocaleDayName(date)}</div>
   <div class="text-3xl px-3 pb-3">{getDay(date)}</div>
