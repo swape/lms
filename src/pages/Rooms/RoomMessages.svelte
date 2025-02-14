@@ -1,23 +1,22 @@
 <script>
-import {onMount} from 'svelte'
 import {getRoomMessages} from '../../apiCalls/roomMessages.js'
 import EmptyPlaceholder from '../../components/EmptyPlaceholder.svelte'
-import {isTeacherOrAdmin} from '../../store.js'
+import {isTeacherOrAdmin, currentRoom} from '../../store.js'
 import Modal from '../../components/Modal.svelte'
 import EditMessage from './EditMessage.svelte'
 import {isOldDueDate} from '../../utils/date.ts'
 import LoadingSpinner from '../../components/LoadingSpinner.svelte'
 import RoomMessageCard from './RoomMessageCard.svelte'
 
-const {roomId = null} = $props()
-
 let localMessages = $state([])
 let localOldMessages = $state([])
 let messageObject = $state({title: '', message: '', dueDate: ''})
 let loading = $state(false)
+let roomId = $state(null)
 
-onMount(() => {
-  if (roomId) {
+currentRoom.subscribe((value) => {
+  if (value) {
+    roomId = value.id
     fetchAndPopulateMessages()
   }
 })
@@ -35,6 +34,7 @@ function toggleModal() {
 function fetchAndPopulateMessages() {
   localMessages = []
   loading = true
+
   getRoomMessages(roomId).then((messages) => {
     localMessages = messages.filter((message) => !isOldDueDate(message.dueDate || new Date()))
     localOldMessages = messages.filter((message) => isOldDueDate(message.dueDate || new Date()))

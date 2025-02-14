@@ -52,7 +52,7 @@ localRoomSection = $isTeacherOrAdmin ? roomSections : roomSections.filter((secti
     <TabArea bind:activeTab={activeTab} menu={localRoomSection} change={(changedTab) => (activeTab = changedTab)} />
 
     {#if activeTab.id === 1}
-      <RoomMessages roomId={$currentRoom.id} />
+      <RoomMessages />
     {/if}
     {#if activeTab.id === 2}
       Innleveringer ( ikke ferdig )
