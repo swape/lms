@@ -65,13 +65,13 @@ function selectPage(page) {
   </div>
 </div>
 
-<menu class="menu hidden bg-base-200 sm:menu-horizontal rounded-box w-full sm:sticky top-0 z-10">
+<menu class="menu hidden bg-base-200 dark:bg-slate-700 sm:menu-horizontal rounded-box w-full sm:sticky top-0 z-10">
   {#each $menuList as page}
     <li>
       <button
         type="button"
         onclick={() => selectPage(page.page)}
-        class={$currentPage === page.page ? 'menu-active' : ''}>
+        class={$currentPage === page.page ? 'menu-active' : 'dark:bg-slate-700 bg-slate-200'}>
         <span>
           <Icon name={page.icon} />
         </span>
