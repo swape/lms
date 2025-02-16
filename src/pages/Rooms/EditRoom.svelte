@@ -1,6 +1,5 @@
 <script>
-import {getRoomGroups, updateRoom, updateRoomGroups} from '../../apiCalls/rooms.js'
-
+import {getRoomGroups, updateRoom, updateRoomGroups, deleteRoom} from '../../apiCalls/rooms.js'
 import {populateRoomsAndGroups} from '../../services.js'
 import {currentRoom, sid, currentRole} from '../../store.js'
 import ErrorBox from '../../components/ErrorBox.svelte'
@@ -55,6 +54,22 @@ function editRoom() {
 function replaceGroups(value) {
   localRoom.groups = [...value]
 }
+
+function deleteThisRoom() {
+  if (!localRoom.id) {
+    return
+  }
+
+  if (!confirm('Er du sikker på at du vil slette dette rommet?')) {
+    return
+  }
+
+  deleteRoom(localRoom.id).then(() => {
+    populateRoomsAndGroups($sid, $currentRole, true)
+    currentRoom.set(null)
+    toggle()
+  })
+}
 </script>
 
 <TabArea
@@ -64,7 +79,7 @@ function replaceGroups(value) {
     activeTab = tab
   }} />
 
-<div>
+<div class="mt-4">
   {#if activeTab.id === TAB_ROOM_ID}
     <div class="form-control w-full">
       <label class="label" for="title">
@@ -96,7 +111,11 @@ function replaceGroups(value) {
     </div>
   {/if}
 
-  <div class="mt-5">
+  <div class="mt-5 flex flex-col sm:flex-row gap-5 justify-between">
     <Button action={editRoom} text="Lagre" />
+
+    {#if localRoom.id}
+      <Button action={deleteThisRoom} text="Slett" icon="delete" classList="btn-error btn-sm" />
+    {/if}
   </div>
 </div>

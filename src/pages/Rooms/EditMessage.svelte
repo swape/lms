@@ -1,5 +1,5 @@
 <script>
-import {upsertRoomMessage, getRoomMessages} from '../../apiCalls/roomMessages.js'
+import {upsertRoomMessage, getRoomMessages, deleteRoomMessage} from '../../apiCalls/roomMessages.js'
 import Button from '../../components/Button.svelte'
 
 const {defaultMessage = {}, roomId = null, toggle = () => {}} = $props()
@@ -15,6 +15,16 @@ function saveMessage() {
       getRoomMessages(roomId, true).then(toggle)
     })
   }
+}
+
+function deleteMessage() {
+  if (!localMessage.id) return
+
+  if (!confirm('Er du sikker på at du vil slette denne meldingen?')) return
+
+  deleteRoomMessage(localMessage.id).then(() => {
+    getRoomMessages(roomId, true).then(toggle)
+  })
 }
 </script>
 
@@ -46,7 +56,10 @@ function saveMessage() {
       bind:value={localMessage.dueDate} />
   </div>
 
-  <div class="mt-5">
+  <div class="mt-5 flex flex-col sm:flex-row gap-5 justify-between">
     <Button action={saveMessage} text="Lagre" disabled={!(localMessage.title && localMessage.message)} />
+    {#if localMessage.id}
+      <Button action={deleteMessage} text="Slett" icon="delete" classList="btn-error btn-sm" />
+    {/if}
   </div>
 </div>

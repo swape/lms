@@ -50,3 +50,7 @@ export async function getRoomMessagesFromRoomArray(list, force = false) {
       return []
     })
 }
+
+export function deleteRoomMessage(id) {
+  return supabase.from('room_messages').delete().eq('id', id)
+}

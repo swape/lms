@@ -54,7 +54,7 @@ export async function getRoomGroups(roomId) {
 }
 
 export async function insertRoomTime(roomId, day, from, to) {
-  return supabase.from('room_time').insert({room_id: roomId, day, time_from: from, time_to: to}).select()
+  return supabase.from('room_time').insert({roomId, day, time_from: from, time_to: to}).select()
 }
 
 export async function getAllRoomTimes(roomId, force = false) {
@@ -67,7 +67,7 @@ export async function getAllRoomTimes(roomId, force = false) {
   return await supabase
     .from('room_time')
     .select('*')
-    .eq('room_id', roomId)
+    .eq('roomId', roomId)
     .then((res) => {
       // @ts-ignore
       if (res?.data?.length > 0) {
@@ -109,4 +109,11 @@ export async function getUsersRooms(uid, role) {
       }
       return []
     })
+}
+
+export async function deleteRoom(id) {
+  await supabase.from('group_room').delete().eq('roomId', id)
+  await supabase.from('room_time').delete().eq('roomId', id)
+  await supabase.from('room_messages').delete().eq('roomId', id)
+  return supabase.from('rooms').delete().eq('id', id)
 }
